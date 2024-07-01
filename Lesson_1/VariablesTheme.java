@@ -1,4 +1,6 @@
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 
 public class VariablesTheme {
     public static void main(String[] args) {
@@ -127,11 +129,11 @@ public class VariablesTheme {
         BigDecimal bookPriceBigDec = new BigDecimal(235.83);
         BigDecimal sumBigDec = penPriceBigDec.add(bookPriceBigDec);
         System.out.println("Стоимость товаров без скидки: " +
-                    sumBigDec.setScale(2, BigDecimal.ROUND_HALF_UP));
+                    sumBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal discountBigDec = sumBigDec.multiply(new BigDecimal(0.11));
-        System.out.println("Сумма скидки: " + discountBigDec.setScale(2, BigDecimal.ROUND_HALF_UP));
+        System.out.println("Сумма скидки: " + discountBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal discountPriceBigDec = sumBigDec.subtract(discountBigDec);
         System.out.println("Стоимость товаров со скидкой: " + 
-                    discountPriceBigDec.setScale(2, BigDecimal.ROUND_HALF_UP));
+                    discountPriceBigDec.setScale(2, RoundingMode.HALF_UP));
     }
 }
