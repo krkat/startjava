@@ -68,22 +68,28 @@ public class IfElseStatementTheme {
         System.out.println("\n4. Поиск одинаковых цифр в числах");
         int firstInt = 123;
         int secondInt = 223;
-        if (firstInt % 10 != secondInt % 10 && 
-                firstInt % 100 - firstInt % 10 != secondInt % 100 - secondInt % 10 &&
-                firstInt % 1000 - firstInt % 100 != secondInt % 1000 - secondInt % 100) {
+
+        int digitOneFirstInt = firstInt % 10;
+        int digitOneSecondInt = secondInt % 10;
+        int digitTwoFirstInt = firstInt % 100 / 10;
+        int digitTwoSecondInt = secondInt % 100 / 10;
+        int digitThreeFirstInt = firstInt % 1000 / 100;
+        int digitThreeSecondInt = secondInt % 1000 / 100;
+        
+        if (digitOneFirstInt != digitOneSecondInt && 
+                digitTwoFirstInt != digitTwoSecondInt &&
+                digitThreeFirstInt != digitThreeSecondInt) {
             System.out.println("Равных цифр нет.");
         } else {
             System.out.println("Исходные числа: " + firstInt + " и " + secondInt);
-            if (firstInt % 10 == secondInt % 10) {
-                System.out.println("Одинаковые цифры: " + firstInt % 10 + " в разряде 1.");
+            if (digitOneFirstInt == digitOneSecondInt) {
+                System.out.println("Одинаковые цифры: " + digitOneFirstInt + " в разряде 1.");
             }
-            if (firstInt % 100 - firstInt % 10 == secondInt % 100 - secondInt % 10) {
-                System.out.print("Одинаковые цифры: ");
-                System.out.println(((firstInt % 100 - firstInt % 10) / 10) + " в разряде 2.");
+            if (digitTwoFirstInt == digitTwoSecondInt) {
+                System.out.println("Одинаковые цифры: " + digitTwoFirstInt + " в разряде 2.");
             }
-            if (firstInt % 1000 - firstInt % 100 == secondInt % 1000 - secondInt % 100) {
-                System.out.print("Одинаковые цифры: ");
-                System.out.println(((firstInt % 1000 - firstInt % 100) / 100) + " в разряде 3.");
+            if (digitThreeFirstInt == digitThreeSecondInt) {
+                System.out.println("Одинаковые цифры: " + digitThreeFirstInt + " в разряде 3.");
             }
         }
 
@@ -102,29 +108,29 @@ public class IfElseStatementTheme {
 
         System.out.println("\n6. Подсчет начисленных банком %");
         double deposit = 321123.59;
-        int percent = 5;
+        int rate = 5;
         if (deposit >= 100000 && deposit <= 300000) {
-            percent = 7;
+            rate = 7;
         } else if (deposit > 300000) {
-            percent = 10;
+            rate = 10;
         }
+        double interest = deposit * rate / 100;
+        double changedDeposit = deposit + interest;
         System.out.println("Сумма вклада: " + deposit);
-        double addedPercent = deposit * percent / 100;
-        System.out.println("Сумма начисленного %: " + addedPercent);
-        double changedDeposit = deposit + addedPercent;
+        System.out.println("Сумма начисленного %: " + interest);
         System.out.println("Итоговая сумма с %: " + changedDeposit);
 
         System.out.println("\n7. Определение оценки по предметам");
         int percentMarkForHistory = 59;
         int percentMarkForProgramming = 92;
-        int markForHistory = getMark(percentMarkForHistory);
-        int markForProgramming = getMark(percentMarkForProgramming);
+        int markForHistory = convertPercentToMark(percentMarkForHistory);
+        int markForProgramming = convertPercentToMark(percentMarkForProgramming);
         System.out.println("История: " + markForHistory);
         System.out.println("Программирование: " + markForProgramming);
         System.out.print("Средний балл оценок по предметам: "); 
-        System.out.println(countAverage(markForHistory, markForProgramming));
+        System.out.println(calculateAverage(markForHistory, markForProgramming));
         System.out.print("Средний % по предметам: ");  
-        System.out.println(countAverage(percentMarkForHistory, percentMarkForProgramming));
+        System.out.println(calculateAverage(percentMarkForHistory, percentMarkForProgramming));
 
         System.out.println("\n8. Расчет годовой прибыли");
         double productSaleForMonth = 13025.233;
@@ -132,64 +138,60 @@ public class IfElseStatementTheme {
         double productionCostForMonth = 9001.729;
         double profitForYear = 12 * (productSaleForMonth - rentForMonth - productionCostForMonth);
         System.out.print("Прибыль за год: ");
-        if (profitForYear == 0) {
-            System.out.println("0 руб.");
-        } else if (profitForYear > 0) {
-            System.out.println("+" + profitForYear + " руб.");
-        } else {
-            System.out.println(profitForYear + " руб.");
+        if (profitForYear > 0) {
+            System.out.print("+");
         }
+        System.out.println(profitForYear + " руб.");
 
         System.out.println("\n9. *Расчет годовой прибыли");
         BigDecimal monthlySaleBigDec = new BigDecimal("13025.233");
         BigDecimal rentForMonthBigDec = new BigDecimal("5123.018");
         BigDecimal monthManufacturingBigDec = new BigDecimal("9001.729");
-        BigDecimal numberOfMonths = new BigDecimal("12");
+        BigDecimal numberOfMonths = BigDecimal.valueOf(12);
         BigDecimal monthlyProfitBigDec = monthlySaleBigDec.subtract(rentForMonthBigDec)
                 .subtract(monthManufacturingBigDec);
         BigDecimal yearProfitBigDec = numberOfMonths.multiply(monthlyProfitBigDec);
         System.out.print("Прибыль за год: ");
-        if (yearProfitBigDec.compareTo(new BigDecimal("0")) == 0) {
-            System.out.println("0 руб.");
-        } else if (yearProfitBigDec.compareTo(new BigDecimal("0")) > 0) {
-            System.out.println("+" + yearProfitBigDec.setScale(2, RoundingMode.HALF_UP) + " руб.");
-        } else {
-            System.out.println(yearProfitBigDec.setScale(2, RoundingMode.HALF_UP) + " руб.");
+        if (yearProfitBigDec.compareTo(BigDecimal.ZERO) > 0) {
+            System.out.print("+");
         }
+        System.out.println(yearProfitBigDec.setScale(2, RoundingMode.HALF_UP) + " руб.");
 
         System.out.println("\n10. *Подсчет начисленных банком %");
         BigDecimal depositBigDec = new BigDecimal("321123.59");
-        BigDecimal percentBigDec = new BigDecimal("5");
-        BigDecimal lowerLimit = new BigDecimal("100000");
-        BigDecimal upperLimit = new BigDecimal("300000");
+        BigDecimal percentBigDec = BigDecimal.valueOf(5);
+        BigDecimal lowerLimit = BigDecimal.valueOf(100000);
+        BigDecimal upperLimit = BigDecimal.valueOf(300000);
         if (depositBigDec.compareTo(lowerLimit) >= 0 && depositBigDec.compareTo(upperLimit) <= 0) {
-            percentBigDec = new BigDecimal("7");
+            percentBigDec = BigDecimal.valueOf(7);
         } else if (depositBigDec.compareTo(upperLimit) > 0) {
-            percentBigDec = new BigDecimal("10");
+            percentBigDec = BigDecimal.valueOf(10);
         }
-        System.out.println("Сумма вклада: " + depositBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal addedPercentBigDec = depositBigDec.multiply(percentBigDec).divide(new BigDecimal("100"));
-        System.out.println("Сумма начисленных %: " + addedPercentBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal changedDepositBigDec = depositBigDec.add(addedPercentBigDec);
+        System.out.println("Сумма вклада: " + depositBigDec.setScale(2, RoundingMode.HALF_UP));
+        System.out.println("Сумма начисленных %: " + addedPercentBigDec.setScale(2, RoundingMode.HALF_UP));
         System.out.println("Итоговая сумма с %: " + changedDepositBigDec.setScale(2, RoundingMode.HALF_UP));
     }
 
-    public static int getMark(int percents) {
-        if (percents > 100 || percents < 0) {
+    private static int convertPercentToMark(int percent) {
+        if (percent < 0 || percent > 100) {
             return 0;
         } 
-        if (percents > 91) {
+        if (percent > 91) {
             return 5;
-        } else if (percents > 73) {
+        }
+        if (percent > 73) {
             return 4;
-        } else if (percents > 60) {
+        } 
+        if (percent > 60) {
             return 3;
         } else {
             return 2;
         }
     }
 
-    public static double countAverage(double first, double second) {
+    private static double calculateAverage(double first, double second) {
         return (first + second) / 2;
     }
 }

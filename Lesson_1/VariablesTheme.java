@@ -75,7 +75,7 @@ public class VariablesTheme {
         System.out.printf("a - %d, b - %d", a, b);
         System.out.println("\nС помощью побитовой операции ^:");
         a ^= b;
-        b = a ^ b;
+        b ^= a;
         a ^= b; 
         System.out.printf("a - %d, b - %d", a, b);
         
@@ -128,13 +128,13 @@ public class VariablesTheme {
         System.out.println("\n10. *Расчет стоимости товара со скидкой");
         BigDecimal penPriceBigDec = new BigDecimal(105.5);
         BigDecimal bookPriceBigDec = new BigDecimal(235.83);
-        BigDecimal sumBigDec = penPriceBigDec.add(bookPriceBigDec);
+        BigDecimal basePriceBigDec = penPriceBigDec.add(bookPriceBigDec);
+        BigDecimal discountBigDec = basePriceBigDec.multiply(new BigDecimal(0.11));
+        BigDecimal discountPriceBigDec = basePriceBigDec.subtract(discountBigDec);
         System.out.println("Стоимость товаров без скидки: " +
-                    sumBigDec.setScale(2, RoundingMode.HALF_UP));
-        BigDecimal discountBigDec = sumBigDec.multiply(new BigDecimal(0.11));
+                basePriceBigDec.setScale(2, RoundingMode.HALF_UP));
         System.out.println("Сумма скидки: " + discountBigDec.setScale(2, RoundingMode.HALF_UP));
-        BigDecimal discountPriceBigDec = sumBigDec.subtract(discountBigDec);
         System.out.println("Стоимость товаров со скидкой: " + 
-                    discountPriceBigDec.setScale(2, RoundingMode.HALF_UP));
+                discountPriceBigDec.setScale(2, RoundingMode.HALF_UP));
     }
 }

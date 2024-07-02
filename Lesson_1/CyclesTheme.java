@@ -16,42 +16,50 @@ public class CyclesTheme {
                 sumOfEvens + ", а нечетных = " + sumOfOdds);
 
         System.out.println("\n2. Вывод чисел между min и max в порядке убывания");
-        int[] array = new int[]{10, 5, -1};
-        int min = array[0];
-        int max = array[0];     
-        for (int i = 0; i < 3; i++) {
-            if (array[i] < min) {
-                min = array[i];
+        int a = 10;
+        int b = 5;
+        int c = -1;
+        int min = a;
+        int max = a;
+        if (b < min) {
+            min = b;
+        }
+        if (c < min) {
+            min = c;
+        }
+        if (b > max) {
+            max = b;    
+        }
+        if (c > max) {
+            max = c;
+        }
+        for (int i = max - 1; i > min; i--) {
+            if (a == i) {
+                System.out.println(a);
             }
-            if (array[i] > max) {
-                max = array[i];
+            if (b == i) {
+                System.out.println(b);
+            }
+            if (c == i) {
+                System.out.println(c);
             }
         }
-        System.out.print("Т.к. чисел 3, из них 2 - min и max, то вывод чисел в порядке убывания");
-        System.out.println(" из интервала, в котором 3 числа, теряет смысл.");
-        for (int i = 0; i < 3; i++) {
-            if (array[i] != min && array[i] != max) {
-                System.out.printf("%4d", array[i]);
-            }
-        }
-        System.out.println();
 
         System.out.println("\n3. Вывод реверсивного числа и суммы его цифр");
         int originNumber = 1234;
         int sumOfDigits = 0;
         int digit;
-        int counterDigits = 1;
-        System.out.print("_сходное число в обратном порядке поразрядно:");
-        while (counterDigits < 5) {
-            int a = 1;
-            for (int i = 0; i < counterDigits; i++) {
-                a *= 10;
+        int counterDigits = 4;
+        System.out.print("Исходное число в обратном порядке поразрядно:");
+        for (int i = 1; i <= counterDigits; i++) {
+            int module = 1;
+            for (int j = 0; j < i; j++) {
+                module *= 10;
             }
-            int b = a / 10;
-            digit = (originNumber % a - originNumber % b) / b;
+            int divider = module / 10;
+            digit = originNumber % module / divider;
             sumOfDigits += digit;
             System.out.printf("%2d", digit);
-            counterDigits++;
         }
         System.out.println("\nСумма цифр = " + sumOfDigits);
 
@@ -82,17 +90,16 @@ public class CyclesTheme {
         int sumOfTwos = 0;
         int oneDigit;
         int counterOfDigits = 7;
-        while (counterOfDigits > 0) {
-            int a = 1;
-            for (int i = 0; i < counterOfDigits; i++) {
-                a *= 10;
+        for (int i = counterOfDigits; i > 0; i--) {
+            int module = 1;
+            for (int j = 0; j < i; j++) {
+                module *= 10;
             }
-            int b = a / 10;
-            oneDigit = (someNumber % a - someNumber % b) / b;
+            int divider = module / 10;
+            oneDigit = someNumber % module / divider;
             if (oneDigit == 2) {
                 sumOfTwos++;
             }
-            counterOfDigits--;
         }
         System.out.print("В " + someNumber);
         if (sumOfTwos % 2 == 0) {
@@ -148,19 +155,19 @@ public class CyclesTheme {
         int digitFromRight;
         int digits = 7;
         boolean isPalindrome = true;
-        for (int i = 1; i <= 4; i++) {
-            int a = 1;
+        for (int i = 1; i <= digits / 2; i++) {
+            int module = 1;
             for (int j = 0; j < i; j++) {
-                a *= 10;
+                module *= 10;
             }
-            int b = a / 10;
-            digitFromLeft = (checkedForPalindrome % a - checkedForPalindrome % b) / b;
-            int c = 1;
+            int divider = module / 10;
+            digitFromLeft = checkedForPalindrome % module / divider;
+            module = 1;
             for (int j = 0; j < digits - i + 1; j++) {
-                c *= 10;
+                module *= 10;
             }
-            int d = c / 10;
-            digitFromRight = (checkedForPalindrome % c - checkedForPalindrome % d) / d;
+            divider = module / 10;
+            digitFromRight = checkedForPalindrome % module / divider;
             if (digitFromLeft != digitFromRight) {
                 isPalindrome = false;
                 break;
@@ -178,13 +185,14 @@ public class CyclesTheme {
         int happyDigit;
         int sumFirstHalf = 0;
         int sumSecondHalf = 0;
-        for (int i = 1; i < 7; i++) {
-            int a = 1;
+        int numberDigits = 6;
+        for (int i = 1; i <= numberDigits; i++) {
+            int module = 1;
             for (int j = 1; j <= i; j++) {
-                a *= 10;
+                module *= 10;
             }
-            int b = a / 10;
-            happyDigit = (happyNumber % a - happyNumber % b) / b;
+            int divider = module / 10;
+            happyDigit = happyNumber % module / divider;
             if (i < 4) {
                 sumSecondHalf += happyDigit;
             } else {
