@@ -1,7 +1,7 @@
 public class CyclesTheme {
     public static void main(String[] args) {
         System.out.println("1. Подсчет суммы четных и нечетных чисел");
-        int number = - 10;
+        int number = -10;
         int sumOfEvens = 0;
         int sumOfOdds = 0;
         do {
@@ -37,21 +37,21 @@ public class CyclesTheme {
         System.out.println();
 
         System.out.println("\n3. Вывод реверсивного числа и суммы его цифр");
-        int number3 = 1234;
+        int originNumber = 1234;
         int sumOfDigits = 0;
         int digit;
-        int numOfDigits = 1;
+        int counterDigits = 1;
         System.out.print("_сходное число в обратном порядке поразрядно:");
-        while (numOfDigits < 5) {
+        while (counterDigits < 5) {
             int a = 1;
-            for (int i = 0; i < numOfDigits; i++) {
+            for (int i = 0; i < counterDigits; i++) {
                 a *= 10;
             }
             int b = a / 10;
-            digit = (number3 % a - number3 % b) / b;
+            digit = (originNumber % a - originNumber % b) / b;
             sumOfDigits += digit;
             System.out.printf("%2d", digit);
-            numOfDigits++;
+            counterDigits++;
         }
         System.out.println("\nСумма цифр = " + sumOfDigits);
 
@@ -81,10 +81,10 @@ public class CyclesTheme {
         int someNumber = 3242592;
         int sumOfTwos = 0;
         int oneDigit;
-        int digitsForCheck = 7;
-        while (digitsForCheck > 0) {
+        int counterOfDigits = 7;
+        while (counterOfDigits > 0) {
             int a = 1;
-            for (int i = 0; i < digitsForCheck; i++) {
+            for (int i = 0; i < counterOfDigits; i++) {
                 a *= 10;
             }
             int b = a / 10;
@@ -92,7 +92,7 @@ public class CyclesTheme {
             if (oneDigit == 2) {
                 sumOfTwos++;
             }
-            digitsForCheck--;
+            counterOfDigits--;
         }
         System.out.print("В " + someNumber);
         if (sumOfTwos % 2 == 0) {
@@ -103,43 +103,43 @@ public class CyclesTheme {
         System.out.println("(" + sumOfTwos + ") количество двоек");
 
         System.out.println("\n6. Вывод геометрических фигур");
-        int numOfStrings = 5;
-        for (int i = 0; i < numOfStrings; i++) {
+        int numberStrings = 5;
+        for (int i = 0; i < numberStrings; i++) {
             System.out.println("**********");
         }
         System.out.println();
-        while (numOfStrings > 0) {
-            for (int i = 0; i < numOfStrings; i++) {
+        while (numberStrings > 0) {
+            for (int i = 0; i < numberStrings; i++) {
                 System.out.print("#");      
             }
             System.out.println();
-            numOfStrings--;
+            numberStrings--;
         }
         System.out.println();
-        numOfStrings = 1;
-        int numberOfSymbols = 0;
-        while (numOfStrings < 6) {
-            if (numOfStrings <= 3) {
-                numberOfSymbols++;
-                for (int i = 0; i < numberOfSymbols; i++) {
+        numberStrings = 1;
+        int counterSymbols = 0;
+        while (numberStrings < 6) {
+            if (numberStrings <= 3) {
+                counterSymbols++;
+                for (int i = 0; i < counterSymbols; i++) {
                     System.out.print("$");
                 }
                 System.out.println();
             } else {
-                numberOfSymbols--;
-                for (int i = 0; i < numberOfSymbols; i++) {
+                counterSymbols--;
+                for (int i = 0; i < counterSymbols; i++) {
                     System.out.print("$");
                 }
                 System.out.println();
             }
-            numOfStrings++;
+            numberStrings++;
         }
 
         System.out.println("\n7. Вывод ASCII-символов");
         System.out.println("DECIMAL CHARACTER DESCRIPTION");
         for (int i = 0; i <= 255; i++) {
-            char ch = (char) i;
-            System.out.printf("%3d %3c %40s%n", i, ch, Character.getName(i));
+            char symbol = (char) i;
+            System.out.printf("%3d %3c %40s%n", i, symbol, Character.getName(i));
         } 
 
         System.out.println("\n8. Проверка, является ли число палиндромом");

@@ -1,6 +1,5 @@
-import static java.math.BigDecimal.ROUND_HALF_UP;
-
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class IfElseStatementTheme {
     public static void main(String[] args) {
@@ -12,23 +11,23 @@ public class IfElseStatementTheme {
         } else {
             System.out.println(" мужской.");
         }
-        int age = 15;
-        System.out.print("Если age = " + age + ", значит возраст ");
-        if (age > 18) {
+        int humanAge = 15;
+        System.out.print("Если age = " + humanAge + ", значит возраст ");
+        if (humanAge > 18) {
             System.out.println("больше 18 лет.");
         } else {
             System.out.println("меньше или равен 18 годам.");
         }
-        double height = 1.8;
-        System.out.print("Если height = " + height + ", значит рост ");
-        if (height < 1.8) {
+        double humanHeight = 1.8;
+        System.out.print("Если height = " + humanHeight + ", значит рост ");
+        if (humanHeight < 1.8) {
             System.out.println("меньше 1,8 м.");
         } else {
             System.out.println("1,8 м или больше.");
         }
-        String name = "Peter";
-        char firstLetterOfName = name.charAt(0);
-        System.out.print("Первая буква имени " + name);
+        String humanName = "Peter";
+        char firstLetterOfName = humanName.charAt(0);
+        System.out.print("Первая буква имени " + humanName);
         if (firstLetterOfName == 'M') {
             System.out.println(" - M.");
         } else if (firstLetterOfName == 'I') {
@@ -38,14 +37,14 @@ public class IfElseStatementTheme {
         }
 
         System.out.println("\n2. Поиск большего числа");
-        int firstNum = 242334;
-        int secondNum = -99;
-        if (firstNum > secondNum) {
-            System.out.println(firstNum + " > " + secondNum);
-        } else if (firstNum < secondNum) {
-            System.out.println(firstNum + " < " + secondNum);
+        int a = 242334;
+        int b = -99;
+        if (a > b) {
+            System.out.println(a + " > " + b);
+        } else if (a < b) {
+            System.out.println(a + " < " + b);
         } else {
-            System.out.println(firstNum + " = " + secondNum);
+            System.out.println(a + " = " + b);
         }
 
         System.out.println("\n3. Проверка числа");
@@ -116,16 +115,16 @@ public class IfElseStatementTheme {
         System.out.println("Итоговая сумма с %: " + changedDeposit);
 
         System.out.println("\n7. Определение оценки по предметам");
-        int percentForHistory = 59;
-        int percentForProgramming = 92;
-        int markForHistory = getMark(percentForHistory);
-        int markForProgramming = getMark(percentForProgramming);
+        int percentMarkForHistory = 59;
+        int percentMarkForProgramming = 92;
+        int markForHistory = getMark(percentMarkForHistory);
+        int markForProgramming = getMark(percentMarkForProgramming);
         System.out.println("История: " + markForHistory);
         System.out.println("Программирование: " + markForProgramming);
         System.out.print("Средний балл оценок по предметам: "); 
         System.out.println(countAverage(markForHistory, markForProgramming));
         System.out.print("Средний % по предметам: ");  
-        System.out.println(countAverage(percentForHistory, percentForProgramming));
+        System.out.println(countAverage(percentMarkForHistory, percentMarkForProgramming));
 
         System.out.println("\n8. Расчет годовой прибыли");
         double productSaleForMonth = 13025.233;
@@ -153,9 +152,9 @@ public class IfElseStatementTheme {
         if (yearProfitBigDec.compareTo(new BigDecimal("0")) == 0) {
             System.out.println("0 руб.");
         } else if (yearProfitBigDec.compareTo(new BigDecimal("0")) > 0) {
-            System.out.println("+" + yearProfitBigDec.setScale(2, ROUND_HALF_UP) + " руб.");
+            System.out.println("+" + yearProfitBigDec.setScale(2, RoundingMode.HALF_UP) + " руб.");
         } else {
-            System.out.println(yearProfitBigDec.setScale(2, ROUND_HALF_UP) + " руб.");
+            System.out.println(yearProfitBigDec.setScale(2, RoundingMode.HALF_UP) + " руб.");
         }
 
         System.out.println("\n10. *Подсчет начисленных банком %");
@@ -168,11 +167,11 @@ public class IfElseStatementTheme {
         } else if (depositBigDec.compareTo(upperLimit) > 0) {
             percentBigDec = new BigDecimal("10");
         }
-        System.out.println("Сумма вклада: " + depositBigDec.setScale(2, ROUND_HALF_UP));
+        System.out.println("Сумма вклада: " + depositBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal addedPercentBigDec = depositBigDec.multiply(percentBigDec).divide(new BigDecimal("100"));
-        System.out.println("Сумма начисленных %: " + addedPercentBigDec.setScale(2, ROUND_HALF_UP));
+        System.out.println("Сумма начисленных %: " + addedPercentBigDec.setScale(2, RoundingMode.HALF_UP));
         BigDecimal changedDepositBigDec = depositBigDec.add(addedPercentBigDec);
-        System.out.println("Итоговая сумма ñ %: " + changedDepositBigDec.setScale(2, ROUND_HALF_UP));
+        System.out.println("Итоговая сумма с %: " + changedDepositBigDec.setScale(2, RoundingMode.HALF_UP));
     }
 
     public static int getMark(int percents) {
