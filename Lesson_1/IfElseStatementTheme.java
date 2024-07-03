@@ -69,27 +69,27 @@ public class IfElseStatementTheme {
         int firstInt = 123;
         int secondInt = 223;
 
-        int digitOneFirstInt = firstInt % 10;
-        int digitOneSecondInt = secondInt % 10;
-        int digitTwoFirstInt = firstInt % 100 / 10;
-        int digitTwoSecondInt = secondInt % 100 / 10;
-        int digitThreeFirstInt = firstInt % 1000 / 100;
-        int digitThreeSecondInt = secondInt % 1000 / 100;
+        int onesFirstInt = firstInt % 10;
+        int onesSecondInt = secondInt % 10;
+        int tensFirstInt = firstInt % 100 / 10;
+        int tensSecondInt = secondInt % 100 / 10;
+        int hundredsFirstInt = firstInt % 1000 / 100;
+        int hundredsSecondInt = secondInt % 1000 / 100;
         
-        if (digitOneFirstInt != digitOneSecondInt && 
-                digitTwoFirstInt != digitTwoSecondInt &&
-                digitThreeFirstInt != digitThreeSecondInt) {
+        if (onesFirstInt != onesSecondInt && 
+                tensFirstInt != tensSecondInt &&
+                hundredsFirstInt != hundredsSecondInt) {
             System.out.println("Равных цифр нет.");
         } else {
             System.out.println("Исходные числа: " + firstInt + " и " + secondInt);
-            if (digitOneFirstInt == digitOneSecondInt) {
-                System.out.println("Одинаковые цифры: " + digitOneFirstInt + " в разряде 1.");
+            if (onesFirstInt == onesSecondInt) {
+                System.out.println("Одинаковые цифры: " + onesFirstInt + " в разряде 1.");
             }
-            if (digitTwoFirstInt == digitTwoSecondInt) {
-                System.out.println("Одинаковые цифры: " + digitTwoFirstInt + " в разряде 2.");
+            if (tensFirstInt == tensSecondInt) {
+                System.out.println("Одинаковые цифры: " + tensFirstInt + " в разряде 2.");
             }
-            if (digitThreeFirstInt == digitThreeSecondInt) {
-                System.out.println("Одинаковые цифры: " + digitThreeFirstInt + " в разряде 3.");
+            if (hundredsFirstInt == hundredsSecondInt) {
+                System.out.println("Одинаковые цифры: " + hundredsFirstInt + " в разряде 3.");
             }
         }
 
@@ -123,8 +123,8 @@ public class IfElseStatementTheme {
         System.out.println("\n7. Определение оценки по предметам");
         int percentMarkForHistory = 59;
         int percentMarkForProgramming = 92;
-        int markForHistory = convertPercentToMark(percentMarkForHistory);
-        int markForProgramming = convertPercentToMark(percentMarkForProgramming);
+        int markForHistory = toMark(percentMarkForHistory);
+        int markForProgramming = toMark(percentMarkForProgramming);
         System.out.println("История: " + markForHistory);
         System.out.println("Программирование: " + markForProgramming);
         System.out.print("Средний балл оценок по предметам: "); 
@@ -174,11 +174,8 @@ public class IfElseStatementTheme {
         System.out.println("Итоговая сумма с %: " + changedDepositBigDec.setScale(2, RoundingMode.HALF_UP));
     }
 
-    private static int convertPercentToMark(int percent) {
-        if (percent < 0 || percent > 100) {
-            return 0;
-        } 
-        if (percent > 91) {
+    private static int toMark(int percent) { 
+        if (percent > 91 && percent <= 100) {
             return 5;
         }
         if (percent > 73) {
@@ -186,9 +183,11 @@ public class IfElseStatementTheme {
         } 
         if (percent > 60) {
             return 3;
-        } else {
+        }
+        if (percent >= 0 && percent <= 60) {
             return 2;
         }
+        return 0;
     }
 
     private static double calculateAverage(double first, double second) {

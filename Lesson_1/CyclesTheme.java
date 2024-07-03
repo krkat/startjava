@@ -1,19 +1,19 @@
 public class CyclesTheme {
     public static void main(String[] args) {
         System.out.println("1. Подсчет суммы четных и нечетных чисел");
-        int number = -10;
+        int startPoint = -10;
+        int endPoint = 21;
         int sumOfEvens = 0;
         int sumOfOdds = 0;
-        do {
-            if (number % 2 == 0) {
-                sumOfEvens += number;
+        for (int i = startPoint; i <= endPoint; i++) {
+            if (i % 2 == 0) {
+                sumOfEvens += i;
             } else {
-                sumOfOdds += number;
+                sumOfOdds += i;
             }
-            number++;
-        } while (number <= 21);
-        System.out.println("В отрезке [-10, 21] сумма четных чисел = " + 
-                sumOfEvens + ", а нечетных = " + sumOfOdds);
+        }
+        System.out.println("В отрезке [" + startPoint + ", " + endPoint + 
+                "] сумма четных чисел = " + sumOfEvens + ", а нечетных = " + sumOfOdds);
 
         System.out.println("\n2. Вывод чисел между min и max в порядке убывания");
         int a = 10;
@@ -34,74 +34,64 @@ public class CyclesTheme {
             max = c;
         }
         for (int i = max - 1; i > min; i--) {
-            if (a == i) {
-                System.out.println(a);
-            }
-            if (b == i) {
-                System.out.println(b);
-            }
-            if (c == i) {
-                System.out.println(c);
-            }
+            System.out.printf("%4d", i);
         }
 
-        System.out.println("\n3. Вывод реверсивного числа и суммы его цифр");
+        System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр");
         int originNumber = 1234;
         int sumOfDigits = 0;
         int digit;
-        int counterDigits = 4;
-        System.out.print("Исходное число в обратном порядке поразрядно:");
-        for (int i = 1; i <= counterDigits; i++) {
-            int module = 1;
-            for (int j = 0; j < i; j++) {
-                module *= 10;
-            }
-            int divider = module / 10;
-            digit = originNumber % module / divider;
+        System.out.print("Исходное число в обратном порядке поразрядно: ");
+        int module = 10;
+        int divider = module / 10;
+        do {
+            int restForModule = originNumber % module;
+            digit = restForModule / divider;
             sumOfDigits += digit;
-            System.out.printf("%2d", digit);
-        }
+            System.out.print(digit);
+            if (restForModule == originNumber) {
+                break;
+            }
+            module *= 10;
+            divider = module / 10;
+        } while (true);
         System.out.println("\nСумма цифр = " + sumOfDigits);
 
         System.out.println("\n4. Вывод чисел в несколько строк");
-        int numberOfOdds = 0;
-        int numbersInString = 0;
-        for (int i = 1; i < 24; i++) {
-            if (i % 2 == 1) {
-                numbersInString++;
-                numberOfOdds++;
-                System.out.printf("%4d", i);
-                if (numbersInString == 5) {
-                    System.out.println();
-                    numbersInString = 0;
-                }
+        int numbersInLine = 0;
+        for (int i = 1; i < 24; i += 2) {
+            numbersInLine++;
+            System.out.printf("%4d", i);
+            if (numbersInLine == 5) {
+                System.out.println();
+                numbersInLine = 0;
             }
         }
-        int zeros = 5 - numberOfOdds % 5;
+        int zeros = 5 - numbersInLine % 5;
         if (zeros != 0 && zeros != 5) {
             for (int i = 1; i <= zeros; i++) {
                 System.out.printf("%4d", 0);
             }
         }
-        System.out.println();
 
-        System.out.println("\n5. Проверка количества двоек числа на четность");
-        int someNumber = 3242592;
+        System.out.println("\n\n5. Проверка количества двоек числа на четность");
+        originNumber = 3242592;
         int sumOfTwos = 0;
-        int oneDigit;
-        int counterOfDigits = 7;
-        for (int i = counterOfDigits; i > 0; i--) {
-            int module = 1;
-            for (int j = 0; j < i; j++) {
-                module *= 10;
-            }
-            int divider = module / 10;
-            oneDigit = someNumber % module / divider;
-            if (oneDigit == 2) {
+        module = 10;
+        divider = module / 10;
+        do {
+            int restForModule = originNumber % module;
+            digit = restForModule / divider;
+            if (digit == 2) {
                 sumOfTwos++;
             }
-        }
-        System.out.print("В " + someNumber);
+            if (restForModule == originNumber) {
+                break;
+            }
+            module *= 10;
+            divider = module / 10;
+        } while (true);
+        System.out.print("В " + originNumber);
         if (sumOfTwos % 2 == 0) {
             System.out.print(" четное ");
         } else {
@@ -110,23 +100,23 @@ public class CyclesTheme {
         System.out.println("(" + sumOfTwos + ") количество двоек");
 
         System.out.println("\n6. Вывод геометрических фигур");
-        int numberStrings = 5;
-        for (int i = 0; i < numberStrings; i++) {
+        int numberLines = 5;
+        for (int i = 0; i < numberLines; i++) {
             System.out.println("**********");
         }
         System.out.println();
-        while (numberStrings > 0) {
-            for (int i = 0; i < numberStrings; i++) {
+        while (numberLines > 0) {
+            for (int i = 0; i < numberLines; i++) {
                 System.out.print("#");      
             }
             System.out.println();
-            numberStrings--;
+            numberLines--;
         }
         System.out.println();
-        numberStrings = 1;
+        numberLines = 1;
         int counterSymbols = 0;
-        while (numberStrings < 6) {
-            if (numberStrings <= 3) {
+        while (numberLines < 6) {
+            if (numberLines <= 3) {
                 counterSymbols++;
                 for (int i = 0; i < counterSymbols; i++) {
                     System.out.print("$");
@@ -139,7 +129,7 @@ public class CyclesTheme {
                 }
                 System.out.println();
             }
-            numberStrings++;
+            numberLines++;
         }
 
         System.out.println("\n7. Вывод ASCII-символов");
@@ -150,65 +140,55 @@ public class CyclesTheme {
         } 
 
         System.out.println("\n8. Проверка, является ли число палиндромом");
-        int checkedForPalindrome = 1234321;
-        int digitFromLeft;
-        int digitFromRight;
-        int digits = 7;
-        boolean isPalindrome = true;
-        for (int i = 1; i <= digits / 2; i++) {
-            int module = 1;
-            for (int j = 0; j < i; j++) {
-                module *= 10;
-            }
-            int divider = module / 10;
-            digitFromLeft = checkedForPalindrome % module / divider;
-            module = 1;
-            for (int j = 0; j < digits - i + 1; j++) {
-                module *= 10;
-            }
-            divider = module / 10;
-            digitFromRight = checkedForPalindrome % module / divider;
-            if (digitFromLeft != digitFromRight) {
-                isPalindrome = false;
+        originNumber = 1234321;
+        int leftHalfOrigin = originNumber / 1000;
+        int rightHalfOrigin = originNumber % 10000;
+        int reverseLeftHalfOrigin = 0;
+        module = 10;
+        divider = module / 10;
+        int multiplier = 10000;
+        do {
+            int restForModule = leftHalfOrigin % module;
+            digit = restForModule / divider;
+            reverseLeftHalfOrigin += digit * multiplier / module;
+            if (restForModule == leftHalfOrigin) {
                 break;
             }
-        }
-        System.out.printf("Число %d", checkedForPalindrome);
-        if (!isPalindrome) {
+            module *= 10;
+            divider = module / 10;
+        } while (true);    
+        System.out.printf("Число %d", originNumber);
+        if (reverseLeftHalfOrigin != rightHalfOrigin) {
             System.out.print(" не палиндром\n");
         } else {
             System.out.print(" - палиндром\n");
         }
 
         System.out.println("\n9. Проверка, является ли число счастливым");
-        int happyNumber = 123321;
-        int happyDigit;
-        int sumFirstHalf = 0;
-        int sumSecondHalf = 0;
-        int numberDigits = 6;
-        for (int i = 1; i <= numberDigits; i++) {
-            int module = 1;
-            for (int j = 1; j <= i; j++) {
-                module *= 10;
-            }
-            int divider = module / 10;
-            happyDigit = happyNumber % module / divider;
-            if (i < 4) {
-                sumSecondHalf += happyDigit;
-            } else {
-                sumFirstHalf += happyDigit;
-            }
-        }
-        System.out.printf("Число %d -", happyNumber);
-        if (sumFirstHalf == sumSecondHalf) {
+        originNumber = 123321;
+        leftHalfOrigin = originNumber / 1000;
+        rightHalfOrigin = originNumber % 1000;
+        int sumLeftHalf = 0;
+        int sumRightHalf = 0;
+        module = 10;
+        divider = module / 10;
+        multiplier = 10000;
+        do {
+            digit = leftHalfOrigin % module / divider;
+            sumLeftHalf += digit;
+            digit = rightHalfOrigin % module / divider;
+            sumRightHalf += digit;
+            module *= 10;
+            divider = module / 10;
+        } while (module < 10000);    
+        System.out.printf("Число %d -", originNumber);
+        if (sumLeftHalf == sumRightHalf) {
             System.out.print(" счастливое ");
         } else {
             System.out.print(" несчастливое ");
         }
-        int firstHalf = (happyNumber - happyNumber % 1000) / 1000;
-        int secondHalf = happyNumber % 1000;
-        System.out.printf("\nСумма цифр " + firstHalf + " = %d", sumFirstHalf);
-        System.out.printf("\nСумма цифр " + secondHalf + " = %d%n", sumSecondHalf);
+        System.out.printf("\nСумма цифр " + leftHalfOrigin + " = %d", sumLeftHalf);
+        System.out.printf("\nСумма цифр " + rightHalfOrigin + " = %d%n", sumRightHalf);
 
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
         for (int i = 1; i <= 9; i++) {

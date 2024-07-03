@@ -14,7 +14,7 @@ public class Calculator {
             result = x / y;
         } else if (sign == '^') {
             result = x;
-            for (int i = y - 1; i >= 1; i--) {
+            for (int i = 1; i <= y - 1; i++) {
                 result *= x;
             }
         } else if (sign == '%') {
