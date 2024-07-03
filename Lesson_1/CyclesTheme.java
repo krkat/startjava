@@ -43,18 +43,13 @@ public class CyclesTheme {
         int digit;
         System.out.print("Исходное число в обратном порядке поразрядно: ");
         int module = 10;
-        int divider = module / 10;
+        int leftSide = originNumber;
         do {
-            int restForModule = originNumber % module;
-            digit = restForModule / divider;
+            digit = leftSide % module;
+            leftSide /= module;
             sumOfDigits += digit;
             System.out.print(digit);
-            if (restForModule == originNumber) {
-                break;
-            }
-            module *= 10;
-            divider = module / 10;
-        } while (true);
+        } while (leftSide > 0);
         System.out.println("\nСумма цифр = " + sumOfDigits);
 
         System.out.println("\n4. Вывод чисел в несколько строк");
@@ -78,19 +73,14 @@ public class CyclesTheme {
         originNumber = 3242592;
         int sumOfTwos = 0;
         module = 10;
-        divider = module / 10;
+        leftSide = originNumber;
         do {
-            int restForModule = originNumber % module;
-            digit = restForModule / divider;
+            digit = leftSide % module;
+            leftSide /= module;
             if (digit == 2) {
                 sumOfTwos++;
             }
-            if (restForModule == originNumber) {
-                break;
-            }
-            module *= 10;
-            divider = module / 10;
-        } while (true);
+        } while (leftSide > 0);
         System.out.print("В " + originNumber);
         if (sumOfTwos % 2 == 0) {
             System.out.print(" четное ");
@@ -134,10 +124,14 @@ public class CyclesTheme {
 
         System.out.println("\n7. Вывод ASCII-символов");
         System.out.println("DECIMAL CHARACTER DESCRIPTION");
-        for (int i = 0; i <= 255; i++) {
-            char symbol = (char) i;
-            System.out.printf("%3d %3c %40s%n", i, symbol, Character.getName(i));
-        } 
+        for (char i = 33; i < '0'; i += 2) {
+            System.out.printf("  %3d       %c     %-20s%n", (int) i, i, Character.getName(i));
+        }
+        for (char i = 'a'; i <= 'z'; i++) {
+            if (i % 2 == 0) {
+                System.out.printf("  %3d       %c     %-20s%n", (int) i, i, Character.getName(i));
+            }
+        }
 
         System.out.println("\n8. Проверка, является ли число палиндромом");
         originNumber = 1234321;
@@ -145,18 +139,13 @@ public class CyclesTheme {
         int rightHalfOrigin = originNumber % 10000;
         int reverseLeftHalfOrigin = 0;
         module = 10;
-        divider = module / 10;
-        int multiplier = 10000;
+        int multiplier = 1000;
         do {
-            int restForModule = leftHalfOrigin % module;
-            digit = restForModule / divider;
-            reverseLeftHalfOrigin += digit * multiplier / module;
-            if (restForModule == leftHalfOrigin) {
-                break;
-            }
-            module *= 10;
-            divider = module / 10;
-        } while (true);    
+            digit = leftHalfOrigin % 10;
+            leftHalfOrigin /= module;
+            reverseLeftHalfOrigin += digit * multiplier;
+            multiplier /= module;
+        } while (leftHalfOrigin > 0);    
         System.out.printf("Число %d", originNumber);
         if (reverseLeftHalfOrigin != rightHalfOrigin) {
             System.out.print(" не палиндром\n");
@@ -171,16 +160,12 @@ public class CyclesTheme {
         int sumLeftHalf = 0;
         int sumRightHalf = 0;
         module = 10;
-        divider = module / 10;
-        multiplier = 10000;
         do {
-            digit = leftHalfOrigin % module / divider;
-            sumLeftHalf += digit;
-            digit = rightHalfOrigin % module / divider;
-            sumRightHalf += digit;
-            module *= 10;
-            divider = module / 10;
-        } while (module < 10000);    
+            sumLeftHalf += leftHalfOrigin % module;
+            leftHalfOrigin /= module; 
+            sumRightHalf += rightHalfOrigin % module;
+            rightHalfOrigin /= module;
+        } while (leftHalfOrigin > 0);    
         System.out.printf("Число %d -", originNumber);
         if (sumLeftHalf == sumRightHalf) {
             System.out.print(" счастливое ");
@@ -198,13 +183,12 @@ public class CyclesTheme {
                     System.out.printf("%3d", j);    
                 }
                 System.out.print("\n___|");
-                for (int l = 2; l <= 9; l++) {
+                for (int j = 2; j <= 9; j++) {
                     System.out.print("___");
                 }
                 System.out.print("\n   |");
             } else {
-                System.out.printf("%2d ", i);
-                System.out.print("|");
+                System.out.printf("%2d |", i);
                 for (int j = 2; j <= 9; j++) {  
                     System.out.printf("%3d", i * j);    
                 }
