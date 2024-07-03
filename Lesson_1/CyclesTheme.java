@@ -40,12 +40,11 @@ public class CyclesTheme {
         System.out.println("\n\n3. Вывод реверсивного числа и суммы его цифр");
         int originNumber = 1234;
         int sumOfDigits = 0;
-        int digit;
         System.out.print("Исходное число в обратном порядке поразрядно: ");
         int module = 10;
         int leftSide = originNumber;
         do {
-            digit = leftSide % module;
+            int digit = leftSide % module;
             leftSide /= module;
             sumOfDigits += digit;
             System.out.print(digit);
@@ -75,11 +74,10 @@ public class CyclesTheme {
         module = 10;
         leftSide = originNumber;
         do {
-            digit = leftSide % module;
-            leftSide /= module;
-            if (digit == 2) {
+            if (leftSide % module == 2) {
                 sumOfTwos++;
             }
+            leftSide /= module;
         } while (leftSide > 0);
         System.out.print("В " + originNumber);
         if (sumOfTwos % 2 == 0) {
@@ -91,45 +89,51 @@ public class CyclesTheme {
 
         System.out.println("\n6. Вывод геометрических фигур");
         int numberLines = 5;
+
+        // Вывод прямоугольника
         for (int i = 0; i < numberLines; i++) {
             System.out.println("**********");
         }
         System.out.println();
+        
+        // Вывод прямоугольного треугольника
         while (numberLines > 0) {
-            for (int i = 0; i < numberLines; i++) {
-                System.out.print("#");      
+            int countSymbols = numberLines;
+            while (countSymbols > 0) {
+                System.out.print("#");
+                countSymbols--;
             }
             System.out.println();
             numberLines--;
         }
         System.out.println();
+        
+        // Вывод равнобедренного треугольника
         numberLines = 1;
         int counterSymbols = 0;
-        while (numberLines < 6) {
+        do {
             if (numberLines <= 3) {
                 counterSymbols++;
-                for (int i = 0; i < counterSymbols; i++) {
-                    System.out.print("$");
-                }
-                System.out.println();
             } else {
                 counterSymbols--;
-                for (int i = 0; i < counterSymbols; i++) {
-                    System.out.print("$");
-                }
-                System.out.println();
             }
+            int counterCycle = counterSymbols;
+            do {
+                System.out.print("$");
+                counterCycle--;
+            } while (counterCycle > 0);
+            System.out.println();
             numberLines++;
-        }
+        } while (numberLines < 6);
 
         System.out.println("\n7. Вывод ASCII-символов");
         System.out.println("DECIMAL CHARACTER DESCRIPTION");
         for (char i = 33; i < '0'; i += 2) {
-            System.out.printf("  %3d       %c     %-20s%n", (int) i, i, Character.getName(i));
+            System.out.printf("  %-3d       %c          %-20s%n", (int) i, i, Character.getName(i));
         }
         for (char i = 'a'; i <= 'z'; i++) {
             if (i % 2 == 0) {
-                System.out.printf("  %3d       %c     %-20s%n", (int) i, i, Character.getName(i));
+                System.out.printf("  %-3d       %c          %-20s%n", (int) i, i, Character.getName(i));
             }
         }
 
@@ -141,7 +145,7 @@ public class CyclesTheme {
         module = 10;
         int multiplier = 1000;
         do {
-            digit = leftHalfOrigin % 10;
+            int digit = leftHalfOrigin % 10;
             leftHalfOrigin /= module;
             reverseLeftHalfOrigin += digit * multiplier;
             multiplier /= module;
