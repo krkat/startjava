@@ -110,18 +110,17 @@ public class CyclesTheme {
         
         // Вывод равнобедренного треугольника
         numberLines = 1;
-        int counterSymbols = 0;
+        int counterSymbols;
         do {
             if (numberLines <= 3) {
-                counterSymbols++;
+                counterSymbols = numberLines;
             } else {
-                counterSymbols--;
+                counterSymbols = 6 - numberLines;
             }
-            int counterCycle = counterSymbols;
             do {
                 System.out.print("$");
-                counterCycle--;
-            } while (counterCycle > 0);
+                counterSymbols--;
+            } while (counterSymbols > 0);
             System.out.println();
             numberLines++;
         } while (numberLines < 6);
