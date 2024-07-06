@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
-public class Calculator {
-    
+public class Calculator {    
+
     private int x;
     private int y;
     private char sign;
@@ -11,39 +11,24 @@ public class Calculator {
         return x;
     }
 
-    public void setX() {
-        System.out.print("Введите первое число: ");
-        this.x = scanner.nextInt();
+    public void setX(int x) {
+        this.x = x;
     }
 
     public int getY() {
         return y;
     }
 
-    public void setY() {
-        System.out.print("Введите второе число: ");
-        this.y = scanner.nextInt();
+    public void setY(int y) {
+        this.y = y;
     }
 
     public char getSign() {
         return sign;
     }
 
-    public void setSign() {
-        String userInput;
-        do {
-            System.out.print("Введите знак операции (+. -, *. /, ^. %)): ");
-            userInput = scanner.next();
-            if (!"+".equals(userInput) && !"-".equals(userInput) && 
-                    !"*".equals(userInput) && !"/".equals(userInput) && 
-                    !"^".equals(userInput) && !"%".equals(userInput)) {
-                System.out.println("Ошибка: операция '" + userInput + "' не поддерживается.");
-                System.out.println("Доступны следующие операции: +. -, *. /, ^. %");
-            }
-        } while (!"+".equals(userInput) && !"-".equals(userInput) && 
-            !"*".equals(userInput) && !"/".equals(userInput) && 
-            !"^".equals(userInput) && !"%".equals(userInput));
-        this.sign = userInput.charAt(0);
+    public void setSign(char sign) {
+        this.sign = sign;
     }
 
     public void calculate() {
