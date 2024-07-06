@@ -1,11 +1,8 @@
-import java.util.Scanner;
-
 public class Calculator {    
 
     private int x;
     private int y;
     private char sign;
-    private Scanner scanner = new Scanner(System.in);
 
     public int getX() {
         return x;
@@ -27,56 +24,51 @@ public class Calculator {
         return sign;
     }
 
-    public void setSign(char sign) {
+    public boolean setSign(char sign) {
+        if (sign != '+' && sign != '-' && sign != '*' && 
+                sign != '/' && sign != '^' && sign != '%') {
+            System.out.println("Ошибка: операция '" + sign + "' не поддерживается.");
+            System.out.println("Доступны следующие операции: +. -, *. /, ^. %");
+            return false;
+        }
         this.sign = sign;
+        return true;
     }
 
     public void calculate() {
+        double result; 
         switch (sign) {
             case '+':
-                System.out.println(x + y);
+                result = x + y;
                 break;
             case '-':
-                System.out.println(x - y);
+                result = x - y;
                 break;
             case '*':
-                System.out.println(x * y);
+                result = x * y;
+                break;
+            case '^':
+                result = 1; 
+                for (int i = 1; i <= (y >= 0 ? y : -y); i++) {
+                    result *= x;
+                }
+                if (y < 0) {
+                    result = 1 / result;
+                }
                 break;
             case '/':
+            case '%':
                 if (y == 0) {
                     System.out.println("Ошибка: деление на ноль запрещено");
+                    return;
                 } else {
-                    System.out.println((double) x / y);
+                    result = sign == '/' ? (double) x / y : x % y;
                 }
                 break;
-            case '^': {
-                double result = 1.0;
-                if (y != 0) {
-                    double xDouble;
-                    if (y < 0) {
-                        xDouble = 1.0 / x;
-                        y = -y;    
-                    } else {
-                        xDouble = (double) x;
-                    }
-                    while (y-- > 0) {
-                        result *= xDouble;
-                    }
-                }
-                System.out.println(result);
-                break;
-            }
-            case '%': {
-                if (x < 0 || y < 0) {
-                    System.out.println("Ошибка: операнды не должны быть отрицательными");
-                    break;
-                }
-                if (y == 0) {
-                    System.out.println("Ошибка: деление по модулю 0 запрещено");
-                    break;
-                }
-                System.out.println(x % y);
-            }
+            default:
+                System.out.println("Ошибка: операция не поддерживается.");
+                return; 
         }
+        System.out.println(result);       
     }
 }
