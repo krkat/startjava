@@ -29,9 +29,6 @@ public class CalculatorTest {
             do {
                 userAnswer = askToContinue(scanner);
             } while (!"yes".equals(userAnswer) && !"no".equals(userAnswer));
-            if ("no".equals(userAnswer)) {
-                break;
-            }
         } while ("yes".equals(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
