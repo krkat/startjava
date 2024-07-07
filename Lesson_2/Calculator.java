@@ -1,27 +1,17 @@
+import java.lang.Math;
+
 public class Calculator {    
 
     private int x;
     private int y;
     private char sign;
 
-    public int getX() {
-        return x;
-    }
-
     public void setX(int x) {
         this.x = x;
     }
 
-    public int getY() {
-        return y;
-    }
-
     public void setY(int y) {
         this.y = y;
-    }
-
-    public char getSign() {
-        return sign;
     }
 
     public boolean setSign(char sign) {
@@ -48,27 +38,35 @@ public class Calculator {
                 result = x * y;
                 break;
             case '^':
-                result = 1; 
-                for (int i = 1; i <= (y >= 0 ? y : -y); i++) {
-                    result *= x;
-                }
-                if (y < 0) {
-                    result = 1 / result;
-                }
+                result = pow(x, y); 
                 break;
             case '/':
             case '%':
                 if (y == 0) {
                     System.out.println("Ошибка: деление на ноль запрещено");
                     return;
-                } else {
-                    result = sign == '/' ? (double) x / y : x % y;
                 }
+                result = divide(x, y, sign);
                 break;
             default:
                 System.out.println("Ошибка: операция не поддерживается.");
                 return; 
         }
         System.out.println(result);       
+    }
+
+    private double pow(int x, int y) {
+        double result = 1; 
+        for (int i = 1; i <= Math.abs(y); i++) {
+            result *= x;
+        }
+        if (y < 0) {
+            result = 1 / result;
+        }
+        return result;
+    }
+
+    private double divide(int x, int y, char sign) {
+        return sign == '/' ? (double) x / y : x % y;
     }
 }

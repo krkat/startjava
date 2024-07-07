@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class CalculatorTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        Calculator calculator = new Calculator();
         String userAnswer;
         do {
-            Calculator calculator = new Calculator();
             System.out.print("Введите первое число: ");
             int x = scanner.nextInt();
             calculator.setX(x);
@@ -14,7 +14,7 @@ public class CalculatorTest {
             char sign;
             boolean isCorrectSign = false;
             do {
-                System.out.print("Введите знак операции (+. -, *. /, ^. %)): ");
+                System.out.print("Введите знак операции (+. -, *. /, ^. %): ");
                 sign = scanner.nextLine().charAt(0);
                 isCorrectSign = calculator.setSign(sign);
             } while (!isCorrectSign);
@@ -30,11 +30,10 @@ public class CalculatorTest {
                 userAnswer = askToContinue(scanner);
             } while (!"yes".equals(userAnswer) && !"no".equals(userAnswer));
             if ("no".equals(userAnswer)) {
-                System.out.println("Завершение программы.");
-                scanner.close();
                 break;
             }
         } while ("yes".equals(userAnswer));
+        System.out.println("Завершение программы.");
         scanner.close();
     }
 
