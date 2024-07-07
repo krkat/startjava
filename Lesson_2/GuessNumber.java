@@ -10,21 +10,27 @@ public class GuessNumber {
         this.playerTwo = playerTwo;
     } 
 
-    public void playGame(int hiddenNumber, Scanner scanner) {
+    public void play(Scanner scanner) {
+        int hiddenNumber = (int) (Math.random() * 100) + 1;
         int guessNumber;
         Player currentPlayer = playerOne;
+        boolean isWin = false;
         System.out.println(); 
         do {
             System.out.print("Ход " + currentPlayer.getName() + ": ");
             guessNumber = scanner.nextInt();
             scanner.nextLine();
             currentPlayer.setNumber(guessNumber); 
-            if (currentPlayer.equals(playerOne)) {
-                currentPlayer = playerTwo;
-            } else {
-                currentPlayer = playerOne;
+
+            isWin = hiddenNumber == guessNumber;
+            if (!isWin) {
+                String hint = hiddenNumber > guessNumber ? 
+                        guessNumber + " меньше того, что загадал компьютер." : 
+                        guessNumber + " больше того, что загадал компьютер.";
+                System.out.println(hint);
             }
-        } while (hiddenNumber != guessNumber);
+            currentPlayer = currentPlayer.equals(playerOne) ? playerTwo : playerOne;
+        } while (!isWin);
         printWinner(hiddenNumber);
     }
 
