@@ -11,28 +11,20 @@ public class Main {
     }
 
     private static void callNotBooleanMethods(NotBooleanMethod notBooleanMethod) {
-        String theLongestWord = notBooleanMethod.findTheLongestWord();
-        System.out.print(theLongestWord); 
-        String menuItem = notBooleanMethod.chooseMenuItem();
-        System.out.print(menuItem); 
-        float avgMark = notBooleanMethod.avgMark();
-        System.out.print(avgMark); 
-        BigInteger numberUniqueWords = notBooleanMethod.countUniqueWords();
-        System.out.print(numberUniqueWords); 
+        notBooleanMethod.findTheLongestWord();
+        notBooleanMethod.chooseMenuItem();
+        notBooleanMethod.avgMark();
+        notBooleanMethod.countUniqueWords();
         notBooleanMethod.showMessage();
         notBooleanMethod.synchronizeWithCloud();
         notBooleanMethod.restoreData();
         notBooleanMethod.pauseDownloadFile();
         notBooleanMethod.resetToDefault();
         notBooleanMethod.writeFile();
-        float temperature = notBooleanMethod.fromCelsiusToFahrenheit();
-        System.out.print(temperature); 
-        String mathExpression = notBooleanMethod.inputMathExpression();
-        System.out.print(mathExpression); 
-        String winner = notBooleanMethod.identifyWinner();
-        System.out.print(winner); 
-        String book = notBooleanMethod.findBookByAuthor();
-        System.out.print(book); 
+        notBooleanMethod.fromCelsiusToFahrenheit();
+        notBooleanMethod.inputMathExpression();
+        notBooleanMethod.identifyWinner();
+        notBooleanMethod.findBookByAuthor();
         notBooleanMethod.saveClipboardToFile();
     }
 

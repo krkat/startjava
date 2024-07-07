@@ -3,25 +3,25 @@ import java.math.BigInteger;
 public class NotBooleanMethod {
     public String findTheLongestWord() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> "); 
-        System.out.print("найти самое длинное слово в предложении из книги по Java: ");
+        System.out.print("найти самое длинное слово в предложении из книги по Java ");
         return "документация";
     }
 
     public String chooseMenuItem() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> "); 
-        System.out.print("выбрать пункт меню в текстовом редакторе на macOS: ");
+        System.out.print("выбрать пункт меню в текстовом редакторе на macOS ");
         return "File";
     }
 
     public float avgMark() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> "); 
-        System.out.print("вычислить среднее значение оценок в школе №1234: ");
+        System.out.print("вычислить среднее значение оценок в школе №1234 ");
         return 4f;
     }
 
     public BigInteger countUniqueWords() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> "); 
-        System.out.print("подсчитать количество уникальных слов в \"Война и Мир\": ");
+        System.out.print("подсчитать количество уникальных слов в \"Война и Мир\" ");
         return BigInteger.valueOf(3000);
     }
 
@@ -57,25 +57,25 @@ public class NotBooleanMethod {
     
     public float fromCelsiusToFahrenheit() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> ");
-        System.out.print("преобразовать температуру из Цельсия в Фаренгейт: ");
+        System.out.print("преобразовать температуру из Цельсия в Фаренгейт ");
         return 451f;
     }
 
     public String inputMathExpression() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> ");
-        System.out.print("ввести математическое выражение с тремя аргументами: ");
+        System.out.print("ввести математическое выражение с тремя аргументами ");
         return "a + b + c";
     }
     
     public String identifyWinner() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> ");
-        System.out.print("выявить победителя среди гонщиков игры \"Need For Speed\": ");
+        System.out.print("выявить победителя среди гонщиков игры \"Need For Speed\" ");
         return "Peter";
     }
     
     public String findBookByAuthor() {
         System.out.print("\n" + NameMethod.extractMethodName() + "() -> ");
-        System.out.print("найти книгу по имени писателя: ");
+        System.out.print("найти книгу по имени писателя ");
         return "Война и мир";
     }
 
