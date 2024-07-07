@@ -46,7 +46,7 @@ public class Calculator {
                     System.out.println("Ошибка: деление на ноль запрещено");
                     return;
                 }
-                result = divide(x, y, sign);
+                result = divOrMod();
                 break;
             default:
                 System.out.println("Ошибка: операция не поддерживается.");
@@ -60,13 +60,10 @@ public class Calculator {
         for (int i = 1; i <= Math.abs(y); i++) {
             result *= x;
         }
-        if (y < 0) {
-            result = 1 / result;
-        }
-        return result;
+        return y >= 0 ? result : 1 / result;
     }
 
-    private double divide(int x, int y, char sign) {
+    private double divOrMod() {
         return sign == '/' ? (double) x / y : x % y;
     }
 }
