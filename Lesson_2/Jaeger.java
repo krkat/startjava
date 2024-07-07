@@ -29,16 +29,8 @@ public class Jaeger {
         this.modelName = modelName;
     }
 
-    public String getMark() {
-        return mark;
-    }
-
     public void setMark(String mark) {
         this.mark = mark;
-    }
-
-    public String getOrigin() {
-        return origin;
     }
 
     public void setOrigin(String origin) {
@@ -61,16 +53,8 @@ public class Jaeger {
         this.weight = weight;
     }
 
-    public int getStrength() {
-        return strength;
-    }
-
     public void setStrength(int strength) {
         this.strength = strength;
-    }
-
-    public int getArmor() {
-        return armor;
     }
 
     public void setArmor(int armor) {
