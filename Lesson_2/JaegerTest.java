@@ -8,7 +8,9 @@ public class JaegerTest {
         crimsonTyphoon.setWeight(38.9f);
         crimsonTyphoon.setStrength(8);
         crimsonTyphoon.setArmor(6);
+        
         Jaeger strikerEureka = new Jaeger("Striker Eureka", "Mark-5", "Australia", 76.2f, 41.79f, 10, 9);
+        
         System.out.println(crimsonTyphoon.getModelName() + " - это Jaeger ростом " + 
                 crimsonTyphoon.getHeight() + "м и весом " + crimsonTyphoon.getWeight() + "т.");
         System.out.println(strikerEureka.getModelName() + " - это Jaeger ростом " + 

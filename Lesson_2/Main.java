@@ -2,52 +2,52 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-        NotBooleanMethod notBooleanMethod = new NotBooleanMethod();
-        callNotBooleanMethods(notBooleanMethod);
+        NotBooleanMethods notBooleanMethods = new NotBooleanMethods();
+        callNotBooleanMethods(notBooleanMethods);
         System.out.println();
 
-        BooleanMethod booleanMethod = new BooleanMethod();
-        callBooleanMethods(booleanMethod);
+        BooleanMethods booleanMethods = new BooleanMethods();
+        callBooleanMethods(booleanMethods);
     }
 
-    private static void callNotBooleanMethods(NotBooleanMethod notBooleanMethod) {
-        notBooleanMethod.findTheLongestWord();
-        notBooleanMethod.chooseMenuItem();
-        notBooleanMethod.avgMark();
-        notBooleanMethod.countUniqueWords();
-        notBooleanMethod.showMessage();
-        notBooleanMethod.synchronizeWithCloud();
-        notBooleanMethod.restoreData();
-        notBooleanMethod.pauseDownloadFile();
-        notBooleanMethod.resetToDefault();
-        notBooleanMethod.writeFile();
-        notBooleanMethod.fromCelsiusToFahrenheit();
-        notBooleanMethod.inputMathExpression();
-        notBooleanMethod.identifyWinner();
-        notBooleanMethod.findBookByAuthor();
-        notBooleanMethod.saveClipboardToFile();
+    private static void callNotBooleanMethods(NotBooleanMethods notBooleanMethods) {
+        notBooleanMethods.findTheLongestWord();
+        notBooleanMethods.chooseMenuItem();
+        notBooleanMethods.avgMark();
+        notBooleanMethods.countUniqueWords();
+        notBooleanMethods.showMessage();
+        notBooleanMethods.synchronizeWithCloud();
+        notBooleanMethods.restoreData();
+        notBooleanMethods.pauseDownloadFile();
+        notBooleanMethods.resetToDefault();
+        notBooleanMethods.writeFile();
+        notBooleanMethods.fromCelsiusToFahrenheit();
+        notBooleanMethods.inputMathExpression();
+        notBooleanMethods.identifyWinner();
+        notBooleanMethods.findBookByAuthor();
+        notBooleanMethods.saveClipboardToFile();
     }
 
-    private static void callBooleanMethods(BooleanMethod booleanMethod) {
-        boolean result = booleanMethod.canProgramContinue();
+    private static void callBooleanMethods(BooleanMethods booleanMethods) {
+        boolean result = booleanMethods.canProgramContinue();
         System.out.print(result); 
-        result = booleanMethod.isDeletedFile();
+        result = booleanMethods.isDeletedFile();
         System.out.print(result);
-        result = booleanMethod.hasUniqueDigit();
+        result = booleanMethods.hasUniqueDigit();
         System.out.print(result);
-        result = booleanMethod.isLetter();
+        result = booleanMethods.isLetter();
         System.out.print(result);
-        result = booleanMethod.hasEqualDigits();
+        result = booleanMethods.hasEqualDigits();
         System.out.print(result);
-        result = booleanMethod.hasAttempt();
+        result = booleanMethods.hasAttempt();
         System.out.print(result);
-        result = booleanMethod.isNullOrHasJustSpacesString();
+        result = booleanMethods.isNullOrHasJustSpacesString();
         System.out.print(result);
-        result = booleanMethod.isEven();
+        result = booleanMethods.isEven();
         System.out.print(result);
-        result = booleanMethod.isValidPath();
+        result = booleanMethods.isValidPath();
         System.out.print(result);
-        result = booleanMethod.isExistFile();
+        result = booleanMethods.isExistFile();
         System.out.print(result);
     }
 }
