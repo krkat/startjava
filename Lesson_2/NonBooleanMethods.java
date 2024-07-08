@@ -1,6 +1,6 @@
 import java.math.BigInteger;
 
-public class NotBooleanMethods {
+public class NonBooleanMethods {
     public void findLongestWord() {
         System.out.print("\n" + MethodNameUtil.get() + 
                 "() -> найти самое длинное слово в предложении из книги по Java ");
@@ -21,16 +21,16 @@ public class NotBooleanMethods {
                 "() -> подсчитать количество уникальных слов в \"Война и Мир\" ");
     }
 
-    public void showMessage() {
+    public void showErrorMessage() {
         System.out.print("\n" + MethodNameUtil.get() + "() -> вывести сообщение об ошибке ");
     }
 
-    public void synchronizeWithCloud() {
+    public void syncWithCloud() {
         System.out.print("\n" + MethodNameUtil.get() + 
                 "() -> синхронизировать данные с облачным хранилищем ");
     }
 
-    public void restoreData() {
+    public void restoreBackup() {
         System.out.print("\n" + MethodNameUtil.get() + 
                 "() -> восстановить данные из резервной копии от 11.03.2024 ");
     }

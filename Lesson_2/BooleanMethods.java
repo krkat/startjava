@@ -32,7 +32,7 @@ public class BooleanMethods {
         return true;
     }
 
-    public boolean isNullOrHasJustSpacesString() {
+    public boolean isEmpty() {
         System.out.print("\n" + MethodNameUtil.get() + 
                 "() -> пользователь ввёл пустую строку или из одних пробелов? ");
         return false;

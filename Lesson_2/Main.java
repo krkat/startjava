@@ -2,28 +2,28 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-        doNotBooleanMethods();
+        doNonBooleanMethods();
         doBooleanMethods();
     }
 
-    private static void doNotBooleanMethods() {
-        NotBooleanMethods notBm = new NotBooleanMethods();
+    private static void doNonBooleanMethods() {
+        NonBooleanMethods nonBm = new NonBooleanMethods();
         
-        notBm.findLongestWord();
-        notBm.chooseMenuItem();
-        notBm.avgMark();
-        notBm.countUniqueWords();
-        notBm.showMessage();
-        notBm.synchronizeWithCloud();
-        notBm.restoreData();
-        notBm.pauseDownloadFile();
-        notBm.resetToDefault();
-        notBm.writeFile();
-        notBm.fromCelsiusToFahrenheit();
-        notBm.inputMathExpression();
-        notBm.identifyWinner();
-        notBm.findBookByAuthor();
-        notBm.saveClipboardToFile();
+        nonBm.findLongestWord();
+        nonBm.chooseMenuItem();
+        nonBm.avgMark();
+        nonBm.countUniqueWords();
+        nonBm.showErrorMessage();
+        nonBm.syncWithCloud();
+        nonBm.restoreBackup();
+        nonBm.pauseDownloadFile();
+        nonBm.resetToDefault();
+        nonBm.writeFile();
+        nonBm.fromCelsiusToFahrenheit();
+        nonBm.inputMathExpression();
+        nonBm.identifyWinner();
+        nonBm.findBookByAuthor();
+        nonBm.saveClipboardToFile();
         System.out.println();
     }
 
@@ -36,7 +36,7 @@ public class Main {
         System.out.print(bm.isLetter());
         System.out.print(bm.hasEqualDigits());
         System.out.print(bm.hasAttempt());
-        System.out.print(bm.isNullOrHasJustSpacesString());
+        System.out.print(bm.isEmpty());
         System.out.print(bm.isEven());
         System.out.print(bm.isValidPath());
         System.out.print(bm.isExistFile());
