@@ -13,30 +13,29 @@ public class GuessNumber {
     public void play(Scanner scanner) {
         int hiddenNumber = (int) (Math.random() * 100) + 1;
         Player currentPlayer = playerOne;
-        boolean isWin = false;
         System.out.println(); 
         do {
             System.out.print("Ход " + currentPlayer.getName() + ": ");
-            int guessNumber = guessNumber(scanner, currentPlayer);
-            isWin = hiddenNumber == guessNumber;
-            if (!isWin) {
-                checkNumber(hiddenNumber, guessNumber);
+            if (!guessNumber(scanner, currentPlayer, hiddenNumber)) {
+                checkNumber(hiddenNumber, currentPlayer.getNumber());
                 currentPlayer = currentPlayer.equals(playerOne) ? playerTwo : playerOne;
+            } else {
+                break;
             }
-        } while (!isWin);
+        } while (true);
         printWinner(currentPlayer);
     }
 
-    private int guessNumber(Scanner scanner, Player player) {
+    private boolean guessNumber(Scanner scanner, Player player, int hiddenNumber) {
         int guessNumber = scanner.nextInt();
         scanner.nextLine();
         player.setNumber(guessNumber);
-        return guessNumber;
+        return hiddenNumber == guessNumber;
     }
 
     private void checkNumber(int hiddenNumber, int guessNumber) {
-        String hint = hiddenNumber > guessNumber ? " меньше" : " больше";
-        System.out.println(guessNumber + hint + " того, что загадал компьютер.");            
+        System.out.println(guessNumber + (hiddenNumber > guessNumber ? " меньше" : " больше") + 
+                " того, что загадал компьютер.");            
     }
 
     private void printWinner(Player winner) {

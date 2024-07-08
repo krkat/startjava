@@ -2,52 +2,43 @@ import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) {
-        NotBooleanMethods notBooleanMethods = new NotBooleanMethods();
-        callNotBooleanMethods(notBooleanMethods);
+        doNotBooleanMethods();
+        doBooleanMethods();
+    }
+
+    private static void doNotBooleanMethods() {
+        NotBooleanMethods notBm = new NotBooleanMethods();
+        
+        notBm.findLongestWord();
+        notBm.chooseMenuItem();
+        notBm.avgMark();
+        notBm.countUniqueWords();
+        notBm.showMessage();
+        notBm.synchronizeWithCloud();
+        notBm.restoreData();
+        notBm.pauseDownloadFile();
+        notBm.resetToDefault();
+        notBm.writeFile();
+        notBm.fromCelsiusToFahrenheit();
+        notBm.inputMathExpression();
+        notBm.identifyWinner();
+        notBm.findBookByAuthor();
+        notBm.saveClipboardToFile();
         System.out.println();
-
-        BooleanMethods booleanMethods = new BooleanMethods();
-        callBooleanMethods(booleanMethods);
     }
 
-    private static void callNotBooleanMethods(NotBooleanMethods notBooleanMethods) {
-        notBooleanMethods.findTheLongestWord();
-        notBooleanMethods.chooseMenuItem();
-        notBooleanMethods.avgMark();
-        notBooleanMethods.countUniqueWords();
-        notBooleanMethods.showMessage();
-        notBooleanMethods.synchronizeWithCloud();
-        notBooleanMethods.restoreData();
-        notBooleanMethods.pauseDownloadFile();
-        notBooleanMethods.resetToDefault();
-        notBooleanMethods.writeFile();
-        notBooleanMethods.fromCelsiusToFahrenheit();
-        notBooleanMethods.inputMathExpression();
-        notBooleanMethods.identifyWinner();
-        notBooleanMethods.findBookByAuthor();
-        notBooleanMethods.saveClipboardToFile();
-    }
+    private static void doBooleanMethods() {
+        BooleanMethods bm = new BooleanMethods();
 
-    private static void callBooleanMethods(BooleanMethods booleanMethods) {
-        boolean result = booleanMethods.canProgramContinue();
-        System.out.print(result); 
-        result = booleanMethods.isDeletedFile();
-        System.out.print(result);
-        result = booleanMethods.hasUniqueDigit();
-        System.out.print(result);
-        result = booleanMethods.isLetter();
-        System.out.print(result);
-        result = booleanMethods.hasEqualDigits();
-        System.out.print(result);
-        result = booleanMethods.hasAttempt();
-        System.out.print(result);
-        result = booleanMethods.isNullOrHasJustSpacesString();
-        System.out.print(result);
-        result = booleanMethods.isEven();
-        System.out.print(result);
-        result = booleanMethods.isValidPath();
-        System.out.print(result);
-        result = booleanMethods.isExistFile();
-        System.out.print(result);
+        System.out.print(bm.canProgramContinue()); 
+        System.out.print(bm.isDeletedFile());
+        System.out.print(bm.hasUniqueDigit());
+        System.out.print(bm.isLetter());
+        System.out.print(bm.hasEqualDigits());
+        System.out.print(bm.hasAttempt());
+        System.out.print(bm.isNullOrHasJustSpacesString());
+        System.out.print(bm.isEven());
+        System.out.print(bm.isValidPath());
+        System.out.print(bm.isExistFile());
     }
 }
