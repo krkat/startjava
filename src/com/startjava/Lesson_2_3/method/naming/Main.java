@@ -1,3 +1,5 @@
+package com.startjava.lesson_2_3.method.naming;
+
 import java.math.BigInteger;
 
 public class Main {
