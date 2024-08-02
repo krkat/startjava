@@ -41,10 +41,14 @@ public class SortPyramidSymbols {
     }
 
     private static void reverse(char[] symbols) {
-        for (int i = 0; i < symbols.length / 2; i++) {
+        int i = 0;
+        int j = symbols.length - 1;
+        while (i < j) {
             char swap = symbols[i];
-            symbols[i] = symbols[symbols.length - 1 - i];
-            symbols[symbols.length - 1 - i] = swap;
+            symbols[i] = symbols[j];
+            symbols[j] = swap;
+            i++;
+            j--;
         }
     }
 
