@@ -2,7 +2,7 @@ package com.startjava.lesson_2_3.array;
 
 import java.util.Arrays;
 
-public class ReverserValues {
+public class Reverser {
     public static void main(String[] args) {
         reverse(null);
         reverse(new int[0]);
@@ -21,20 +21,20 @@ public class ReverserValues {
         if (ints == null || ints.length == 0) {
             return ints;
         }
-        int length = ints.length;
-        for (int i = 0; i < length / 2; i++) {
+        int i = 0;
+        int j = ints.length - 1;
+        while (i < j) {
             int swap = ints[i];
-            ints[i] = ints[length - i - 1];
-            ints[length - i - 1] = swap;
+            ints[i] = ints[j];
+            ints[j] = swap;
+            i++;
+            j--;
         }
         return ints;
     }
 
     private static void output(int[] ints) {
-        if (ints == null) {
-            System.out.println("null");
-            return;
-        }
-        System.out.println(Arrays.toString(ints));
+        String output = ints == null ? "null" : Arrays.toString(ints);
+        System.out.println(output);
     }
 }
