@@ -21,20 +21,14 @@ public class Reverser {
         if (ints == null || ints.length == 0) {
             return ints;
         }
-        int i = 0;
-        int j = ints.length - 1;
-        while (i < j) {
-            int swap = ints[i];
-            ints[i] = ints[j];
-            ints[j] = swap;
-            i++;
-            j--;
+        int[] result = new int[ints.length];
+        for (int length = ints.length; length > 0; length--) {
+            result[length-1] = ints[ints.length - length];
         }
-        return ints;
+        return result;
     }
 
     private static void output(int[] ints) {
-        String output = ints == null ? "null" : Arrays.toString(ints);
-        System.out.println(output);
+        System.out.println(ints == null ? "null" : Arrays.toString(ints));
     }
 }
