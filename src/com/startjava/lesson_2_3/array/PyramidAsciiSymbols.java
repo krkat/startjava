@@ -1,10 +1,10 @@
 package com.startjava.lesson_2_3.array;
 
-public class SortPyramidSymbols {
+public class PyramidAsciiSymbols {
     public static void main(String[] args) {
-        sort('0','9',true);
-        sort('/','!',false);
-        sort('A','J',false);
+        sort('0', '9', true);
+        sort('/', '!', false);
+        sort('A', 'J', false);
     }
 
     private static void sort(char start, char end, boolean asc) {
@@ -35,21 +35,17 @@ public class SortPyramidSymbols {
             symbols[i] = (char) (i + start);
         }
         if (!asc) {
-            reverse(symbols);
+            symbols = reverse(symbols);
         }
         return symbols;
     }
 
-    private static void reverse(char[] symbols) {
-        int i = 0;
-        int j = symbols.length - 1;
-        while (i < j) {
-            char swap = symbols[i];
-            symbols[i] = symbols[j];
-            symbols[j] = swap;
-            i++;
-            j--;
+    private static char[] reverse(char[] symbols) {
+        char[] result = new char[symbols.length];
+        for (int length = symbols.length; length > 0; length--) {
+            result[length - 1] = symbols[symbols.length - length];
         }
+        return result;
     }
 
     private static int calcWidth(int lines) {
