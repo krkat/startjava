@@ -8,33 +8,30 @@ public class PyramidAsciiSymbols {
     }
 
     private static void sort(char start, char end, boolean asc) {
-        int lines = Math.abs(end - start) + 1;
         char[] symbols = copyFromChart(start, end, asc);
-        int widthPyramidBase = calcWidth(lines);
-        int widthSymbolLine = widthPyramidBase;
+        int lines = symbols.length;
+        int widthSymbolLine = lines * 2 - 1;
         String[] pyramid = new String[lines];
-        for (char i = 0; i < symbols.length; i++) {
+        for (char i = 0; i < lines; i++) {
             char currentSymbol = symbols[i];
-            String space = buildSpaceLine(widthPyramidBase, widthSymbolLine);
-            String symbolLine = buildSymbolLine(currentSymbol, widthSymbolLine);
+            pyramid[i] = buildSymbolLine(currentSymbol, widthSymbolLine);
             widthSymbolLine -= 2;
-            pyramid[i] = buildLine(space, symbolLine);
         }
         output(pyramid);
     }
 
     private static char[] copyFromChart(char start, char end, boolean asc) {
         int lines = Math.abs(end - start) + 1;
-        if (end < start) {
-            char swap = end;
-            end = start;
-            start = swap;
-        }
+        int sign = start <= end ? 1 : -1;
         char[] symbols = new char[lines];
-        for (char i = 0; i < lines; i++) {
-            symbols[i] = (char) (i + start);
+        int i = 0;
+        while (start != end) {
+            symbols[i] = start;
+            start += (char) sign;
+            i++;
         }
-        if (!asc) {
+        symbols[i] = start;
+        if ((symbols[0] < symbols[lines - 1] && !asc) || (symbols[0] > symbols[lines - 1] && asc)) {
             symbols = reverse(symbols);
         }
         return symbols;
@@ -48,38 +45,23 @@ public class PyramidAsciiSymbols {
         return result;
     }
 
-    private static int calcWidth(int lines) {
-        int width = 1;
-        for (char i = 1; i < lines; i++) {
-            width += 2;
-        }
-        return width;
-    }
-
-    private static String buildSpaceLine(int widthPyramid, int widthLine) {
-        int spaceLength = (widthPyramid - widthLine) / 2;
-        StringBuilder spaceBuilder = new StringBuilder();
-        for (int j = 0; j < spaceLength; j++) {
-            spaceBuilder.append(" ");
-        }
-        return spaceBuilder.toString();
-    }
-
     private static String buildSymbolLine(char symbol, int width) {
-        StringBuilder sb = new StringBuilder(symbol);
+        StringBuilder sb = new StringBuilder();
         for (char j = 0; j < width; j++) {
             sb.append(symbol);
         }
         return sb.toString();
     }
 
-    private static String buildLine(String space, String symbols) {
-        return new StringBuilder().append(space).append(symbols).append(space).toString();
-    }
-
     private static void output(String[] pyramid) {
-        for (int i = pyramid.length - 1; i >= 0 ; i--) {
-            System.out.println(pyramid[i]);
+        int widthBase = pyramid.length * 2 - 1;
+        for (int i = pyramid.length - 1; i >= 0; i--) {
+            int lengthSpace = (widthBase - pyramid[i].length()) / 2;
+            StringBuilder spaceBuilder = new StringBuilder();
+            for (i = 0; i < lengthSpace; i++) {
+                spaceBuilder.append(" ");
+            }
+            System.out.printf("%s%s%n", spaceBuilder, pyramid[i]);
         }
         System.out.println();
     }
