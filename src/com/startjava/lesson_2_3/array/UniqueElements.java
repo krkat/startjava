@@ -4,13 +4,13 @@ import java.util.Arrays;
 
 public class UniqueElements {
     public static void main(String[] args) {
-        method(-10, 20, 23);
-        method(-30, 10, 10);
-        method(34, -34, 0);
-        method(-1, 2, -3);
+        print(-10, 20, 23);
+        print(-30, 10, 10);
+        print(34, -34, 0);
+        print(-1, 2, -3);
     }
 
-    private static void method(int start, int end, int elementsInLine) {
+    private static void print(int start, int end, int elementsInLine) {
         System.out.printf("Границы отрезка целых чисел: %d, %d%n", start, end);
         System.out.printf("Количество чисел, выводимых в строке консоли: %d%n", elementsInLine);
         if (elementsInLine <= 1) {
@@ -23,13 +23,13 @@ public class UniqueElements {
             System.out.printf("Ошибка: Длина массива должна быть больше 0 (%d)%n%n", length);
             return;
         }
-        int[] array = init(start, end, length);
-        output(array, elementsInLine);
+        int[] uniqueInts = init(start, end, length);
+        output(uniqueInts, elementsInLine);
         System.out.println();
     }
 
     private static int[] init(int start, int end, int length) {
-        int[] array = new int [length];
+        int[] uniqueInts = new int [length];
         int random;
         boolean isRepeat;
         for (int i = 0; i < length; i++) {
@@ -37,21 +37,21 @@ public class UniqueElements {
                 isRepeat = false;
                 random = (int) (Math.random() * length) + (Math.min(start, end));
                 for (int j = 0; j < i; j++) {
-                    if (array[j] == random) {
+                    if (uniqueInts[j] == random) {
                         isRepeat = true;
                         break;
                     }
                 }
             } while (isRepeat);
-            array[i] = random;
+            uniqueInts[i] = random;
         }
-        return array;
+        return uniqueInts;
     }
 
-    private static void output(int[] array, int elementsInLine) {
-        Arrays.sort(array);
+    private static void output(int[] ints, int elementsInLine) {
+        Arrays.sort(ints);
         for (int i = 0; i < elementsInLine; i++) {
-            System.out.print(array[i] + " ");
+            System.out.print(ints[i] + " ");
         }
         System.out.println();
     }
