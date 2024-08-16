@@ -14,19 +14,18 @@ public class Reverser {
         System.out.print("   До реверса: ");
         output(ints);
         System.out.print("После реверса: ");
-        output(reverseValues(ints));
+        reverseValues(ints);
+        output(ints);
     }
 
-    private static int[] reverseValues(int[] ints) {
-        if (ints == null || ints.length == 0) {
-            return ints;
+    private static void reverseValues(int[] ints) {
+        if (ints != null && ints.length != 0) {
+            for (int length = ints.length; length > ints.length / 2; length--) {
+                int swap = ints[length - 1];
+                ints[length - 1] = ints[ints.length - length];
+                ints[ints.length - length] = swap;
+            }
         }
-        for (int length = ints.length; length > ints.length / 2; length--) {
-            int swap = ints[length-1];
-            ints[length-1] = ints[ints.length - length];
-            ints[ints.length - length] = swap;
-        }
-        return ints;
     }
 
     private static void output(int[] ints) {
