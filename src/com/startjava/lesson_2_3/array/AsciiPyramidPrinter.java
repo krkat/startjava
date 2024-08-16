@@ -15,13 +15,14 @@ public class AsciiPyramidPrinter {
         int numberSpaces;
         for (char symbol : symbols) {
             numberSpaces = (widthPyramidBase - numberLineSymbols) / 2;
+            StringBuilder line = new StringBuilder();
             for (int j = 0; j < numberSpaces; j++) {
-                System.out.print(" ");
+                line.append(" ");
             }
             for (int j = 0; j < numberLineSymbols; j++) {
-                System.out.print(symbol);
+                line.append(symbol);
             }
-            System.out.println();
+            System.out.println(line);
             numberLineSymbols += 2;
         }
         System.out.println();
