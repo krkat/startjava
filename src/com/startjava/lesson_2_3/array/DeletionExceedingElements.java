@@ -17,20 +17,8 @@ public class DeletionExceedingElements {
 
     private static void deleteExceed(float[] original, int indexMaxValue) {
         System.out.println("\nИсходный массив: ");
-        customOutput(original);
+        output(original);
         deleteExceededElements(original, indexMaxValue);
-    }
-
-    private static void customOutput(float[] doubles) {
-        System.out.print("[");
-        for (int i = 0; i < doubles.length; i++) {
-            System.out.printf("%.3f", doubles[i]);
-            System.out.print(i != doubles.length - 1 ? ", " : "");
-            if (i == 7) {
-                System.out.println();
-            }
-        }
-        System.out.println("]");
     }
 
     private static void deleteExceededElements(float[] original, int indexMaxValue) {
@@ -50,7 +38,7 @@ public class DeletionExceedingElements {
         }
         System.out.println("Количество обнуленных ячеек: " + counterSetZero);
         System.out.println("Результирующий массив:");
-        customOutput(original);
+        output(original);
     }
 
     private static boolean isOutOfBounds(int index, int length) {
@@ -60,5 +48,14 @@ public class DeletionExceedingElements {
             return true;
         }
         return false;
+    }
+
+    private static void output(float[] doubles) {
+        for (int i = 0; i < doubles.length; i++) {
+            System.out.printf("%.3f", doubles[i]);
+            System.out.print(i != doubles.length - 1 ? ", " : "");
+            if (i == (doubles.length - 1) / 2) System.out.println();
+        }
+        System.out.println();
     }
 }
