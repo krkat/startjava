@@ -21,11 +21,12 @@ public class Reverser {
         if (ints == null || ints.length == 0) {
             return ints;
         }
-        int[] result = new int[ints.length];
-        for (int length = ints.length; length > 0; length--) {
-            result[length-1] = ints[ints.length - length];
+        for (int length = ints.length; length > ints.length / 2; length--) {
+            int swap = ints[length-1];
+            ints[length-1] = ints[ints.length - length];
+            ints[ints.length - length] = swap;
         }
-        return result;
+        return ints;
     }
 
     private static void output(int[] ints) {
