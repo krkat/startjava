@@ -4,15 +4,15 @@ import java.util.Arrays;
 
 public class FactorialElements {
     public static void main(String[] args) {
-        calcFactorial();
+        factorial();
         int[] a = null;
-        calcFactorial(a);
-        calcFactorial(8, 0, 9);
-        calcFactorial(-3, 1, 7, 13);
-        calcFactorial(-22, -0);
+        factorial(a);
+        factorial(8, 0, 9);
+        factorial(-3, 1, 7, 13);
+        factorial(-22, -0);
     }
 
-    private static void calcFactorial(int... ints) {
+    private static void factorial(int... ints) {
         if (ints == null) {
             System.out.println("\nОшибка! Исходный массив null");
             return;
