@@ -19,11 +19,12 @@ public class Reverser {
     }
 
     private static void reverseValues(int[] ints) {
-        if (ints != null && ints.length != 0) {
-            for (int length = ints.length; length > ints.length / 2; length--) {
-                int swap = ints[length - 1];
-                ints[length - 1] = ints[ints.length - length];
-                ints[ints.length - length] = swap;
+        if (ints != null) {
+            int len = ints.length;
+            for (int i = 0; i < len - 1; i++) {
+                int swap = ints[i];
+                ints[i] = ints[--len];
+                ints[len] = swap;
             }
         }
     }
