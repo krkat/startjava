@@ -6,43 +6,36 @@ import java.util.Scanner;
 public class GallowsGame {
     public static void main(String[] args) {
         String[] words = {"ОКНО", "ДВЕРЬ", "ШКАФ", "ЛАМПА", "ПОЛКА", "ГИТАРА"};
-        int index = (int) (Math.random() * 5);
-        play(words[index]);
+        play(words[(int) (Math.random() * 5)]);
     }
 
     private static void play(String riddleWord) {
         System.out.println("Игра \"Виселица\". Угадайте слово или будете повешены!");
         char[] guessWord = init(riddleWord.length());
-        printGuess(guessWord);
         char[] wrongLetters = new char[31];
         int counterEfforts = 0;
         boolean isWin = false;
+        printGuess(guessWord);
         try (Scanner scanner = new Scanner(System.in)) {
             while (true) {
-                System.out.print("Введите букву: ");
-                char letter = readLetter(scanner);
-                while (!isCyrillic(letter)) {
-                    System.out.print("Это не кириллическая заглавная буква. Повторите ввод: ");
-                    letter = readLetter(scanner);
-                }
+                char letter = readCyrillicLetter(scanner);
                 if (contains(guessWord, letter) ||
                         contains(wrongLetters, letter)) {
                     System.out.println("Эта буква вводилась ранее. Пожалуйста, повторите ввод.");
                     continue;
                 }
-                if (contains(riddleWord.toCharArray(), letter)) {
+                if (!contains(riddleWord.toCharArray(), letter)) {
+                    addWrongLetter(wrongLetters, letter);
+                    counterEfforts++;
+                } else {
                     addRightLetter(riddleWord, guessWord, letter);
-                    if (counterEfforts != 0) {
-                        counterEfforts--;
-                    }
                     if (checkEquals(riddleWord, guessWord)) {
                         isWin = true;
                         break;
                     }
-                } else {
-                    System.out.println("Такой буквы в слове нет.");
-                    addWrongLetter(wrongLetters, letter);
-                    counterEfforts++;
+                    if (counterEfforts != 0) {
+                        counterEfforts--;
+                    }
                 }
                 printGallows(counterEfforts);
                 if (counterEfforts == 6) {
@@ -72,6 +65,16 @@ public class GallowsGame {
             System.out.print(symbol);
         }
         System.out.println();
+    }
+
+    private static char readCyrillicLetter(Scanner scanner) {
+        System.out.print("Введите букву: ");
+        char letter = readLetter(scanner);
+        while (!isCyrillic(letter)) {
+            System.out.print("Это не кириллическая заглавная буква. Повторите ввод: ");
+            letter = readLetter(scanner);
+        }
+        return letter;
     }
 
     private static char readLetter(Scanner scanner) {
@@ -108,6 +111,7 @@ public class GallowsGame {
     }
 
     private static void addWrongLetter(char[] wrongLetters, char letter) {
+        System.out.println("Такой буквы в слове нет.");
         for (int i = 0; i < wrongLetters.length; i++) {
             if (wrongLetters[i] == 0) {
                 wrongLetters[i] = letter;
