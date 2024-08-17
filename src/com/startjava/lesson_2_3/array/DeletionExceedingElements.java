@@ -2,17 +2,18 @@ package com.startjava.lesson_2_3.array;
 
 public class DeletionExceedingElements {
     public static void main(String[] args) {
-        float[] randomFloats = new float[15];
-        initialize(randomFloats);
+        float[] randomFloats = init();
         for (int indexMaxValue : new int[]{-1, 15, 0, 14}) {
             deleteExceed(randomFloats, indexMaxValue);
         }
     }
 
-    private static void initialize(float[] randomFloats) {
+    private static float[] init() {
+        float[] randomFloats = new float[15];
         for (int i = 0; i < randomFloats.length; i++) {
             randomFloats[i] = (float) Math.random();
         }
+        return randomFloats;
     }
 
     private static void deleteExceed(float[] original, int indexMaxValue) {
