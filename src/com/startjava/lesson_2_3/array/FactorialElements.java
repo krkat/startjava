@@ -5,8 +5,7 @@ import java.util.Arrays;
 public class FactorialElements {
     public static void main(String[] args) {
         factorial();
-        int[] a = null;
-        factorial(a);
+        factorial((int[]) null);
         factorial(8, 0, 9);
         factorial(-3, 1, 7, 13);
         factorial(-22, -0);
@@ -35,11 +34,11 @@ public class FactorialElements {
             }
             System.out.print(anInt + "! = ");
             int factorial = 1;
-            if (anInt != 0 && anInt != 1) {
-                for (int j = 1; j <= anInt; j++) {
-                    System.out.print(j);
-                    factorial *= j;
-                    System.out.print(j != anInt ? " * " : " = ");
+            if (anInt > 1) {
+                for (int i = 1; i <= anInt; i++) {
+                    System.out.print(i);
+                    factorial *= i;
+                    System.out.print(i != anInt ? " * " : " = ");
                 }
             }
             System.out.println(factorial);
