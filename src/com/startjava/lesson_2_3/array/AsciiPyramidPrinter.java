@@ -19,18 +19,27 @@ public class AsciiPyramidPrinter {
         int widthPyramidBase = symbols.length * 2 - 1;
         int numberLineSymbols = 1;
         int numberSpaces;
-        for (char symbol : symbols) {
+        int s = asc ? end : start;
+        int e = asc ? start : end;
+        int increment = asc ? -1 : 1;
+        while (s != e) {
             numberSpaces = (widthPyramidBase - numberLineSymbols) / 2;
             StringBuilder line = new StringBuilder();
-            for (int j = 0; j < numberSpaces; j++) {
+            for (int i = 0; i < numberSpaces; i++) {
                 line.append(" ");
             }
-            for (int j = 0; j < numberLineSymbols; j++) {
-                line.append(symbol);
+            for (int i = 0; i < numberLineSymbols; i++) {
+                line.append(symbols[s - start]);
             }
             System.out.println(line);
             numberLineSymbols += 2;
+            s += increment;
         }
+        StringBuilder line = new StringBuilder();
+        for (int i = 0; i < numberLineSymbols; i++) {
+            line.append(symbols[s - start]);
+        }
+        System.out.println(line);
         System.out.println();
     }
 
@@ -39,18 +48,6 @@ public class AsciiPyramidPrinter {
         for (char i = start; i <= end; i++) {
             symbols[i - start] = i;
         }
-        if (asc) {
-            reverse(symbols);
-        }
         return symbols;
-    }
-
-    private static void reverse(char[] symbols) {
-        int len = symbols.length;
-        for (int i = 0; i < len - 1; i++) {
-            char swap = symbols[i];
-            symbols[i] = symbols[--len];
-            symbols[len] = swap;
-        }
     }
 }
