@@ -2,7 +2,7 @@ package com.startjava.lesson_2_3.array;
 
 import java.util.Arrays;
 
-public class UniqueElements {
+public class UniqueElementsFiller {
     public static void main(String[] args) {
         print(-10, 20, 23);
         print(-30, 10, 10);
@@ -14,17 +14,15 @@ public class UniqueElements {
     private static void print(int start, int end, int elementsInLine) {
         System.out.printf("%nГраницы отрезка целых чисел: %d, %d%n", start, end);
         System.out.printf("Количество чисел, выводимых в строке консоли: %d%n", elementsInLine);
-        boolean hasErrorsInputData = false;
         if (start > end) {
             System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n", start, end);
-            hasErrorsInputData = true;
+            return;
         }
         if (elementsInLine <= 1) {
             System.out.printf("Ошибка: Количество чисел в строке не может быть меньше 1 (%d)%n",
                     elementsInLine);
-            hasErrorsInputData = true;
+            return;
         }
-        if (hasErrorsInputData) return;
         int length = (int) ((end - start + 1) * 0.75);
         if (length <= 0) {
             System.out.printf("Ошибка: Длина массива должна быть больше 0 (%d)%n", length);
@@ -39,18 +37,18 @@ public class UniqueElements {
         int range = end - start + 1;
         int[] uniqueInts = new int [length];
         int random;
-        boolean isRepeat;
+        boolean isUnique;
         for (int i = 0; i < length; i++) {
             do {
-                isRepeat = false;
+                isUnique = true;
                 random = (int) (Math.random() * range) + start;
                 for (int j = 0; j < i; j++) {
                     if (uniqueInts[j] == random) {
-                        isRepeat = true;
+                        isUnique = false;
                         break;
                     }
                 }
-            } while (isRepeat);
+            } while (!isUnique);
             uniqueInts[i] = random;
         }
         return uniqueInts;
