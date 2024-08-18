@@ -3,9 +3,18 @@ package com.startjava.lesson_2_3.array;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class GallowsGame {
+public class HangmanGame {
+    private static final String[] GALLOWS = {"   _____",
+                                             "   |   |",
+                                             "   |  ( )",
+                                             "   |  /|\\",
+                                             "   |  / \\",
+                                             "  _|_"};
+
     public static void main(String[] args) {
-        String[] words = {"ОКНО", "ДВЕРЬ", "ШКАФ", "ЛАМПА", "ПОЛКА", "ГИТАРА"};
+        String[] words = {"ОКНО", "ДВЕРЬ", "ШКАФ", "ЛАМПА", "ПОЛКА", "ГИТАРА", "ЦВЕТОК",
+                "ДИВАН", "СТОЛ", "КРЕСЛО", "МАШИНА", "СОЛНЦЕ", "РАДУГА", "ДОЖДЬ"};
+
         play(words[(int) (Math.random() * 5)]);
     }
 
@@ -29,7 +38,7 @@ public class GallowsGame {
                     counterEfforts++;
                 } else {
                     addRightLetter(riddleWord, guessWord, letter);
-                    if (checkEquals(riddleWord, guessWord)) {
+                    if (isEquals(riddleWord, guessWord)) {
                         isWin = true;
                         break;
                     }
@@ -47,8 +56,6 @@ public class GallowsGame {
                 printGuess(guessWord);
                 printWrongLetters(wrongLetters);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         showMessage(isWin, riddleWord);
     }
@@ -105,7 +112,7 @@ public class GallowsGame {
         }
     }
 
-    private static boolean checkEquals(String word, char[] guessWord) {
+    private static boolean isEquals(String word, char[] guessWord) {
         String guess = new String(guessWord);
         return word.equals(guess);
     }
@@ -121,10 +128,8 @@ public class GallowsGame {
     }
 
     private static void printGallows(int step) {
-        String[] gallows = {"   ____", "   |   |", "   |   ()", "   |   /|\\",
-                "   |   / \\", "  _|_"};
         for (int i = 0; i < step; i++) {
-            System.out.println(gallows[i]);
+            System.out.println(GALLOWS[i]);
         }
         System.out.println();
     }
