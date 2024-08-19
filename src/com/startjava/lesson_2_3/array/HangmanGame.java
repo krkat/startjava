@@ -15,7 +15,7 @@ public class HangmanGame {
         String[] words = {"ОКНО", "ДВЕРЬ", "ШКАФ", "ЛАМПА", "ПОЛКА", "ГИТАРА", "ЦВЕТОК",
                 "ДИВАН", "СТОЛ", "КРЕСЛО", "МАШИНА", "СОЛНЦЕ", "РАДУГА", "ДОЖДЬ"};
 
-        play(words[(int) (Math.random() * 5)]);
+        play(words[(int) (Math.random() * words.length)]);
     }
 
     private static void play(String riddleWord) {
