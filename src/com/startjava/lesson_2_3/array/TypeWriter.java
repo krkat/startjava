@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class TypeWriter {
     public static void main(String[] args) {
+        print(" . ");
         print("Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling");
         print("Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
@@ -30,7 +31,7 @@ public class TypeWriter {
 
     private static String[] extractWords(String text) {
         String[] words = text.split("[^a-zA-Zа-яА-Я+]+");
-        if (words[0].isEmpty()) {
+        if (words.length != 0 && words[0].isEmpty()) {
             words = Arrays.copyOfRange(words, 1, words.length);
         }
         return words;
@@ -41,11 +42,11 @@ public class TypeWriter {
     }
 
     private static String[] concat(String[] delimiters, String[] words) {
-        if (delimiters == null || delimiters.length == 0) {
-            return words;
-        }
         if (words == null || words.length == 0) {
             return delimiters;
+        }
+        if (delimiters == null || delimiters.length == 0) {
+            return words;
         }
         String[] result = new String[delimiters.length + words.length];
         int indexResult = 0;
@@ -70,6 +71,9 @@ public class TypeWriter {
     }
 
     private static String findMinOrMax(String[] words, boolean findMax) {
+        if (words.length == 0) {
+            return null;
+        }
         String result = words[0];
         for (String word : words) {
             if (findMax ? word.length() > result.length() : word.length() < result.length()) {
@@ -96,7 +100,7 @@ public class TypeWriter {
         for (char symbol : word.toCharArray()) {
             try {
                 System.out.print(symbol);
-                Thread.sleep(100);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 System.exit(1);
             }
