@@ -1,10 +1,9 @@
 package com.startjava.lesson_2_3.array;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class HangmanGame {
-    private static final String[] GALLOWS = {"   _____",
+    private static final String[] gallows = {"   _____",
                                              "   |   |",
                                              "   |  ( )",
                                              "   |  /|\\",
@@ -14,139 +13,108 @@ public class HangmanGame {
     public static void main(String[] args) {
         String[] words = {"ОКНО", "ДВЕРЬ", "ШКАФ", "ЛАМПА", "ПОЛКА", "ГИТАРА", "ЦВЕТОК",
                 "ДИВАН", "СТОЛ", "КРЕСЛО", "МАШИНА", "СОЛНЦЕ", "РАДУГА", "ДОЖДЬ"};
-
         play(words[(int) (Math.random() * words.length)]);
     }
 
     private static void play(String riddleWord) {
         System.out.println("Игра \"Виселица\". Угадайте слово или будете повешены!");
-        char[] guessWord = init(riddleWord.length());
-        char[] wrongLetters = new char[31];
+        String guessWord = init(riddleWord.length());
+        String wrongLetters = "";
+        int totalEfforts = gallows.length;
         int counterEfforts = 0;
         boolean isWin = false;
-        printGuess(guessWord);
+        boolean hasEfforts = true;
         try (Scanner scanner = new Scanner(System.in)) {
-            while (true) {
-                char letter = readCyrillicLetter(scanner);
-                if (contains(guessWord, letter) ||
-                        contains(wrongLetters, letter)) {
+            while (!isWin && hasEfforts) {
+                printGuess(guessWord);
+                printWrongLetters(wrongLetters);
+                char letter = inputCyrillicLetter(scanner);
+                while (guessWord.contains(Character.toString(letter)) ||
+                        wrongLetters.contains(Character.toString(letter))) {
                     System.out.println("Эта буква вводилась ранее. Пожалуйста, повторите ввод.");
-                    continue;
+                    letter = inputCyrillicLetter(scanner);
                 }
-                if (!contains(riddleWord.toCharArray(), letter)) {
-                    addWrongLetter(wrongLetters, letter);
+                if (!riddleWord.contains(Character.toString(letter))) {
+                    wrongLetters = addWrongLetter(wrongLetters, letter);
                     counterEfforts++;
                 } else {
-                    addRightLetter(riddleWord, guessWord, letter);
-                    if (isEquals(riddleWord, guessWord)) {
+                    guessWord = addRightLetter(riddleWord, guessWord, letter);
+                    if (riddleWord.equals(guessWord)) {
                         isWin = true;
-                        break;
                     }
                     if (counterEfforts != 0) {
                         counterEfforts--;
                     }
                 }
                 printGallows(counterEfforts);
-                if (counterEfforts == 6) {
-                    break;
-                } else {
-                    System.out.printf("Осталось попыток: %d%n", 6 - counterEfforts);
-                }
+                hasEfforts = totalEfforts > counterEfforts;
+                System.out.printf("Осталось попыток: %d%n", totalEfforts - counterEfforts);
                 System.out.println();
-                printGuess(guessWord);
-                printWrongLetters(wrongLetters);
             }
         }
-        showMessage(isWin, riddleWord);
+        showFinalMessage(isWin, riddleWord);
     }
 
-    private static char[] init(int length) {
-        char[] guess = new char[length];
-        Arrays.fill(guess, '*');
-        return guess;
-    }
-
-    private static void printGuess(char[] guess) {
-        System.out.print("Угадайте слово: ");
-        for (char symbol : guess) {
-            System.out.print(symbol);
+    private static String init(int length) {
+        StringBuilder builder = new StringBuilder();
+        while (length > 0) {
+            builder.append("*");
+            length--;
         }
-        System.out.println();
+        return builder.toString();
     }
 
-    private static char readCyrillicLetter(Scanner scanner) {
+    private static void printGuess(String guessWord) {
+        System.out.printf("Угадайте слово: %s%n", guessWord);
+    }
+
+    private static char inputCyrillicLetter(Scanner scanner) {
         System.out.print("Введите букву: ");
-        char letter = readLetter(scanner);
+        char letter = inputLetter(scanner);
         while (!isCyrillic(letter)) {
             System.out.print("Это не кириллическая заглавная буква. Повторите ввод: ");
-            letter = readLetter(scanner);
+            letter = inputLetter(scanner);
         }
         return letter;
     }
 
-    private static char readLetter(Scanner scanner) {
-        char letter = scanner.next().charAt(0);
-        scanner.nextLine();
-        return letter;
+    private static char inputLetter(Scanner scanner) {
+        return scanner.nextLine().charAt(0);
     }
 
     private static boolean isCyrillic(char letter) {
         return letter >= 'А' && letter <= 'Я';
     }
 
-    private static boolean contains(char[] symbols, char letter) {
-        for (char symbol : symbols) {
-            if (symbol == letter) {
-                return true;
+    private static String addRightLetter(String riddleWord, String guessWord, char letter) {
+        char[] guessLetters = guessWord.toCharArray();
+        for (int i = 0; i < riddleWord.length(); i++) {
+            if (riddleWord.charAt(i) == letter) {
+                guessLetters[i] = letter;
             }
         }
-        return false;
+        return new String(guessLetters);
     }
 
-    private static void addRightLetter(String word, char[] guess, char letter) {
-        char[] wordLetters = word.toCharArray();
-        for (int i = 0; i < wordLetters.length; i++) {
-            if (wordLetters[i] == letter) {
-                guess[i] = letter;
-            }
-        }
-    }
-
-    private static boolean isEquals(String word, char[] guessWord) {
-        String guess = new String(guessWord);
-        return word.equals(guess);
-    }
-
-    private static void addWrongLetter(char[] wrongLetters, char letter) {
+    private static String addWrongLetter(String wrongLetters, char letter) {
         System.out.println("Такой буквы в слове нет.");
-        for (int i = 0; i < wrongLetters.length; i++) {
-            if (wrongLetters[i] == 0) {
-                wrongLetters[i] = letter;
-                break;
-            }
-        }
+        return wrongLetters + letter + " ";
     }
 
     private static void printGallows(int step) {
         for (int i = 0; i < step; i++) {
-            System.out.println(GALLOWS[i]);
+            System.out.println(gallows[i]);
         }
         System.out.println();
     }
 
-    private static void printWrongLetters(char[] wrongLetters) {
-        if (wrongLetters[0] != 0) {
-            System.out.print("Буквы, которых нет в слове: ");
-            for (char letter : wrongLetters) {
-                if (letter != 0) {
-                    System.out.print(letter + " ");
-                }
-            }
-            System.out.println();
+    private static void printWrongLetters(String wrongLetters) {
+        if (!wrongLetters.isEmpty()) {
+            System.out.printf("Буквы, которых нет в слове: %s%n", wrongLetters);
         }
     }
 
-    private static void showMessage(boolean isWin, String word) {
+    private static void showFinalMessage(boolean isWin, String word) {
         System.out.printf("Вы " + (isWin ? "выиграли!" : "проиграли! Загаданное слово - " + word));
     }
 }
