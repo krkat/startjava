@@ -1,6 +1,6 @@
 package com.startjava.lesson_2_3.array;
 
-public class AsciiPyramidPrinter {
+public class AsciiTrianglePrinter {
     public static void main(String[] args) {
         print('0', '9', true);
         print('/', '!', false);
@@ -15,20 +15,25 @@ public class AsciiPyramidPrinter {
             System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n%n", (int) start, (int) end);
             return;
         }
+        StringBuilder triangle = formTriangle(start, end, asc);
+        System.out.println(triangle);
+        System.out.println();
+    }
+
+    private static StringBuilder formTriangle(char start, char end, boolean asc) {
         char[] symbols = init(start, end, asc);
         int widthPyramidBase = symbols.length * 2 - 1;
         int numberLineSymbols = 1;
         int numberSpaces;
-        StringBuilder line = new StringBuilder();
+        StringBuilder triangle = new StringBuilder();
         for (char symbol : symbols) {
             numberSpaces = (widthPyramidBase - numberLineSymbols) / 2;
-            line.append(" ".repeat(numberSpaces));
-            line.append(String.valueOf(symbol).repeat(numberLineSymbols));
-            line.append("\n");
+            triangle.append(" ".repeat(numberSpaces));
+            triangle.append(String.valueOf(symbol).repeat(numberLineSymbols));
+            triangle.append("\n");
             numberLineSymbols += 2;
         }
-        System.out.println(line);
-        System.out.println();
+        return triangle;
     }
 
     private static char[] init(char start, char end, boolean asc) {
