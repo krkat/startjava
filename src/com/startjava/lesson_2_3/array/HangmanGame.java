@@ -26,7 +26,7 @@ public class HangmanGame {
         boolean hasEfforts = true;
         try (Scanner scanner = new Scanner(System.in)) {
             while (!isWin && hasEfforts) {
-                printGuess(guessWord);
+                System.out.printf("Угадайте слово: %s%n", guessWord);
                 printWrongLetters(wrongLetters);
                 char letter = inputCyrillicLetter(scanner);
                 while (guessWord.contains(Character.toString(letter)) ||
@@ -56,16 +56,7 @@ public class HangmanGame {
     }
 
     private static String init(int length) {
-        StringBuilder builder = new StringBuilder();
-        while (length > 0) {
-            builder.append("*");
-            length--;
-        }
-        return builder.toString();
-    }
-
-    private static void printGuess(String guessWord) {
-        System.out.printf("Угадайте слово: %s%n", guessWord);
+        return "*".repeat(length);
     }
 
     private static char inputCyrillicLetter(Scanner scanner) {
@@ -87,18 +78,17 @@ public class HangmanGame {
     }
 
     private static String addRightLetter(String riddleWord, String guessWord, char letter) {
-        char[] guessLetters = guessWord.toCharArray();
         for (int i = 0; i < riddleWord.length(); i++) {
             if (riddleWord.charAt(i) == letter) {
-                guessLetters[i] = letter;
+                guessWord = guessWord.substring(0,i) + letter + guessWord.substring(i + 1);
             }
         }
-        return new String(guessLetters);
+        return guessWord;
     }
 
     private static String addWrongLetter(String wrongLetters, char letter) {
         System.out.println("Такой буквы в слове нет.");
-        return wrongLetters + letter + " ";
+        return new StringBuilder(wrongLetters).append(letter).append(" ").toString();
     }
 
     private static void printGallows(int step) {

@@ -19,22 +19,22 @@ public class AsciiPyramidPrinter {
         int widthPyramidBase = symbols.length * 2 - 1;
         int numberLineSymbols = 1;
         int numberSpaces;
-        StringBuilder line;
+        StringBuilder line = new StringBuilder();
         for (char symbol : symbols) {
             numberSpaces = (widthPyramidBase - numberLineSymbols) / 2;
-            line = new StringBuilder();
             line.append(" ".repeat(numberSpaces));
             line.append(String.valueOf(symbol).repeat(numberLineSymbols));
-            System.out.println(line);
+            line.append("\n");
             numberLineSymbols += 2;
         }
+        System.out.println(line);
         System.out.println();
     }
 
     private static char[] init(char start, char end, boolean asc) {
         char[] symbols = new char[end - start + 1];
-        int increment = asc ? -1 : 1;
-        int index = asc ? end - start : 0;
+        int increment = asc ? 1 : -1;
+        int index = asc ? 0 : end - start;
         for (char i = start; i <= end; i++) {
             symbols[index] = i;
             index += increment;
