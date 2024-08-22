@@ -18,8 +18,8 @@ public class HangmanGame {
 
     private static void play(String riddleWord) {
         System.out.println("Игра \"Виселица\". Угадайте слово или будете повешены!");
-        String guessWord = init(riddleWord.length());
-        String wrongLetters = "";
+        StringBuilder guessWord = new StringBuilder("*".repeat(riddleWord.length()));
+        StringBuilder wrongLetters = new StringBuilder();
         int totalEfforts = gallows.length;
         int counterEfforts = 0;
         boolean isWin = false;
@@ -27,19 +27,19 @@ public class HangmanGame {
         try (Scanner scanner = new Scanner(System.in)) {
             while (!isWin && hasEfforts) {
                 System.out.printf("Угадайте слово: %s%n", guessWord);
-                printWrongLetters(wrongLetters);
+                printWrongLetters(wrongLetters.toString());
                 char letter = inputCyrillicLetter(scanner);
-                while (guessWord.contains(Character.toString(letter)) ||
-                        wrongLetters.contains(Character.toString(letter))) {
+                while (guessWord.indexOf(Character.toString(letter)) != -1 ||
+                        wrongLetters.indexOf(Character.toString(letter)) != -1) {
                     System.out.println("Эта буква вводилась ранее. Пожалуйста, повторите ввод.");
                     letter = inputCyrillicLetter(scanner);
                 }
                 if (!riddleWord.contains(Character.toString(letter))) {
-                    wrongLetters = addWrongLetter(wrongLetters, letter);
+                    addWrongLetter(wrongLetters, letter);
                     counterEfforts++;
                 } else {
-                    guessWord = addRightLetter(riddleWord, guessWord, letter);
-                    if (riddleWord.equals(guessWord)) {
+                    addRightLetter(riddleWord, guessWord, letter);
+                    if (riddleWord.contentEquals(guessWord)) {
                         isWin = true;
                     }
                     if (counterEfforts != 0) {
@@ -53,10 +53,6 @@ public class HangmanGame {
             }
         }
         showFinalMessage(isWin, riddleWord);
-    }
-
-    private static String init(int length) {
-        return "*".repeat(length);
     }
 
     private static char inputCyrillicLetter(Scanner scanner) {
@@ -77,18 +73,18 @@ public class HangmanGame {
         return letter >= 'А' && letter <= 'Я';
     }
 
-    private static String addRightLetter(String riddleWord, String guessWord, char letter) {
+    private static void addRightLetter(String riddleWord, StringBuilder guessWord, char letter) {
         for (int i = 0; i < riddleWord.length(); i++) {
             if (riddleWord.charAt(i) == letter) {
-                guessWord = guessWord.substring(0,i) + letter + guessWord.substring(i + 1);
+                guessWord.deleteCharAt(i);
+                guessWord.replace(i, i, String.valueOf(letter));
             }
         }
-        return guessWord;
     }
 
-    private static String addWrongLetter(String wrongLetters, char letter) {
+    private static void addWrongLetter(StringBuilder wrongLetters, char letter) {
         System.out.println("Такой буквы в слове нет.");
-        return new StringBuilder(wrongLetters).append(letter).append(" ").toString();
+        wrongLetters.append(letter).append(" ");
     }
 
     private static void printGallows(int step) {
