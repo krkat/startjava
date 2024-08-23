@@ -1,43 +1,37 @@
 package com.startjava.lesson_2_3_4.calculator;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
+    private static final DecimalFormat decimalFormat = new DecimalFormat("###.###");
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Calculator calculator = new Calculator();
+        Calculator calculator;
+        String[] operandsAndSigns;
         String userAnswer;
         do {
-            System.out.print("Введите первое число: ");
-            int x = scanner.nextInt();
-            calculator.setX(x);
-            scanner.nextLine();
-
-            char sign;
-            boolean isCorrectSign = false;
+            System.out.print("Введите математическое выражение: ");
+            operandsAndSigns = scanner.nextLine().split(" ");
+            calculator = new Calculator(operandsAndSigns);
+            for (String s : operandsAndSigns) {
+                System.out.print(s + " ");
+            }
+            System.out.print("= ");
+            System.out.println(decimalFormat.format(calculator.calculate()));
+            boolean isRepeat = false;
             do {
-                System.out.print("Введите знак операции (+. -, *. /, ^. %): ");
-                sign = scanner.nextLine().charAt(0);
-                isCorrectSign = calculator.setSign(sign);
-            } while (!isCorrectSign);
-            
-            System.out.print("Введите второе число: ");
-            int y = scanner.nextInt();
-            calculator.setY(y);
-            scanner.nextLine();
-            
-            System.out.printf("%d %c %d = ", x, sign, y);
-            calculator.calculate();
-            do {
-                userAnswer = askToContinue(scanner);
-            } while (!"yes".equals(userAnswer) && !"no".equals(userAnswer));
-        } while ("yes".equals(userAnswer));
+                userAnswer = askToContinue(scanner, isRepeat);
+                isRepeat = true;
+            } while (!"yes".equalsIgnoreCase(userAnswer) && !"no".equalsIgnoreCase(userAnswer));
+        } while ("yes".equalsIgnoreCase(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
     }
 
-    private static String askToContinue(Scanner scanner) {
-        System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+    private static String askToContinue(Scanner scanner, boolean isRepeat) {
+        System.out.print(!isRepeat ? "Хотите продолжить вычисления? [yes/no]: " : "Введите корректный ответ [yes/no]: ");
         return scanner.nextLine();
     }
 }
