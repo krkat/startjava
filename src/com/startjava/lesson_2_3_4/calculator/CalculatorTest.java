@@ -8,30 +8,38 @@ public class CalculatorTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Calculator calculator;
-        String[] operandsAndSigns;
         String userAnswer;
         do {
             System.out.print("Введите математическое выражение: ");
-            operandsAndSigns = scanner.nextLine().split(" ");
-            calculator = new Calculator(operandsAndSigns);
-            for (String s : operandsAndSigns) {
-                System.out.print(s + " ");
-            }
-            System.out.print("= ");
-            System.out.println(decimalFormat.format(calculator.calculate()));
+            String expression = scanner.nextLine();
+            Calculator calculator = new Calculator(expression);
+            output(expression, calculator);
             boolean isRepeat = false;
-            do {
-                userAnswer = askToContinue(scanner, isRepeat);
+            userAnswer = askToContinue(scanner, isRepeat).toLowerCase();
+            if ("no".equals(userAnswer)) {
+                break;
+            }
+            if (!"yes".equals(userAnswer)) {
                 isRepeat = true;
-            } while (!"yes".equalsIgnoreCase(userAnswer) && !"no".equalsIgnoreCase(userAnswer));
-        } while ("yes".equalsIgnoreCase(userAnswer));
+                askToContinue(scanner, isRepeat);
+            }
+        } while ("yes".equals(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
     }
 
+    private static void output(String expression, Calculator calculator) {
+        Double result = calculator.calculate();
+        if (result.equals(Double.NaN)) {
+            System.out.println("Результат не определен.");
+        } else {
+            System.out.println(expression + " = " + decimalFormat.format(calculator.calculate()));
+        }
+    }
+
     private static String askToContinue(Scanner scanner, boolean isRepeat) {
-        System.out.print(!isRepeat ? "Хотите продолжить вычисления? [yes/no]: " : "Введите корректный ответ [yes/no]: ");
+        System.out.print(!isRepeat ? "Хотите продолжить вычисления? [yes/no]: " :
+                "Введите корректный ответ [yes/no]: ");
         return scanner.nextLine();
     }
 }

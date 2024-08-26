@@ -6,14 +6,15 @@ public class Calculator {
     private int y;
     private String sign;
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public Calculator(String[] operandsAndSigns) {
+    public Calculator(String expression) {
+        String[] operandsAndSigns = expression.split(" ");
         setX(Integer.parseInt(operandsAndSigns[0]));
         setSign(operandsAndSigns[1]);
         setY(Integer.parseInt(operandsAndSigns[2]));
+    }
+
+    public void setX(int x) {
+        this.x = x;
     }
 
     public void setY(int y) {
@@ -31,33 +32,19 @@ public class Calculator {
     }
 
     public double calculate() {
-        double result; 
-        switch (sign) {
-            case "+":
-                result = x + y;
-                break;
-            case "-":
-                result = x - y;
-                break;
-            case "*":
-                result = x * y;
-                break;
-            case "^":
-                result = Math.pow(x, y);
-                break;
-            case "/":
-                result = (double) x / y;
-                break;
-            case "%":
+        return switch (sign) {
+            case "+" -> x + y;
+            case "-" -> x - y;
+            case "*" -> x * y;
+            case "^" -> Math.pow(x, y);
+            case "/" -> (double) x / y;
+            case "%" -> {
                 if (y == 0) {
-                    return Double.NaN;
+                    yield Double.NaN;
                 }
-                result = Math.floorMod(x, y);
-                break;
-            case "NaN":
-            default:
-                return Double.NaN;
-        }
-        return result;
+                yield Math.floorMod(x, y);
+            }
+            default -> Double.NaN;
+        };
     }
 }
