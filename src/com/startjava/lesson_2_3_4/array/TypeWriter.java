@@ -23,43 +23,16 @@ public class TypeWriter {
             return;
         }
         String[] words = extractWords(text);
-        String[] delimiters = extractDelimiters(text);
-        String[] textLines = concat(delimiters, words);
-        type(textLines, min(words), max(words));
+        output(text, words, min(words), max(words));
         System.out.println();
     }
 
     private static String[] extractWords(String text) {
-        String[] words = text.split("[^a-zA-Zа-яА-Я+]+");
+        String[] words = text.split("[\\p{P} \n]+");
         if (words.length != 0 && words[0].isEmpty()) {
             words = Arrays.copyOfRange(words, 1, words.length);
         }
         return words;
-    }
-
-    private static String[] extractDelimiters(String text) {
-        return text.split("[a-zA-Zа-яА-Я+]+");
-    }
-
-    private static String[] concat(String[] delimiters, String[] words) {
-        if (words == null || words.length == 0) {
-            return delimiters;
-        }
-        if (delimiters == null || delimiters.length == 0) {
-            return words;
-        }
-        String[] result = new String[delimiters.length + words.length];
-        int indexResult = 0;
-        for (int i = 0; i < delimiters.length; i++) {
-            result[indexResult] = delimiters[i];
-            indexResult++;
-            if (i == words.length) {
-                break;
-            }
-            result[indexResult] = words[i];
-            indexResult++;
-        }
-        return result;
     }
 
     private static String max(String[] words) {
@@ -83,20 +56,23 @@ public class TypeWriter {
         return result;
     }
 
-    private static void type(String[] words, String minWord, String maxWord) {
+    private static void output(String text, String[] words, String minWord, String maxWord) {
         boolean isUpperCase = false;
         for (String word : words) {
-            if (word.equals(minWord) || word.equals(maxWord)) {
-                typeWord(word.toUpperCase());
+            if (word.equalsIgnoreCase(minWord) || word.equalsIgnoreCase(maxWord)) {
+                text = text.replaceFirst(word, word.toUpperCase());
                 isUpperCase = !isUpperCase;
                 continue;
             }
-            typeWord(isUpperCase ? word.toUpperCase() : word);
+            if (isUpperCase) {
+                text = text.replace(word, word.toUpperCase());
+            }
         }
+        type(text);
         System.out.println();
     }
 
-    private static void typeWord(String word) {
+    private static void type(String word) {
         for (char symbol : word.toCharArray()) {
             try {
                 System.out.print(symbol);
