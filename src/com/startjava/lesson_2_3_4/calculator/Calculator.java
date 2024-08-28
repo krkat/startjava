@@ -7,10 +7,10 @@ public class Calculator {
     private String sign;
 
     public Calculator(String expression) {
-        String[] operandsAndSigns = expression.split(" ");
-        setX(Integer.parseInt(operandsAndSigns[0]));
-        setSign(operandsAndSigns[1]);
-        setY(Integer.parseInt(operandsAndSigns[2]));
+        String[] elements = expression.split(" ");
+        setX(Integer.parseInt(elements[0]));
+        setSign(elements[1]);
+        setY(Integer.parseInt(elements[2]));
     }
 
     public void setX(int x) {
@@ -26,7 +26,6 @@ public class Calculator {
                 !sign.equals("/") && !sign.equals("^") && !sign.equals("%")) {
             System.out.println("Ошибка: операция '" + sign + "' не поддерживается.");
             System.out.println("Доступны следующие операции: +. -, *. /, ^. %");
-            sign = String.valueOf(Double.NaN);
         }
         this.sign = sign;
     }
@@ -37,14 +36,18 @@ public class Calculator {
             case "-" -> x - y;
             case "*" -> x * y;
             case "^" -> Math.pow(x, y);
-            case "/" -> (double) x / y;
-            case "%" -> {
+            case "/", "%" -> {
                 if (y == 0) {
+                    System.out.println("Ошибка: Деление на 0 запрещено.");
                     yield Double.NaN;
                 }
-                yield Math.floorMod(x, y);
+                yield divOrMod(x, y, sign);
             }
             default -> Double.NaN;
         };
+    }
+
+    private static Double divOrMod(int x, int y, String sign) {
+        return "/".equals(sign) ? (double) x / y : Math.floorMod(x, y);
     }
 }

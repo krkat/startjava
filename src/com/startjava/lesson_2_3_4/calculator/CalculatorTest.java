@@ -8,32 +8,30 @@ public class CalculatorTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String userAnswer;
+        String userAnswer = "yes";
+        boolean isRepeat;
         do {
-            System.out.print("Введите математическое выражение: ");
-            String expression = scanner.nextLine();
-            Calculator calculator = new Calculator(expression);
-            output(expression, calculator);
-            boolean isRepeat = false;
-            userAnswer = askToContinue(scanner, isRepeat).toLowerCase();
-            if ("no".equals(userAnswer)) {
-                break;
-            }
-            if (!"yes".equals(userAnswer)) {
+            String expression;
+            if ("yes".equals(userAnswer)) {
+                System.out.print("Введите математическое выражение: ");
+                expression = scanner.nextLine();
+                Calculator calculator = new Calculator(expression);
+                output(expression, calculator.calculate());
+                isRepeat = false;
+            } else {
                 isRepeat = true;
-                askToContinue(scanner, isRepeat);
             }
-        } while ("yes".equals(userAnswer));
+            userAnswer = askToContinue(scanner, isRepeat).toLowerCase();
+        } while (!"no".equals(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
     }
 
-    private static void output(String expression, Calculator calculator) {
-        Double result = calculator.calculate();
+    private static void output(String expression, Double result) {
         if (result.equals(Double.NaN)) {
             System.out.println("Результат не определен.");
         } else {
-            System.out.println(expression + " = " + decimalFormat.format(calculator.calculate()));
+            System.out.println(expression + " = " + decimalFormat.format(result));
         }
     }
 
