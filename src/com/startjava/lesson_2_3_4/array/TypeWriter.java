@@ -1,10 +1,7 @@
 package com.startjava.lesson_2_3_4.array;
 
-import java.util.Arrays;
-
 public class TypeWriter {
     public static void main(String[] args) {
-        print(" . ");
         print("Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling");
         print("Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
@@ -22,53 +19,52 @@ public class TypeWriter {
             System.out.println("Ошибка: пустая строка\n");
             return;
         }
-        String[] words = extractWords(text);
-        output(text, words, min(words), max(words));
+        String[] words = text.split(" ");
+        output(words, indexOfMin(words), indexOfMax(words));
         System.out.println();
     }
 
-    private static String[] extractWords(String text) {
-        String[] words = text.split("[\\p{P} \n]+");
-        if (words.length != 0 && words[0].isEmpty()) {
-            words = Arrays.copyOfRange(words, 1, words.length);
-        }
-        return words;
-    }
-
-    private static String max(String[] words) {
+    private static int indexOfMax(String[] words) {
         return findMinOrMax(words, true);
     }
 
-    private static String min(String[] words) {
+    private static int indexOfMin(String[] words) {
         return findMinOrMax(words, false);
     }
 
-    private static String findMinOrMax(String[] words, boolean findMax) {
+    private static int findMinOrMax(String[] words, boolean findMax) {
         if (words.length == 0) {
-            return null;
+            return 0;
         }
-        String result = words[0];
-        for (String word : words) {
-            if (findMax ? word.length() > result.length() : word.length() < result.length()) {
-                result = word;
+        int index = 0;
+        String word = words[0].replaceAll("[\\p{P} \n]+", "");
+        int resultLength = word.length();
+        for (int i = 0; i < words.length; i++) {
+            word = words[i].replaceAll("[\\p{P} \n]+", "");
+            if (findMax ? word.length() > resultLength : !word.isEmpty() && word.length() < resultLength) {
+                resultLength = words[i].length();
+                index = i;
             }
         }
-        return result;
+        return index;
     }
 
-    private static void output(String text, String[] words, String minWord, String maxWord) {
+    private static void output(String[] words, int indexMinWord, int indexMaxWord) {
         boolean isUpperCase = false;
-        for (String word : words) {
-            if (word.equalsIgnoreCase(minWord) || word.equalsIgnoreCase(maxWord)) {
-                text = text.replaceFirst(word, word.toUpperCase());
+        for (int i = 0; i < words.length; i++) {
+            if (i == indexMinWord || i == indexMaxWord) {
+                words[i] = words[i].toUpperCase();
+                type(words[i]);
+                System.out.print(" ");
                 isUpperCase = !isUpperCase;
                 continue;
             }
             if (isUpperCase) {
-                text = text.replace(word, word.toUpperCase());
+                words[i] = words[i].toUpperCase();
             }
+            type(words[i]);
+            System.out.print(" ");
         }
-        type(text);
         System.out.println();
     }
 
