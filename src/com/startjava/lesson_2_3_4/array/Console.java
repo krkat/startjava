@@ -23,4 +23,17 @@ public class Console {
         }
         System.out.println();
     }
+
+    public static void output(int[] ints, int elementsInLine) {
+        Arrays.sort(ints);
+        int counter = 0;
+        for (int a : ints) {
+            if (counter == elementsInLine) {
+                counter = 0;
+                System.out.println();
+            }
+            System.out.printf("%3d ", a);
+            counter++;
+        }
+    }
 }

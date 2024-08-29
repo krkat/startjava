@@ -19,6 +19,12 @@ public class Main {
         Arrays.printTriangle('/', '!', false);
         Arrays.printTriangle('A', 'J', false);
 
+        Console.output("\n5. Заполнение массива уникальными числами.");
+        Arrays.print(-10, 20, 23);
+        Arrays.print(-30, 10, 10);
+        Arrays.print(34, -34, 0);
+        Arrays.print(-1, 2, -3);
+        Arrays.print(5, -8, 2);
 
     }
 }

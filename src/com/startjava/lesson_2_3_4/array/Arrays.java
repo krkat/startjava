@@ -2,6 +2,50 @@ package com.startjava.lesson_2_3_4.array;
 
 public class Arrays {
 
+    public static void print(int start, int end, int elementsInLine) {
+        System.out.printf("%nГраницы отрезка целых чисел: %d, %d%n", start, end);
+        System.out.printf("Количество чисел, выводимых в строке консоли: %d%n", elementsInLine);
+        if (start > end) {
+            System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n", start, end);
+            return;
+        }
+        if (elementsInLine <= 1) {
+            System.out.printf("Ошибка: Количество чисел в строке не может быть меньше 1 (%d)%n",
+                    elementsInLine);
+            return;
+        }
+        int length = (int) ((end - start + 1) * 0.75);
+        if (length <= 0) {
+            System.out.printf("Ошибка: Длина массива должна быть больше 0 (%d)%n", length);
+            return;
+        }
+        int[] uniqueInts = init(start, end, length);
+        Console.output(uniqueInts, elementsInLine);
+        System.out.println();
+    }
+
+    private static int[] init(int start, int end, int length) {
+        int range = end - start + 1;
+        int[] uniqueInts = new int [length];
+        int random;
+        boolean isUnique;
+        for (int i = 0; i < length; i++) {
+            do {
+                isUnique = true;
+                random = (int) (Math.random() * range) + start;
+                for (int j = 0; j < i; j++) {
+                    if (uniqueInts[j] == random) {
+                        isUnique = false;
+                        break;
+                    }
+                }
+            } while (!isUnique);
+            uniqueInts[i] = random;
+        }
+        return uniqueInts;
+    }
+
+
     public static void reverse(int[] ints) {
         System.out.print("   До реверса: ");
         Console.output(ints);
