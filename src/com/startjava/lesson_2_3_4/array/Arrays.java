@@ -1,6 +1,26 @@
 package com.startjava.lesson_2_3_4.array;
 
 public class Arrays {
+
+    public static void reverse(int[] ints) {
+        System.out.print("   До реверса: ");
+        Console.output(ints);
+        System.out.print("После реверса: ");
+        reverseValues(ints);
+        Console.output(ints);
+    }
+
+    private static void reverseValues(int[] ints) {
+        if (ints != null) {
+            int len = ints.length;
+            for (int i = 0; i < len - 1; i++) {
+                int swap = ints[i];
+                ints[i] = ints[--len];
+                ints[len] = swap;
+            }
+        }
+    }
+
     public static void printTriangle(char start, char end, boolean asc) {
         System.out.printf("Границы отрезка символов: '%c' с кодом %d, '%c' с кодом %d%n",
                 start, (int) start, end, (int) end);

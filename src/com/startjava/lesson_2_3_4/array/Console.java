@@ -1,8 +1,14 @@
 package com.startjava.lesson_2_3_4.array;
 
+import java.util.Arrays;
+
 public class Console {
     public static void output(String message) {
         System.out.println(message);
+    }
+
+    public static void output(int[] ints) {
+        System.out.println(ints == null ? "null" : Arrays.toString(ints));
     }
 
     public static void output(StringBuilder triangle) {
