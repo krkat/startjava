@@ -22,11 +22,6 @@ public class Calculator {
     }
 
     public void setSign(String sign) {
-        if (!sign.equals("+") && !sign.equals("-") && !sign.equals("*") &&
-                !sign.equals("/") && !sign.equals("^") && !sign.equals("%")) {
-            System.out.println("Ошибка: операция '" + sign + "' не поддерживается.");
-            System.out.println("Доступны следующие операции: +. -, *. /, ^. %");
-        }
         this.sign = sign;
     }
 
@@ -43,7 +38,11 @@ public class Calculator {
                 }
                 yield divOrMod(x, y, sign);
             }
-            default -> Double.NaN;
+            default -> {
+                System.out.println("Ошибка: операция '" + sign + "' не поддерживается.");
+                System.out.println("Доступны следующие операции: +. -, *. /, ^. %");
+                yield Double.NaN;
+            }
         };
     }
 

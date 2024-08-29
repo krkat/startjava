@@ -4,34 +4,33 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
-    private static final DecimalFormat decimalFormat = new DecimalFormat("###.###");
+    private static final DecimalFormat df = new DecimalFormat("###.###");
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String userAnswer = "yes";
-        boolean isRepeat;
+        boolean isWrongAnswer;
         do {
-            String expression;
             if ("yes".equals(userAnswer)) {
                 System.out.print("Введите математическое выражение: ");
-                expression = scanner.nextLine();
+                String expression = scanner.nextLine();
                 Calculator calculator = new Calculator(expression);
                 output(expression, calculator.calculate());
-                isRepeat = false;
+                isWrongAnswer = false;
             } else {
-                isRepeat = true;
+                isWrongAnswer = true;
             }
-            userAnswer = askToContinue(scanner, isRepeat).toLowerCase();
+            userAnswer = askToContinue(scanner, isWrongAnswer).toLowerCase();
         } while (!"no".equals(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
     }
 
-    private static void output(String expression, Double result) {
-        if (result.equals(Double.NaN)) {
+    private static void output(String expression, double result) {
+        if (Double.isNaN(result)) {
             System.out.println("Результат не определен.");
         } else {
-            System.out.println(expression + " = " + decimalFormat.format(result));
+            System.out.println(expression + " = " + df.format(result));
         }
     }
 
