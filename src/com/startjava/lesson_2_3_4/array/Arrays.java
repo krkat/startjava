@@ -39,4 +39,47 @@ public class Arrays {
         }
         return symbols;
     }
+
+    public static float[] initFloats() {
+        float[] randomFloats = new float[15];
+        for (int i = 0; i < randomFloats.length; i++) {
+            randomFloats[i] = (float) Math.random();
+        }
+        return randomFloats;
+    }
+
+    public static void deleteExceed(float[] original, int indexMaxValue) {
+        System.out.println("\nИсходный массив: ");
+        Console.output(original);
+        deleteExceededElements(original, indexMaxValue);
+    }
+
+    private static void deleteExceededElements(float[] original, int indexMaxValue) {
+        System.out.println("Вычисление результирующего массива: ");
+        if (isOutOfBounds(indexMaxValue, original.length)) {
+            System.out.println("Результирующий массив не определен");
+            return;
+        }
+        float maxValue = original[indexMaxValue];
+        System.out.printf("Значение ячейки с индексом [%d]: %.3f%n", indexMaxValue, maxValue);
+        int counterSetZero = 0;
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] > maxValue) {
+                original[i] = 0;
+                counterSetZero++;
+            }
+        }
+        System.out.println("Количество обнуленных ячеек: " + counterSetZero);
+        System.out.println("Результирующий массив:");
+        Console.output(original);
+    }
+
+    private static boolean isOutOfBounds(int index, int length) {
+        if (index < 0 || index >= length) {
+            System.out.println("Индекс [" + index + "] " + (index < 0 ?
+                    "меньше 0" : "больше или равен " + length));
+            return true;
+        }
+        return false;
+    }
 }
