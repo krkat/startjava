@@ -1,13 +1,7 @@
 package com.startjava.lesson_2_3_4.array;
 
-public class AsciiTrianglePrinter {
-    public static void main(String[] args) {
-        print('0', '9', true);
-        print('/', '!', false);
-        print('A', 'J', false);
-    }
-
-    private static void print(char start, char end, boolean asc) {
+public class Arrays {
+    public static void printTriangle(char start, char end, boolean asc) {
         System.out.printf("Границы отрезка символов: '%c' с кодом %d, '%c' с кодом %d%n",
                 start, (int) start, end, (int) end);
         System.out.printf("Сортировка по возрастанию от основания к вершине: %b%n%n", asc);
@@ -16,11 +10,10 @@ public class AsciiTrianglePrinter {
             return;
         }
         StringBuilder triangle = formTriangle(start, end, asc);
-        System.out.println(triangle);
-        System.out.println();
+        Console.output(triangle);
     }
 
-    private static StringBuilder formTriangle(char start, char end, boolean asc) {
+    public static StringBuilder formTriangle(char start, char end, boolean asc) {
         char[] symbols = init(start, end, asc);
         int widthPyramidBase = symbols.length * 2 - 1;
         int numberLineSymbols = 1;
