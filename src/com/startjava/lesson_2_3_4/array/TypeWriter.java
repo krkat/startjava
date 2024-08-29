@@ -25,23 +25,23 @@ public class TypeWriter {
     }
 
     private static int indexOfMax(String[] words) {
-        return findMinOrMax(words, true);
+        return findExtreme(words, true);
     }
 
     private static int indexOfMin(String[] words) {
-        return findMinOrMax(words, false);
+        return findExtreme(words, false);
     }
 
-    private static int findMinOrMax(String[] words, boolean findMax) {
+    private static int findExtreme(String[] words, boolean isMax) {
         if (words.length == 0) {
             return 0;
         }
         int index = 0;
-        String word = words[0].replaceAll("[\\p{P} \n]+", "");
-        int resultLength = word.length();
+        String noPunctuation = words[0];
+        int resultLength = noPunctuation.length();
         for (int i = 0; i < words.length; i++) {
-            word = words[i].replaceAll("[\\p{P} \n]+", "");
-            if (findMax ? word.length() > resultLength : !word.isEmpty() && word.length() < resultLength) {
+            noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
+            if (canBeExtreme(isMax, noPunctuation, resultLength)) {
                 resultLength = words[i].length();
                 index = i;
             }
@@ -49,33 +49,32 @@ public class TypeWriter {
         return index;
     }
 
+    private static boolean canBeExtreme(boolean isMax, String noPunctuation, int resultLength) {
+        return isMax ? noPunctuation.length() > resultLength : !noPunctuation.isEmpty() && noPunctuation.length() < resultLength;
+    }
+
     private static void output(String[] words, int indexMinWord, int indexMaxWord) {
         boolean isUpperCase = false;
-        for (int i = 0; i < words.length; i++) {
-            if (i == indexMinWord || i == indexMaxWord) {
-                words[i] = words[i].toUpperCase();
-                type(words[i]);
-                System.out.print(" ");
-                isUpperCase = !isUpperCase;
-                continue;
-            }
-            if (isUpperCase) {
-                words[i] = words[i].toUpperCase();
-            }
-            type(words[i]);
-            System.out.print(" ");
+        int start = Math.min(indexMinWord, indexMaxWord);
+        int end = Math.max(indexMinWord, indexMaxWord);
+        for (int i = start; i <= end; i++) {
+            words[i] = words[i].toUpperCase();
         }
+        type(words);
         System.out.println();
     }
 
-    private static void type(String word) {
-        for (char symbol : word.toCharArray()) {
-            try {
-                System.out.print(symbol);
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                System.exit(1);
+    private static void type(String[] words) {
+        for (String word : words) {
+            for (char symbol : word.toCharArray()) {
+                try {
+                    System.out.print(symbol);
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    System.exit(1);
+                }
             }
+            System.out.print(" ");
         }
     }
 }
