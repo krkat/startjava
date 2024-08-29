@@ -220,11 +220,11 @@ public class Arrays {
     }
 
     private static boolean canBeExtreme(boolean isMax, String noPunctuation, int resultLength) {
-        return isMax ? noPunctuation.length() > resultLength : !noPunctuation.isEmpty() && noPunctuation.length() < resultLength;
+        return isMax ? noPunctuation.length() > resultLength :
+                !noPunctuation.isEmpty() && noPunctuation.length() < resultLength;
     }
 
     private static void output(String[] words, int indexMinWord, int indexMaxWord) {
-        boolean isUpperCase = false;
         int start = Math.min(indexMinWord, indexMaxWord);
         int end = Math.max(indexMinWord, indexMaxWord);
         for (int i = start; i <= end; i++) {
@@ -233,5 +233,4 @@ public class Arrays {
         Console.type(words);
         System.out.println();
     }
-
 }
