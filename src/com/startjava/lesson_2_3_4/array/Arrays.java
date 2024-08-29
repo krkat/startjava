@@ -45,6 +45,39 @@ public class Arrays {
         return uniqueInts;
     }
 
+    public static void factorial(int... ints) {
+        if (ints == null) {
+            Console.output("\nОшибка! Исходный массив null");
+            return;
+        }
+        if (ints.length == 0) {
+            Console.output("\nОшибка! Исходный массив нулевой длины");
+            return;
+        }
+        Console.output("\nИсходный массив: ");
+        System.out.println(java.util.Arrays.toString(ints));
+        calc(ints);
+    }
+
+    private static void calc(int... ints) {
+        Console.output("Вычисление факториалов элементов: ");
+        for (int anInt : ints) {
+            if (anInt < 0) {
+                System.out.println("Ошибка: факториал " + anInt + "! не определен");
+                continue;
+            }
+            System.out.print(anInt + "! = ");
+            int factorial = 1;
+            if (anInt > 1) {
+                for (int i = 1; i <= anInt; i++) {
+                    System.out.print(i);
+                    factorial *= i;
+                    System.out.print(i != anInt ? " * " : " = ");
+                }
+            }
+            System.out.println(factorial);
+        }
+    }
 
     public static void reverse(int[] ints) {
         System.out.print("   До реверса: ");
@@ -146,4 +179,59 @@ public class Arrays {
         }
         return false;
     }
+
+    public static void print(String text) {
+        if (text == null) {
+            System.out.println("Ошибка: текст == null\n");
+            return;
+        }
+        if (text.isBlank()) {
+            System.out.println("Ошибка: пустая строка\n");
+            return;
+        }
+        String[] words = text.split(" ");
+        output(words, indexOfMin(words), indexOfMax(words));
+        System.out.println();
+    }
+
+    private static int indexOfMax(String[] words) {
+        return findExtreme(words, true);
+    }
+
+    private static int indexOfMin(String[] words) {
+        return findExtreme(words, false);
+    }
+
+    private static int findExtreme(String[] words, boolean isMax) {
+        if (words.length == 0) {
+            return 0;
+        }
+        int index = 0;
+        String noPunctuation = words[0];
+        int resultLength = noPunctuation.length();
+        for (int i = 0; i < words.length; i++) {
+            noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
+            if (canBeExtreme(isMax, noPunctuation, resultLength)) {
+                resultLength = words[i].length();
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    private static boolean canBeExtreme(boolean isMax, String noPunctuation, int resultLength) {
+        return isMax ? noPunctuation.length() > resultLength : !noPunctuation.isEmpty() && noPunctuation.length() < resultLength;
+    }
+
+    private static void output(String[] words, int indexMinWord, int indexMaxWord) {
+        boolean isUpperCase = false;
+        int start = Math.min(indexMinWord, indexMaxWord);
+        int end = Math.max(indexMinWord, indexMaxWord);
+        for (int i = start; i <= end; i++) {
+            words[i] = words[i].toUpperCase();
+        }
+        Console.type(words);
+        System.out.println();
+    }
+
 }

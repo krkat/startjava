@@ -36,4 +36,18 @@ public class Console {
             counter++;
         }
     }
+
+    public static void type(String[] words) {
+        for (String word : words) {
+            for (char symbol : word.toCharArray()) {
+                try {
+                    System.out.print(symbol);
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    System.exit(1);
+                }
+            }
+            System.out.print(" ");
+        }
+    }
 }
