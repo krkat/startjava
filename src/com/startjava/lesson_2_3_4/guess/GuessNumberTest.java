@@ -6,26 +6,29 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите имя первого игрока: ");
-        String namePlayerOne = scanner.nextLine();
+        String nameOne = scanner.nextLine();
         System.out.print("Введите имя второго игрока: ");
-        String namePlayerTwo = scanner.nextLine();
-        Player playerOne = new Player(namePlayerOne);
-        Player playerTwo = new Player(namePlayerTwo);
-        GuessNumber game = new GuessNumber(playerOne, playerTwo);
-        
-        String playerAnswer;
+        String nameTwo = scanner.nextLine();
+        GuessNumber game = new GuessNumber(nameOne, nameTwo);
+
+        String playerAnswer = "yes";
+        boolean isWrongAnswer;
         do {
-            game.play(scanner);
-            do {
-                playerAnswer = askToContinue(scanner);
-            } while (!"yes".equals(playerAnswer) && !"no".equals(playerAnswer)); 
-        } while ("yes".equals(playerAnswer));
+            if ("yes".equals(playerAnswer)) {
+                game.play(scanner);
+                isWrongAnswer = false;
+            } else {
+                isWrongAnswer = true;
+            }
+            playerAnswer = askToContinue(scanner, isWrongAnswer).toLowerCase();
+        } while (!"no".equals(playerAnswer));
         System.out.println("Игра окончена.");
         scanner.close();
     }
 
-    private static String askToContinue(Scanner scanner) {
-        System.out.print("Хотите продолжить игру? [yes, no]: ");
+    private static String askToContinue(Scanner scanner, boolean isWrongAnswer) {
+        System.out.print(!isWrongAnswer ? "\nХотите продолжить игру? [yes/no]: " :
+                "Введите корректный ответ [yes/no]: ");
         return scanner.nextLine();
     } 
 }
