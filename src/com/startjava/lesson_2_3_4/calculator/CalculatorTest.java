@@ -13,9 +13,14 @@ public class CalculatorTest {
         do {
             if ("yes".equals(userAnswer)) {
                 System.out.print("Введите математическое выражение: ");
-                String expression = scanner.nextLine();
-                Calculator calculator = new Calculator(expression);
-                output(expression, calculator.calculate());
+                String expression = scanner.nextLine().trim().replaceAll(" +", " ");
+                try {
+                    double result = Calculator.calculate(expression);
+                    System.out.println(expression + " = " + df.format(result));
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                    System.out.println("Результат не определен.");
+                }
                 isWrongAnswer = false;
             } else {
                 isWrongAnswer = true;
@@ -24,14 +29,6 @@ public class CalculatorTest {
         } while (!"no".equals(userAnswer));
         System.out.println("Завершение программы.");
         scanner.close();
-    }
-
-    private static void output(String expression, double result) {
-        if (Double.isNaN(result)) {
-            System.out.println("Результат не определен.");
-        } else {
-            System.out.println(expression + " = " + df.format(result));
-        }
     }
 
     private static String askToContinue(Scanner scanner, boolean isRepeat) {
