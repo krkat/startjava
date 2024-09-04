@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Player {
     
     private final String name;
-    private final int[] playerNumbers = new int[10];
-    private int counterEfforts = 0;
+    private final int[] guessNumbers = new int[10];
+    private int attempt;
 
     public Player(String name) {
         this.name = name;
@@ -16,25 +16,25 @@ public class Player {
         return name;
     }
 
-    public int[] getPlayerNumbers() {
-        return Arrays.copyOfRange(playerNumbers, 0, counterEfforts);
+    public int[] getGuessNumbers() {
+        return Arrays.copyOf(guessNumbers, attempt);
     }
 
-    public int getCounterEfforts() {
-        return counterEfforts;
+    public int getAttempt() {
+        return attempt;
     }
 
     public int getNumber() {
-        return playerNumbers[counterEfforts - 1];
+        return guessNumbers[attempt - 1];
     }
 
     public void addNumber(int guessNumber) {
-        playerNumbers[counterEfforts] = guessNumber;
-        counterEfforts++;
+        guessNumbers[attempt] = guessNumber;
+        attempt++;
     }
 
     public void clearPlayerNumbers() {
-        Arrays.fill(playerNumbers, 0, counterEfforts, 0);
-        counterEfforts = 0;
+        Arrays.fill(guessNumbers, 0, attempt, 0);
+        attempt = 0;
     }
 }
