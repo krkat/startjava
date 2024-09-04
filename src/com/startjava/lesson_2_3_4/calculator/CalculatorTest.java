@@ -31,8 +31,8 @@ public class CalculatorTest {
         scanner.close();
     }
 
-    private static String askToContinue(Scanner scanner, boolean isRepeat) {
-        System.out.print(!isRepeat ? "Хотите продолжить вычисления? [yes/no]: " :
+    private static String askToContinue(Scanner scanner, boolean isWrongAnswer) {
+        System.out.print(!isWrongAnswer ? "Хотите продолжить вычисления? [yes/no]: " :
                 "Введите корректный ответ [yes/no]: ");
         return scanner.nextLine();
     }
