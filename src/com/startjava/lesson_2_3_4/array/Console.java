@@ -11,20 +11,26 @@ public class Console {
         System.out.println(ints == null ? "null" : Arrays.toString(ints));
     }
 
-    public static void output(StringBuilder triangle) {
-        System.out.println(triangle + "\n");
-    }
-
-    public static void output(float[] doubles) {
-        for (int i = 0; i < doubles.length; i++) {
-            System.out.printf("%.3f", doubles[i]);
-            System.out.print(i != doubles.length - 1 ? ", " : "");
-            if (i == (doubles.length - 1) / 2) System.out.println();
+    public static void output(float[] original) {
+        if (original == null) {
+            return;
+        }
+        for (int i = 0; i < original.length; i++) {
+            System.out.printf("%.3f", original[i]);
+            System.out.print(i != original.length - 1 ? ", " : "");
+            if (i == (original.length - 1) / 2) System.out.println();
         }
         System.out.println();
     }
 
+    public static void output(StringBuilder triangle) {
+        System.out.println(triangle + "\n");
+    }
+
     public static void output(int[] ints, int elementsInLine) {
+        if (ints == null) {
+            return;
+        }
         Arrays.sort(ints);
         int counter = 0;
         for (int a : ints) {
@@ -38,6 +44,9 @@ public class Console {
     }
 
     public static void type(String[] words) {
+        if (words == null) {
+            return;
+        }
         for (String word : words) {
             for (char symbol : word.toCharArray()) {
                 try {
@@ -49,5 +58,6 @@ public class Console {
             }
             System.out.print(" ");
         }
+        System.out.println("\n");
     }
 }
