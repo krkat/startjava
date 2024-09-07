@@ -33,7 +33,7 @@ public class Calculator {
         };
     }
 
-    private static Double divOrMod(int x, int y, String sign) {
+    private static double divOrMod(int x, int y, String sign) {
         return "/".equals(sign) ? (double) x / y : Math.floorMod(x, y);
     }
 }
