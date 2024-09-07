@@ -20,20 +20,19 @@ public class Player {
         return Arrays.copyOf(guessNumbers, attempt);
     }
 
-    public int getAttempt() {
-        return attempt;
-    }
-
     public int getNumber() {
         return guessNumbers[attempt - 1];
     }
 
     public void addNumber(int guessNumber) {
-        guessNumbers[attempt] = guessNumber;
-        attempt++;
+        guessNumbers[attempt++] = guessNumber;
     }
 
-    public void clearPlayerNumbers() {
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public void clear() {
         Arrays.fill(guessNumbers, 0, attempt, 0);
         attempt = 0;
     }

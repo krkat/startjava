@@ -13,8 +13,8 @@ public class GuessNumber {
     } 
 
     public void play(Scanner scanner) {
-        playerOne.clearPlayerNumbers();
-        playerTwo.clearPlayerNumbers();
+        playerOne.clear();
+        playerTwo.clear();
         System.out.println("\nИгра началась! У каждого игрока по 10 попыток.");
         int hiddenNumber = (int) (Math.random() * 100) + 1;
         Player currentPlayer = playerOne;
@@ -27,8 +27,7 @@ public class GuessNumber {
             } else {
                 break;
             }
-        } while (playerOne.getAttempt() < MAX_ATTEMPTS ||
-                playerTwo.getAttempt() < MAX_ATTEMPTS);
+        } while (playerTwo.getAttempt() < MAX_ATTEMPTS);
         printWinner(hiddenNumber);
         outputNumbers(playerOne);
         outputNumbers(playerTwo);
@@ -57,7 +56,7 @@ public class GuessNumber {
     }
 
     private Player change(Player currentPlayer) {
-        return currentPlayer.equals(playerOne) ? playerTwo : playerOne;
+        return currentPlayer == playerOne ? playerTwo : playerOne;
     }
 
     private void printWinner(int hiddenNumber) {
