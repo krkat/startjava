@@ -3,9 +3,6 @@ package com.startjava.lesson_2_3_4.array;
 public class Arrays {
 
     public static int[] reverse(int[] ints) {
-        System.out.print("   До реверса: ");
-        Console.output(ints);
-        System.out.print("После реверса: ");
         if (ints != null) {
             int len = ints.length;
             for (int i = 0; i < len - 1; i++) {
@@ -17,40 +14,74 @@ public class Arrays {
         return ints;
     }
 
-    public static void factorial(int... ints) {
+    public static StringBuilder factorial(int... ints) {
         if (ints == null) {
-            System.out.println("\nОшибка! Исходный массив null");
-            return;
+            System.out.println("\nОшибка! Исходный массив null\n");
+            return null;
         }
         if (ints.length == 0) {
-            System.out.println("\nОшибка! Исходный массив нулевой длины");
-            return;
+            System.out.println("\nОшибка! Исходный массив нулевой длины\n");
+            return null;
         }
-        System.out.println("\nИсходный массив: ");
-        System.out.println(java.util.Arrays.toString(ints));
-        System.out.println("Вычисление факториалов элементов: ");
+        StringBuilder result = new StringBuilder("\n");
         for (int anInt : ints) {
             if (anInt < 0) {
-                System.out.println("Ошибка: факториал " + anInt + "! не определен");
+                result.append("Ошибка: факториал ").append(anInt).append("! не определен\n");
                 continue;
             }
-            System.out.print(anInt + "! = ");
+            result.append(anInt).append("! = ");
             int factorial = 1;
             if (anInt > 1) {
                 for (int i = 1; i <= anInt; i++) {
-                    System.out.print(i);
+                    result.append(i);
                     factorial *= i;
-                    System.out.print(i != anInt ? " * " : " = ");
+                    result.append(i != anInt ? " * " : " = ");
                 }
             }
-            System.out.println(factorial);
+            result.append(factorial);
+            result.append("\n");
         }
+        return result;
     }
 
-    public static StringBuilder printTriangle(char start, char end, boolean asc) {
-        System.out.printf("Границы отрезка символов: '%c' с кодом %d, '%c' с кодом %d%n",
-                start, (int) start, end, (int) end);
-        System.out.printf("Сортировка по возрастанию от основания к вершине: %b%n%n", asc);
+    public static float[] initFloats() {
+        float[] randomFloats = new float[15];
+        for (int i = 0; i < randomFloats.length; i++) {
+            randomFloats[i] = (float) Math.random();
+        }
+        return randomFloats;
+    }
+
+    public static int deleteExceed(float[] original, int indexMaxValue) {
+        if (isOutOfBounds(indexMaxValue, original.length)) {
+            System.out.println("Ошибка: Результирующий массив не определен");
+            return -1;
+        }
+        float maxValue = original[indexMaxValue];
+        int counterSetZero = 0;
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] > maxValue) {
+                original[i] = 0;
+                counterSetZero++;
+            }
+        }
+        return counterSetZero;
+    }
+
+    public static float getValue(float[] original, int indexMaxValue) {
+        return original[indexMaxValue];
+    }
+
+    private static boolean isOutOfBounds(int index, int length) {
+        if (index < 0 || index >= length) {
+            System.out.println("Индекс [" + index + "] " + (index < 0 ?
+                    "меньше 0" : "больше или равен " + length));
+            return true;
+        }
+        return false;
+    }
+
+    public static StringBuilder formTriangle(char start, char end, boolean asc) {
         if (start > end) {
             System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n%n", (int) start, (int) end);
             return new StringBuilder();
@@ -78,46 +109,7 @@ public class Arrays {
         return triangle;
     }
 
-    public static float[] initFloats() {
-        float[] randomFloats = new float[15];
-        for (int i = 0; i < randomFloats.length; i++) {
-            randomFloats[i] = (float) Math.random();
-        }
-        return randomFloats;
-    }
-
-    public static float[] deleteExceed(float[] original, int indexMaxValue) {
-        System.out.println("Вычисление результирующего массива: ");
-        if (isOutOfBounds(indexMaxValue, original.length)) {
-            System.out.println("Результирующий массив не определен");
-            return null;
-        }
-        float maxValue = original[indexMaxValue];
-        System.out.printf("Значение ячейки с индексом [%d]: %.3f%n", indexMaxValue, maxValue);
-        int counterSetZero = 0;
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] > maxValue) {
-                original[i] = 0;
-                counterSetZero++;
-            }
-        }
-        System.out.println("Количество обнуленных ячеек: " + counterSetZero);
-        System.out.println("Результирующий массив:");
-        return original;
-    }
-
-    private static boolean isOutOfBounds(int index, int length) {
-        if (index < 0 || index >= length) {
-            System.out.println("Индекс [" + index + "] " + (index < 0 ?
-                    "меньше 0" : "больше или равен " + length));
-            return true;
-        }
-        return false;
-    }
-
-    public static int[] print(int start, int end, int elementsInLine) {
-        System.out.printf("%nГраницы отрезка целых чисел: %d, %d%n", start, end);
-        System.out.printf("Количество чисел, выводимых в строке консоли: %d%n", elementsInLine);
+    public static int[] fill(int start, int end, int elementsInLine) {
         if (start > end) {
             System.out.printf("Ошибка: левая граница (%d) > правой (%d)%n", start, end);
             return null;
@@ -153,7 +145,7 @@ public class Arrays {
         return uniqueInts;
     }
 
-    public static String[] print(String text) {
+    public static String[] format(String text) {
         if (text == null) {
             System.out.println("Ошибка: текст == null\n");
             return null;

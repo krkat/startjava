@@ -3,15 +3,19 @@ package com.startjava.lesson_2_3_4.array;
 import java.util.Arrays;
 
 public class Console {
-    public static void output(String message) {
+    public static void println(String message) {
         System.out.println(message);
     }
 
-    public static void output(int[] ints) {
+    public static void print(String message) {
+        System.out.print(message);
+    }
+
+    public static void print(int[] ints) {
         System.out.println(ints == null ? "null" : Arrays.toString(ints));
     }
 
-    public static void output(float[] original) {
+    public static void print(float[] original) {
         if (original == null) {
             return;
         }
@@ -23,11 +27,11 @@ public class Console {
         System.out.println();
     }
 
-    public static void output(StringBuilder triangle) {
-        System.out.println(triangle + "\n");
+    public static void print(StringBuilder builder) {
+        System.out.println(builder);
     }
 
-    public static void output(int[] ints, int elementsInLine) {
+    public static void print(int[] ints, int elementsInLine) {
         if (ints == null) {
             return;
         }
@@ -41,6 +45,10 @@ public class Console {
             System.out.printf("%3d ", a);
             counter++;
         }
+    }
+
+    public static void print(String format, Object... args) {
+        System.out.printf(format, args);
     }
 
     public static void type(String[] words) {
