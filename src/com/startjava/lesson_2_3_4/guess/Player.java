@@ -24,8 +24,12 @@ public class Player {
         return guessNumbers[attempt - 1];
     }
 
-    public void addNumber(int guessNumber) {
+    public boolean addNumber(int guessNumber) {
+        if (guessNumber < 1 || guessNumber > 100) {
+            return false;
+        }
         guessNumbers[attempt++] = guessNumber;
+        return true;
     }
 
     public int getAttempt() {

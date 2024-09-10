@@ -37,7 +37,13 @@ public class GuessNumber {
         System.out.print("Ход " + player.getName() + ": ");
         int guessNumber = scanner.nextInt();
         scanner.nextLine();
-        player.addNumber(guessNumber);
+        while (!player.addNumber(guessNumber)) {
+            System.out.println("Число должно входить в интервал [1, 100].");
+            System.out.print("Попробуйте еще раз:");
+            guessNumber = scanner.nextInt();
+            scanner.nextLine();
+        }
+
     }
 
     private boolean isGuessed(int guessNumber, int hiddenNumber) {
