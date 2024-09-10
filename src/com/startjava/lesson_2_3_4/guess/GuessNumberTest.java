@@ -9,7 +9,10 @@ public class GuessNumberTest {
         String nameOne = scanner.nextLine();
         System.out.print("Введите имя второго игрока: ");
         String nameTwo = scanner.nextLine();
-        GuessNumber game = new GuessNumber(nameOne, nameTwo);
+        System.out.print("Введите имя третьего игрока: ");
+        String nameThree = scanner.nextLine();
+
+        GuessNumber game = new GuessNumber(nameOne, nameTwo, nameThree);
 
         String playerAnswer = "yes";
         boolean isWrongAnswer;

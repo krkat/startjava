@@ -4,20 +4,24 @@ import java.util.Scanner;
 
 public class GuessNumber {
     public static final int MAX_ATTEMPTS = 10;
-    private final Player playerOne;
-    private final Player playerTwo;
+    private Player[] players;
+    private int currentIndex;
 
-    public GuessNumber(String nameOne, String nameTwo) {
-        this.playerOne = new Player(nameOne);
-        this.playerTwo = new Player(nameTwo);
-    } 
+    public GuessNumber(String... names) {
+        players = new Player[names.length];
+        int i = 0;
+        for (String name : names) {
+            players[i++] = new Player(name);
+        }
+    }
 
     public void play(Scanner scanner) {
-        playerOne.clear();
-        playerTwo.clear();
+        for (Player player : players) {
+            player.clear();
+        }
         System.out.println("\nИгра началась! У каждого игрока по 10 попыток.");
         int hiddenNumber = (int) (Math.random() * 100) + 1;
-        Player currentPlayer = playerOne;
+        Player currentPlayer = players[currentIndex];
         System.out.println(); 
         do {
             input(currentPlayer, scanner);
@@ -27,10 +31,11 @@ public class GuessNumber {
             } else {
                 break;
             }
-        } while (playerTwo.getAttempt() < MAX_ATTEMPTS);
+        } while (players[players.length - 1].getAttempt() < MAX_ATTEMPTS);
         printWinner(hiddenNumber);
-        outputNumbers(playerOne);
-        outputNumbers(playerTwo);
+        for (Player player : players) {
+            outputNumbers(player);
+        }
     }
 
     private void input(Player player, Scanner scanner) {
@@ -43,7 +48,6 @@ public class GuessNumber {
             guessNumber = scanner.nextInt();
             scanner.nextLine();
         }
-
     }
 
     private boolean isGuessed(int guessNumber, int hiddenNumber) {
@@ -62,16 +66,23 @@ public class GuessNumber {
     }
 
     private Player change(Player currentPlayer) {
-        return currentPlayer == playerOne ? playerTwo : playerOne;
+        if (currentIndex == players.length - 1) {
+            currentIndex = 0;
+        } else {
+            currentIndex++;
+        }
+        return players[currentIndex];
     }
 
     private void printWinner(int hiddenNumber) {
         Player winner = null;
-        if (playerOne.getNumber() == hiddenNumber) {
-            winner = playerOne;
-        } else if (playerTwo.getNumber() == hiddenNumber) {
-            winner = playerTwo;
+        for (Player player : players) {
+            if (player.getNumber() == hiddenNumber) {
+                winner = player;
+                break;
+            }
         }
+
         if (winner == null) {
             System.out.println("\nНикто не выиграл.");
         } else {
