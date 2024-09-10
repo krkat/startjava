@@ -13,6 +13,7 @@ public class GuessNumber {
         for (String name : names) {
             players[i++] = new Player(name);
         }
+        castLots();
     }
 
     public void play(Scanner scanner) {
@@ -27,7 +28,7 @@ public class GuessNumber {
             input(currentPlayer, scanner);
             if (!isGuessed(currentPlayer.getNumber(), hiddenNumber)) {
                 checkAttempts(currentPlayer);
-                currentPlayer = change(currentPlayer);
+                currentPlayer = change();
             } else {
                 break;
             }
@@ -35,6 +36,19 @@ public class GuessNumber {
         printWinner(hiddenNumber);
         for (Player player : players) {
             outputNumbers(player);
+        }
+    }
+
+    private void castLots() {
+        int n = players.length - 1;
+        while (n > 0) {
+            int index = (int) (Math.random() * n);
+            if (index < n) {
+                Player swap = players[n];
+                players[n] = players[index];
+                players[index] = swap;
+            }
+            n--;
         }
     }
 
@@ -65,12 +79,8 @@ public class GuessNumber {
         }
     }
 
-    private Player change(Player currentPlayer) {
-        if (currentIndex == players.length - 1) {
-            currentIndex = 0;
-        } else {
-            currentIndex++;
-        }
+    private Player change() {
+        currentIndex = currentIndex < players.length - 1 ? currentIndex + 1 : 0;
         return players[currentIndex];
     }
 
