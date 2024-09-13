@@ -15,7 +15,11 @@ public class Console {
         System.out.println(ints == null ? "null" : Arrays.toString(ints));
     }
 
-    public static void print(float[] original) {
+    public static void print(StringBuilder sb) {
+        System.out.println(sb);
+    }
+
+    public static void printInLines(float[] original) {
         if (original == null) {
             return;
         }
@@ -27,11 +31,7 @@ public class Console {
         System.out.println();
     }
 
-    public static void print(StringBuilder builder) {
-        System.out.println(builder);
-    }
-
-    public static void print(int[] ints, int elementsInLine) {
+    public static void printInLines(int[] ints, int elementsInLine) {
         if (ints == null) {
             return;
         }
@@ -47,7 +47,7 @@ public class Console {
         }
     }
 
-    public static void print(String format, Object... args) {
+    public static void printf(String format, Object... args) {
         System.out.printf(format, args);
     }
 

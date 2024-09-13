@@ -14,7 +14,7 @@ public class Arrays {
         return ints;
     }
 
-    public static StringBuilder factorial(int... ints) {
+    public static String factorial(int... ints) {
         if (ints == null) {
             System.out.println("\nОшибка! Исходный массив null\n");
             return null;
@@ -41,7 +41,7 @@ public class Arrays {
             result.append(factorial);
             result.append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     public static float[] initFloats() {
@@ -53,7 +53,9 @@ public class Arrays {
     }
 
     public static int deleteExceed(float[] original, int indexMaxValue) {
-        if (isOutOfBounds(indexMaxValue, original.length)) {
+        if (indexMaxValue < 0 || indexMaxValue >= original.length) {
+            System.out.println("Индекс [" + indexMaxValue + "] " + (indexMaxValue < 0 ?
+                    "меньше 0" : "больше или равен " + original.length));
             System.out.println("Ошибка: Результирующий массив не определен");
             return -1;
         }
@@ -66,19 +68,6 @@ public class Arrays {
             }
         }
         return counterSetZero;
-    }
-
-    public static float getValue(float[] original, int indexMaxValue) {
-        return original[indexMaxValue];
-    }
-
-    private static boolean isOutOfBounds(int index, int length) {
-        if (index < 0 || index >= length) {
-            System.out.println("Индекс [" + index + "] " + (index < 0 ?
-                    "меньше 0" : "больше или равен " + length));
-            return true;
-        }
-        return false;
     }
 
     public static StringBuilder formTriangle(char start, char end, boolean asc) {
@@ -145,7 +134,7 @@ public class Arrays {
         return uniqueInts;
     }
 
-    public static String[] format(String text) {
+    public static String[] extractWords(String text) {
         if (text == null) {
             System.out.println("Ошибка: текст == null\n");
             return null;
@@ -184,16 +173,12 @@ public class Arrays {
         int resultLength = noPunctuation.length();
         for (int i = 0; i < words.length; i++) {
             noPunctuation = words[i].replaceAll("[\\p{P}\\s]+", "");
-            if (canBeExtreme(isMax, noPunctuation, resultLength)) {
+            if (isMax ? noPunctuation.length() > resultLength :
+                    !noPunctuation.isEmpty() && noPunctuation.length() < resultLength) {
                 resultLength = words[i].length();
                 index = i;
             }
         }
         return index;
-    }
-
-    private static boolean canBeExtreme(boolean isMax, String noPunctuation, int resultLength) {
-        return isMax ? noPunctuation.length() > resultLength :
-                !noPunctuation.isEmpty() && noPunctuation.length() < resultLength;
     }
 }
