@@ -1,15 +1,16 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumberTest {
+    public static final int NUMBER_PLAYERS = 3;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String[] namePlayers = new String[3];
-        for (int i = 1; i <= 3; i++) {
+        String[] namePlayers = new String[NUMBER_PLAYERS];
+        for (int i = 1; i <= namePlayers.length; i++) {
             System.out.print("Введите имя " + i + " игрока: ");
-            namePlayers[i-1] = scanner.nextLine();
+            namePlayers[i - 1] = scanner.nextLine();
         }
         GuessNumber game = new GuessNumber(namePlayers);
 

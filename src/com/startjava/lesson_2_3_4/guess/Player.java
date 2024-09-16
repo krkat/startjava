@@ -3,9 +3,8 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    
     private final String name;
-    private final int[] guessNumbers = new int[10];
+    private final int[] guessNumbers = new int[GuessNumber.MAX_ATTEMPTS];
     private int attempt;
 
     public Player(String name) {
@@ -25,7 +24,7 @@ public class Player {
     }
 
     public boolean addNumber(int guessNumber) {
-        if (guessNumber < 1 || guessNumber > 100) {
+        if (guessNumber < GuessNumber.LEFT_BOUND || guessNumber > GuessNumber.RIGHT_BOUND) {
             return false;
         }
         guessNumbers[attempt++] = guessNumber;
