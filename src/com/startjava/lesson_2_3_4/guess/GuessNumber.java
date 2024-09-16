@@ -1,7 +1,5 @@
 package com.startjava.lesson_2_3_4.guess;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,18 +10,18 @@ public class GuessNumber {
     private static final int ROUNDS = 3;
 
     private final Player[] players;
-    private final Map<Player, Integer> winners = new HashMap<>();
+    private int[] winners;
 
     public GuessNumber(String... names) {
         players = new Player[names.length];
-        int i = 0;
-        for (String name : names) {
-            players[i++] = new Player(name);
+        for (int i = 0; i < names.length; i++) {
+            players[i] = new Player(names[i]);
         }
+        winners = new int[players.length];
     }
 
     public void play(Scanner scanner) {
-        winners.clear();
+        winners = new int[players.length];
         castLots();
         System.out.println("\nИгра началась! У каждого игрока в каждом раунде по " +
                 MAX_ATTEMPTS + " попыток.");
@@ -105,14 +103,13 @@ public class GuessNumber {
 
     private void printWinner(int hiddenNumber) {
         Player winner = null;
-        for (Player player : players) {
-            if (player.getNumber() == hiddenNumber) {
-                winner = player;
-                winners.merge(winner, 1, (a, b) -> b + 1);
+        for (int i = 0; i < players.length; i++) {
+            if (players[i].getNumber() == hiddenNumber) {
+                winner = players[i];
+                winners[i]++;
                 break;
             }
         }
-
         if (winner == null) {
             System.out.println("\nНикто не выиграл.");
         } else {
@@ -130,26 +127,31 @@ public class GuessNumber {
 
     private void printRoundWinner() {
         System.out.print("\nПо результатам " + ROUNDS + " раундов ");
-        if (winners.keySet().isEmpty()) {
+        int notWinners = 0;
+        int counterTie = 0;
+        int indexWinner = 0;
+        for (int i = 0; i < winners.length; i++) {
+            if (winners[i] >= 2) {
+                System.out.println("выиграл " + players[i].getName() + "!");
+                return;
+            }
+            if (winners[i] == 1) {
+                counterTie++;
+                indexWinner = i;
+            }
+            if (winners[i] == 0) {
+                notWinners++;
+            }
+        }
+        if (notWinners == 3) {
             System.out.println("никто не выиграл!");
             return;
         }
-        int counterTie = 0;
-        Player winnerInOneRound = null;
-        for (Player player : winners.keySet()) {
-            Integer playerScore = winners.get(player);
-            if (playerScore < 2) {
-                counterTie++;
-                winnerInOneRound = player;
-            } else {
-                System.out.println("выиграл " + player.getName() + "!");
-                return;
-            }
+        if (counterTie == 1) {
+            System.out.println("выиграл " + players[indexWinner].getName() + "!");
         }
-        if (counterTie > 1) {
+        if (counterTie >= 2) {
             System.out.println(counterTie + " игрока сыграли вничью.");
-        } else {
-            System.out.println("выиграл " + winnerInOneRound.getName() + "!");
         }
     }
 }
