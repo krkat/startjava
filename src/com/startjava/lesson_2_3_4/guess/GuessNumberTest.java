@@ -1,18 +1,17 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите имя первого игрока: ");
-        String nameOne = scanner.nextLine();
-        System.out.print("Введите имя второго игрока: ");
-        String nameTwo = scanner.nextLine();
-        System.out.print("Введите имя третьего игрока: ");
-        String nameThree = scanner.nextLine();
-
-        GuessNumber game = new GuessNumber(nameOne, nameTwo, nameThree);
+        String[] namePlayers = new String[3];
+        for (int i = 1; i <= 3; i++) {
+            System.out.print("Введите имя " + i + " игрока: ");
+            namePlayers[i-1] = scanner.nextLine();
+        }
+        GuessNumber game = new GuessNumber(namePlayers);
 
         String playerAnswer = "yes";
         boolean isWrongAnswer;
