@@ -6,6 +6,7 @@ public class Player {
     private final String name;
     private final int[] guessNumbers = new int[GuessNumber.MAX_ATTEMPTS];
     private int attempt;
+    private int wins;
 
     public Player(String name) {
         this.name = name;
@@ -19,7 +20,15 @@ public class Player {
         return Arrays.copyOf(guessNumbers, attempt);
     }
 
-    public int getNumber() {
+    public int getAttempt() {
+        return attempt;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public int getLastNumber() {
         return guessNumbers[attempt - 1];
     }
 
@@ -31,11 +40,16 @@ public class Player {
         return true;
     }
 
-    public int getAttempt() {
-        return attempt;
+    public void incrementWins() {
+        this.wins++;
     }
 
-    public void clear() {
+    public void clearAttempts() {
+        Arrays.fill(guessNumbers, 0, attempt, 0);
+        attempt = 0;
+    }
+
+    public void clearWins() {
         Arrays.fill(guessNumbers, 0, attempt, 0);
         attempt = 0;
     }

@@ -9,8 +9,7 @@ public class GuessNumberTest {
         Scanner scanner = new Scanner(System.in);
         String[] namePlayers = new String[NUMBER_PLAYERS];
         for (int i = 1; i <= namePlayers.length; i++) {
-            System.out.print("Введите имя " + i + " игрока: ");
-            namePlayers[i - 1] = scanner.nextLine();
+            askName(i, namePlayers, scanner);
         }
         GuessNumber game = new GuessNumber(namePlayers);
 
@@ -27,6 +26,11 @@ public class GuessNumberTest {
         } while (!"no".equals(playerAnswer));
         System.out.println("Игра окончена.");
         scanner.close();
+    }
+
+    private static void askName(int i, String[] namePlayers, Scanner scanner) {
+        System.out.print("Введите имя " + i + " игрока: ");
+        namePlayers[i - 1] = scanner.nextLine();
     }
 
     private static String askToContinue(Scanner scanner, boolean isWrongAnswer) {
