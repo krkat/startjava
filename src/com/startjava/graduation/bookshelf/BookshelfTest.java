@@ -1,5 +1,7 @@
 package com.startjava.graduation.bookshelf;
 
+import java.util.Scanner;
+
 public class BookshelfTest {
     private static final String[] menu = new String[]{
             "1. Добавить книгу",
@@ -24,5 +26,17 @@ public class BookshelfTest {
 
     private static void askToContinue() {
         System.out.println("Для продолжения работы нажмите клавишу <Enter>.");
+    }
+
+    private Book inputBook(Scanner scanner) {
+        System.out.println("Введите данные книги:");
+        System.out.print("Автор: ");
+        String author = scanner.nextLine();
+        System.out.print("Название: ");
+        String title = scanner.nextLine();
+        System.out.print("Год: ");
+        int year = scanner.nextInt();
+        scanner.nextLine();
+        return new Book(author, title, year);
     }
 }
