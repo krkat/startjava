@@ -12,7 +12,7 @@ public class BookshelfTest {
             """;
 
     public static void main(String[] args) {
-        Bookshelf bookshelf = new Bookshelf();
+        Bookshelf bookshelf = new Bookshelf(10);
         System.out.println("Шкаф пуст. Вы можете добавить в него первую книгу.");
         bookshelf.print();
         Scanner scanner = new Scanner(System.in);
