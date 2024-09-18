@@ -6,11 +6,13 @@ public class Bookshelf {
 
     public void add(Book book) {}
 
-    public Book findAndGet() {
+    public Book findAndGet(Book book){
         return null;
     }
 
     public void delete(Book book) {}
+
+    public void clear() {}
 
     public Book[] getAllBooks() {
         return null;
@@ -23,8 +25,6 @@ public class Bookshelf {
     public int getEmptyShelves() {
         return 0;
     }
-
-    public void clear() {}
 
     public void print() {
         System.out.println("Шкаф");
