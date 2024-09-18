@@ -3,6 +3,8 @@ package com.startjava.graduation.bookshelf;
 import java.util.Objects;
 
 public class Book {
+    private static final int YEAR_START_PRINT_BOOK = 1445;
+    private static final int CURRENT_YEAR = 2024;
     private final String author;
     private final String title;
     private final int year;
@@ -10,19 +12,18 @@ public class Book {
     public Book(String author, String title, int year) {
         this.author = author;
         this.title = title;
+        if (!check(year)) {
+            throw new RuntimeException("Ошибка! Год издания неверный");
+        }
         this.year = year;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public int getYear() {
-        return year;
+    private static boolean check(int year) {
+        return year >= YEAR_START_PRINT_BOOK && year <= CURRENT_YEAR;
     }
 
     @Override

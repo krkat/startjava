@@ -1,46 +1,63 @@
 package com.startjava.graduation.bookshelf;
 
-public class Bookshelf {
-    private int countBooks;
-    private Book[] books = new Book[10];
-    private int shelves;
+import java.util.Arrays;
 
-    public Bookshelf(int shelves) {
-        this.shelves = shelves;
-    }
+public class Bookshelf {
+    private static final int SHELVES = 10;
+    private int countBooks;
+    private final Book[] books = new Book[SHELVES];
 
     public void add(Book book) {
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] == null) {
-                books[i] = book;
-                break;
-            }
+        if (countBooks == books.length) {
+            throw new RuntimeException("Место в шкафу кончилось!" +
+                    " Попробуйте удалить книгу или очистить шкаф.");
         }
+        books[countBooks] = book;
         countBooks++;
     }
 
-    public Book findAndGet(Book book){
-        return null;
-    }
-
-    public void delete(Book book) {
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] != null && books[i].equals(book)) {
-                books[i] = null;
+    public Book[] findAndGet(String title) {
+        Book[] founded = new Book[10];
+        int index = 0;
+        for (Book book : books) {
+            if (book != null && title.equals(book.getTitle())) {
+                founded[index] = book;
+                index++;
             }
         }
-        countBooks--;
+        if (founded[0] == null) {
+            throw new RuntimeException("Книги с таким названием не найдены.");
+        }
+        return Arrays.copyOf(founded, index);
+    }
+
+    public void delete(String title) {
+        if (findAndGet(title) != null) {
+            int countDeleted = countBooks;
+            for (int i = 0; i < countBooks; i++) {
+                if (title.equals(books[i].getTitle())) {
+                    System.arraycopy(books, i + 1, books, i, countBooks - i - 1);
+                    books[countBooks - 1] = null;
+                    countBooks--;
+                    i = i - 1;
+                }
+            }
+            System.out.printf("С названием %s удалено из шкафа книг: %d%n", title, countDeleted - countBooks);
+        }
     }
 
     public void clear() {
-        for (int i = 0; i < books.length; i++) {
-            books[i] = null;
+        if (countBooks == 0) {
+            System.out.println("Шкаф уже пуст.");
+            return;
         }
+        Arrays.fill(books, null);
         countBooks = 0;
+        System.out.println("Шкаф очищен.");
     }
 
     public Book[] getAllBooks() {
-        return this.books;
+        return Arrays.copyOf(books, countBooks);
     }
 
     public int getCountBooks() {
@@ -48,18 +65,20 @@ public class Bookshelf {
     }
 
     public int getEmptyShelves() {
-        return 0;
+        return books.length - countBooks;
     }
 
     public void print() {
-        System.out.println("------------------------------------------------------------");
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] != null) {
-                System.out.printf("|%-58s|%n", books[i].toString());
-            } else {
-                System.out.println("|                                                          |");
+        if (countBooks > 0) {
+            System.out.printf("\nВ шкафу книг - %d, свободных полок - %d%n",
+                    getCountBooks(), getEmptyShelves());
+            System.out.println("-".repeat(60));
+            for (Book book : getAllBooks()) {
+                System.out.printf("|%-58s|%n", book);
+                System.out.println("-".repeat(60));
             }
-            System.out.println("------------------------------------------------------------");
+        } else {
+            System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.");
         }
     }
 }
