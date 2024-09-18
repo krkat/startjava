@@ -25,4 +25,8 @@ public class Bookshelf {
     }
 
     public void clear() {}
+
+    public void print() {
+        System.out.println("Шкаф");
+    }
 }
