@@ -4,32 +4,38 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BookshelfTest {
-    private static final String menu = """
+    private static final String MENU = """
             1. Добавить книгу
             2. Получить книгу
             3. Удалить книгу
             4. Очистить шкаф
             5. Завершить""";
+    private static final int ERROR_ITEM = 0;
+    private static final int ADD_ITEM = 1;
+    private static final int FIND_ITEM = 2;
+    private static final int DELETE_ITEM = 3;
+    private static final int CLEAR_ITEM = 4;
+    private static final int EXIT_ITEM = 5;
 
     public static void main(String[] args) {
         Bookshelf bookshelf = new Bookshelf();
-        bookshelf.print();
+        print(bookshelf);
         Scanner scanner = new Scanner(System.in);
         int answer;
         boolean isRightAnswer = true;
         do {
-            answer = processAnswer(scanner, bookshelf, isRightAnswer);
+            answer = perform(scanner, bookshelf, isRightAnswer);
             if (answer == 0) {
                 isRightAnswer = false;
                 continue;
             }
             isRightAnswer = true;
-        } while (answer != 5);
+        } while (answer != EXIT_ITEM);
         System.out.println("\nВыход из программы.");
         scanner.close();
     }
 
-    private static int processAnswer(Scanner scanner, Bookshelf bookshelf, boolean isRightAnswer) {
+    private static int perform(Scanner scanner, Bookshelf bookshelf, boolean isRightAnswer) {
         if (isRightAnswer) {
             printMenu();
             System.out.print("Введите пункт меню: ");
@@ -40,21 +46,21 @@ public class BookshelfTest {
         try {
             item = scanner.nextInt();
         } catch (InputMismatchException e) {
-            return 0;
+            return ERROR_ITEM;
         } finally {
             scanner.nextLine();
         }
         try {
             switch (item) {
-                case 1 -> addBook(scanner, bookshelf);
-                case 2 -> findBook(scanner, bookshelf);
-                case 3 -> deleteBook(scanner, bookshelf);
-                case 4 -> clear(bookshelf);
-                case 5 -> {
-                    return 5;
+                case ADD_ITEM -> addBook(scanner, bookshelf);
+                case FIND_ITEM -> findBook(scanner, bookshelf);
+                case DELETE_ITEM -> deleteBook(scanner, bookshelf);
+                case CLEAR_ITEM -> clear(bookshelf);
+                case EXIT_ITEM -> {
+                    return EXIT_ITEM;
                 }
                 default -> {
-                    return 0;
+                    return ERROR_ITEM;
                 }
             }
         } catch (RuntimeException e) {
@@ -62,12 +68,19 @@ public class BookshelfTest {
         }
         System.out.print("\nДля продолжения работы нажмите клавишу <Enter>.");
         askToContinue(scanner);
-        bookshelf.print();
+        print(bookshelf);
         return item;
     }
 
     private static void printMenu() {
-        System.out.println("\n" + menu);
+        System.out.println("\n" + MENU);
+    }
+
+    private static void addBook(Scanner scanner, Bookshelf bookshelf) {
+        System.out.println("Введите данные книги, которую хотите добавить.");
+        Book book = inputBook(scanner);
+        System.out.println("Добавление книги в шкаф...");
+        bookshelf.add(book);
     }
 
     private static Book inputBook(Scanner scanner) {
@@ -75,7 +88,7 @@ public class BookshelfTest {
         String author = scanner.nextLine();
         System.out.print("Название: ");
         String title = scanner.nextLine();
-        System.out.print("Год: ");
+        System.out.print("Год издания: ");
         int year;
         try {
             year = scanner.nextInt();
@@ -88,34 +101,49 @@ public class BookshelfTest {
         return new Book(author, title, year);
     }
 
-    private static void addBook(Scanner scanner, Bookshelf bookshelf) {
-        System.out.println("Введите данные книги, которую хотите добавить.");
-        Book book = inputBook(scanner);
-        System.out.println("Добавление книги в шкаф...");
-        bookshelf.add(book);
-    }
-
     private static void findBook(Scanner scanner, Bookshelf bookshelf) {
-        System.out.print("Введите название книги, которую хотите найти: ");
-        String title = scanner.nextLine();
+        String title = inputTitle("найти: ", scanner);
         System.out.println("Поиск книги в шкафу...");
-        Book[] founded = bookshelf.findAndGet(title);
+        Book[] founded = bookshelf.find(title);
         System.out.println("Найденные книги: ");
         for (Book book : founded) {
             System.out.println(book);
         }
     }
 
+    private static String inputTitle(String s, Scanner scanner) {
+        System.out.print("Введите название книги, которую хотите " + s);
+        return scanner.nextLine();
+    }
+
     private static void deleteBook(Scanner scanner, Bookshelf bookshelf) {
-        System.out.print("Введите название книги, которую хотите удалить: ");
-        String title = scanner.nextLine();
+        String title = inputTitle("удалить: ", scanner);
         System.out.println("Удаление книги из шкафа...");
-        bookshelf.delete(title);
+        int countDeleted = bookshelf.delete(title);
+        if (countDeleted > 0) {
+            System.out.printf("С названием %s удалено из шкафа книг: %d%n", title, countDeleted);
+        }
     }
 
     private static void clear(Bookshelf bookshelf) {
         System.out.println("Очистка шкафа...");
-        bookshelf.clear();
+        System.out.print("Шкаф ");
+        System.out.println(bookshelf.clear() ? "очищен." : "уже пуст.");
+    }
+
+    public static void print(Bookshelf bookshelf) {
+        int countBooks = bookshelf.getCountBooks();
+        if (countBooks > 0) {
+            System.out.printf("\nВ шкафу книг - %d, свободных полок - %d%n",
+                    countBooks, bookshelf.getEmptyShelves());
+            System.out.println("-".repeat(60));
+            for (Book book : bookshelf.getAllBooks()) {
+                System.out.printf("|%-58s|%n", book);
+                System.out.println("-".repeat(60));
+            }
+        } else {
+            System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.");
+        }
     }
 
     private static void askToContinue(Scanner scanner) {
