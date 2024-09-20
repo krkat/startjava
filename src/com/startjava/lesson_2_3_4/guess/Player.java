@@ -16,16 +16,16 @@ public class Player {
         return name;
     }
 
-    public int[] getGuessNumbers() {
-        return Arrays.copyOf(guessNumbers, attempt);
-    }
-
     public int getAttempt() {
         return attempt;
     }
 
     public int getWins() {
         return wins;
+    }
+
+    public int[] getGuessNumbers() {
+        return Arrays.copyOf(guessNumbers, attempt);
     }
 
     public int getLastNumber() {
@@ -40,8 +40,8 @@ public class Player {
         return true;
     }
 
-    public void incrementWins() {
-        this.wins++;
+    public void increaseWins() {
+        wins++;
     }
 
     public void clearAttempts() {
@@ -50,7 +50,6 @@ public class Player {
     }
 
     public void clearWins() {
-        Arrays.fill(guessNumbers, 0, attempt, 0);
-        attempt = 0;
+        wins = 0;
     }
 }

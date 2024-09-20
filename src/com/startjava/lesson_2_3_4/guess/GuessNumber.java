@@ -8,12 +8,13 @@ public class GuessNumber {
     public static final int LEFT_BOUND = 1;
     public static final int RIGHT_BOUND = 100;
     private static final int ROUNDS = 3;
+    public static final int NUMBER_PLAYERS = 3;
 
     private final Player[] players;
 
     public GuessNumber(String... names) {
-        players = new Player[names.length];
-        for (int i = 0; i < names.length; i++) {
+        players = new Player[NUMBER_PLAYERS];
+        for (int i = 0; i < NUMBER_PLAYERS; i++) {
             players[i] = new Player(names[i]);
         }
     }
@@ -39,13 +40,13 @@ public class GuessNumber {
                 inputNumber(currentPlayer, scanner);
                 if (isGuessed(currentPlayer.getLastNumber(), hiddenNumber)) {
                     winner = currentPlayer;
-                    winner.incrementWins();
+                    winner.increaseWins();
                     break;
                 }
                 checkAttempts(currentPlayer);
                 currentIndex = change(currentIndex);
                 currentPlayer = players[currentIndex];
-            } while (players[players.length - 1].getAttempt() < MAX_ATTEMPTS);
+            } while (players[NUMBER_PLAYERS - 1].getAttempt() < MAX_ATTEMPTS);
             printRoundWinner(winner);
             printNumbers();
         }
@@ -53,7 +54,7 @@ public class GuessNumber {
     }
 
     private void castLots() {
-        for (int i = players.length - 1; i > 0; i--) {
+        for (int i = NUMBER_PLAYERS - 1; i > 0; i--) {
             int index = (int) (Math.random() * i);
             if (index < i) {
                 Player swap = players[i];
