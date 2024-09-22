@@ -44,15 +44,13 @@ public class Bookshelf {
 
     public int delete(String title) {
         int countDeleted = 0;
-        if (find(title) != null) {
-            for (int i = 0; i < countBooks; i++) {
-                if (title.equals(books[i].getTitle())) {
-                    System.arraycopy(books, i + 1, books, i, countBooks - i - 1);
-                    books[countBooks - 1] = null;
-                    countDeleted++;
-                    countBooks--;
-                    i -= 1;
-                }
+        for (int i = 0; i < countBooks; i++) {
+            if (title.equals(books[i].getTitle())) {
+                System.arraycopy(books, i + 1, books, i, countBooks - i - 1);
+                books[countBooks - 1] = null;
+                countDeleted++;
+                countBooks--;
+                i--;
             }
         }
         return countDeleted;

@@ -12,18 +12,18 @@ public class Book {
     public Book(String author, String title, int year) {
         this.author = author;
         this.title = title;
-        if (!check(year)) {
+        if (!isValid(year)) {
             throw new RuntimeException("Ошибка! Год издания неверный");
         }
         this.year = year;
     }
 
-    public String getTitle() {
-        return title;
+    private static boolean isValid(int year) {
+        return year >= YEAR_START_PRINT_BOOK && year <= CURRENT_YEAR;
     }
 
-    private static boolean check(int year) {
-        return year >= YEAR_START_PRINT_BOOK && year <= CURRENT_YEAR;
+    public String getTitle() {
+        return title;
     }
 
     @Override

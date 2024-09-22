@@ -19,7 +19,6 @@ public class BookshelfTest {
 
     public static void main(String[] args) {
         Bookshelf bookshelf = new Bookshelf();
-        print(bookshelf);
         Scanner scanner = new Scanner(System.in);
         int answer;
         boolean isRightAnswer = true;
@@ -37,19 +36,13 @@ public class BookshelfTest {
 
     private static int perform(Scanner scanner, Bookshelf bookshelf, boolean isRightAnswer) {
         if (isRightAnswer) {
+            print(bookshelf);
             printMenu();
             System.out.print("Введите пункт меню: ");
         } else {
             System.out.print("Ошибка! Введите корректный пункт из списка: ");
         }
-        int item;
-        try {
-            item = scanner.nextInt();
-        } catch (InputMismatchException e) {
-            return ERROR_ITEM;
-        } finally {
-            scanner.nextLine();
-        }
+        int item = inputItem(scanner);
         try {
             switch (item) {
                 case ADD_ITEM -> addBook(scanner, bookshelf);
@@ -66,14 +59,24 @@ public class BookshelfTest {
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
-        System.out.print("\nДля продолжения работы нажмите клавишу <Enter>.");
         askToContinue(scanner);
-        print(bookshelf);
         return item;
     }
 
     private static void printMenu() {
         System.out.println("\n" + MENU);
+    }
+
+    private static int inputItem(Scanner scanner) {
+        int item;
+        try {
+            item = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return ERROR_ITEM;
+        } finally {
+            scanner.nextLine();
+        }
+        return item;
     }
 
     private static void addBook(Scanner scanner, Bookshelf bookshelf) {
@@ -122,6 +125,8 @@ public class BookshelfTest {
         int countDeleted = bookshelf.delete(title);
         if (countDeleted > 0) {
             System.out.printf("С названием %s удалено из шкафа книг: %d%n", title, countDeleted);
+        } else {
+            System.out.println("Книги с таким названием не найдены.");
         }
     }
 
@@ -147,6 +152,7 @@ public class BookshelfTest {
     }
 
     private static void askToContinue(Scanner scanner) {
+        System.out.print("\nДля продолжения работы нажмите клавишу <Enter>.");
         String answer;
         do {
             answer = scanner.nextLine();
