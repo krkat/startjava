@@ -44,12 +44,12 @@ public class Player {
         wins++;
     }
 
+    public void clearWins() {
+        wins = 0;
+    }
+
     public void clearAttempts() {
         Arrays.fill(guessNumbers, 0, attempt, 0);
         attempt = 0;
-    }
-
-    public void clearWins() {
-        wins = 0;
     }
 }

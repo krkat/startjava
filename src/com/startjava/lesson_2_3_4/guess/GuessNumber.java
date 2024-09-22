@@ -1,14 +1,15 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GuessNumber {
-    public static final int MAX_ATTEMPTS = 10;
-    public static final int LEFT_BOUND = 1;
-    public static final int RIGHT_BOUND = 100;
-    private static final int ROUNDS = 3;
-    public static final int NUMBER_PLAYERS = 3;
+    static final int MAX_ATTEMPTS = 10;
+    static final int LEFT_BOUND = 1;
+    static final int RIGHT_BOUND = 100;
+    static final int ROUNDS = 3;
+    static final int NUMBER_PLAYERS = 3;
 
     private final Player[] players;
 
@@ -47,8 +48,7 @@ public class GuessNumber {
                 currentIndex = change(currentIndex);
                 currentPlayer = players[currentIndex];
             } while (players[NUMBER_PLAYERS - 1].getAttempt() < MAX_ATTEMPTS);
-            printRoundWinner(winner);
-            printNumbers();
+            printRoundResults(winner);
         }
         printGameWinner();
     }
@@ -101,16 +101,13 @@ public class GuessNumber {
         return currentIndex < players.length - 1 ? currentIndex + 1 : 0;
     }
 
-    private void printRoundWinner(Player winner) {
+    private void printRoundResults(Player winner) {
         if (winner == null) {
             System.out.println("\nНикто не выиграл.");
         } else {
             System.out.println("\n" + winner.getName() + " угадал число с " +
                     winner.getAttempt() + "-й попытки.");
         }
-    }
-
-    private void printNumbers() {
         System.out.println("Числа игроков:");
         for (Player player : players) {
             for (int number : player.getGuessNumbers()) {
@@ -122,33 +119,40 @@ public class GuessNumber {
 
     private void printGameWinner() {
         System.out.print("\nПо результатам " + ROUNDS + " раундов ");
-        int notWinners = 0;
-        int counterTie = 0;
-        Player winner = null;
-        for (Player player : players) {
-            if (player.getWins() >= 2) {
-                System.out.println("выиграл " + player.getName() + "!");
-                return;
-            }
-            if (player.getWins() == 1) {
-                counterTie++;
-                winner = player;
-                continue;
-            }
-            if (player.getWins() == 0) {
-                notWinners++;
-            }
-        }
-        if (notWinners == 3) {
-            System.out.println("никто не выиграл!");
+        sortByWins();
+        if (players[0].getWins() == 0) {
+            System.out.println("никто не выиграл.");
             return;
         }
-        if (counterTie == 1) {
-            System.out.println("выиграл " + winner.getName() + "!");
-            return;
+        int counterWinners = 0;
+        Player[] winners = new Player[NUMBER_PLAYERS];
+        for (int i = 0; i < NUMBER_PLAYERS; i++) {
+            counterWinners++;
+            winners[i] = players[i];
+            if (i != NUMBER_PLAYERS - 1 && players[i].getWins() > players[i + 1].getWins()) {
+                break;
+            }
         }
-        if (counterTie >= 2) {
-            System.out.println(counterTie + " игрока сыграли вничью.");
+        if (counterWinners == 1) {
+            System.out.println("выиграл " + players[0].getName() + "!");
+        } else {
+            System.out.println(counterWinners + " игрока сыграли вничью:");
+            for (Player player : Arrays.copyOf(winners, counterWinners)) {
+                System.out.print(player.getName() + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private void sortByWins() {
+        for (int i = NUMBER_PLAYERS; i > 0; i--) {
+            for (int j = 0; j < i - 1; j++) {
+                if (players[j].getWins() < players[j + 1].getWins()) {
+                    Player swap = players[j];
+                    players[j] = players[j + 1];
+                    players[j + 1] = swap;
+                }
+            }
         }
     }
 }
