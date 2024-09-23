@@ -140,13 +140,15 @@ public class BookshelfTest {
 
     public static void print(Bookshelf bookshelf) {
         int countBooks = bookshelf.getCountBooks();
+        int bookshelfLength = bookshelf.getBookshelfLength();
         if (countBooks > 0) {
             System.out.printf("\nВ шкафу книг - %d, свободных полок - %d%n",
                     countBooks, bookshelf.getEmptyShelves());
-            System.out.println("-".repeat(60));
+            System.out.println("-".repeat(bookshelfLength  + 2));
             for (Book book : bookshelf.getAllBooks()) {
-                System.out.printf("|%-58s|%n", book);
-                System.out.println("-".repeat(60));
+                String formatString = "|%-" + bookshelfLength + "s|%n";
+                System.out.printf(formatString, book);
+                System.out.println("-".repeat(bookshelfLength + 2));
             }
         } else {
             System.out.println("\nШкаф пуст. Вы можете добавить в него первую книгу.");

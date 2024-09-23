@@ -6,9 +6,14 @@ public class Bookshelf {
     private static final int SHELVES = 10;
     private final Book[] books = new Book[SHELVES];
     private int countBooks;
+    private int bookshelfLength;
 
     public int getCountBooks() {
         return countBooks;
+    }
+
+    public int getBookshelfLength() {
+        return bookshelfLength;
     }
 
     public Book[] getAllBooks() {
@@ -25,6 +30,7 @@ public class Bookshelf {
                     " Попробуйте удалить книгу или очистить шкаф.");
         }
         books[countBooks++] = book;
+        changeLength();
     }
 
     public Book[] find(String title) {
@@ -53,6 +59,7 @@ public class Bookshelf {
                 i--;
             }
         }
+        changeLength();
         return countDeleted;
     }
 
@@ -62,6 +69,17 @@ public class Bookshelf {
         }
         Arrays.fill(books, 0, countBooks, null);
         countBooks = 0;
+        changeLength();
         return true;
+    }
+
+    private void changeLength() {
+        bookshelfLength = 0;
+        for (int i = 0; i < getAllBooks().length; i++) {
+            int bookLength = books[i].toString().length();
+            if (bookshelfLength < bookLength) {
+                bookshelfLength = bookLength;
+            }
+        }
     }
 }
