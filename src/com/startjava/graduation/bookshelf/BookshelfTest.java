@@ -10,42 +10,36 @@ public class BookshelfTest {
             3. Удалить книгу
             4. Очистить шкаф
             5. Завершить""";
-    private static final int ERROR_ITEM = 0;
-    private static final int ADD_ITEM = 1;
-    private static final int FIND_ITEM = 2;
-    private static final int DELETE_ITEM = 3;
-    private static final int CLEAR_ITEM = 4;
-    private static final int EXIT_ITEM = 5;
 
     public static void main(String[] args) {
         Bookshelf bookshelf = new Bookshelf();
         Scanner scanner = new Scanner(System.in);
-        int answer;
-        boolean isRightAnswer = true;
+        Item item;
+        boolean isCorrectInput = true;
         do {
-            if (isRightAnswer) {
+            if (isCorrectInput) {
                 print(bookshelf);
                 printMenu();
                 System.out.print("Введите пункт меню: ");
             } else {
                 System.out.print("Ошибка! Введите корректный пункт из списка: ");
             }
-            answer = chooseItem(scanner, bookshelf);
-            if (answer == ERROR_ITEM) {
-                isRightAnswer = false;
+            item = chooseItem(scanner, bookshelf);
+            if (Item.ERROR_ITEM.equals(item)) {
+                isCorrectInput = false;
                 continue;
             }
-            if (answer != EXIT_ITEM) {
-                isRightAnswer = true;
+            if (!Item.EXIT_ITEM.equals(item)) {
+                isCorrectInput = true;
                 askToContinue(scanner);
             }
-        } while (answer != EXIT_ITEM);
+        } while (!Item.EXIT_ITEM.equals(item));
         System.out.println("\nВыход из программы.");
         scanner.close();
     }
 
-    private static int chooseItem(Scanner scanner, Bookshelf bookshelf) {
-        int item = inputItem(scanner);
+    private static Item chooseItem(Scanner scanner, Bookshelf bookshelf) {
+        Item item = inputItem(scanner);
         try {
             switch (item) {
                 case ADD_ITEM -> addBook(scanner, bookshelf);
@@ -53,10 +47,10 @@ public class BookshelfTest {
                 case DELETE_ITEM -> deleteBook(scanner, bookshelf);
                 case CLEAR_ITEM -> clear(bookshelf);
                 case EXIT_ITEM -> {
-                    return EXIT_ITEM;
+                    return Item.EXIT_ITEM;
                 }
                 default -> {
-                    return ERROR_ITEM;
+                    return Item.ERROR_ITEM;
                 }
             }
         } catch (RuntimeException e) {
@@ -69,12 +63,12 @@ public class BookshelfTest {
         System.out.println("\n" + MENU);
     }
 
-    private static int inputItem(Scanner scanner) {
-        int item;
+    private static Item inputItem(Scanner scanner) {
+        Item item;
         try {
-            item = scanner.nextInt();
-        } catch (InputMismatchException e) {
-            return ERROR_ITEM;
+            item = Item.valueOf(String.valueOf(scanner.nextInt()));
+        } catch (IllegalArgumentException | InputMismatchException e) {
+            return Item.ERROR_ITEM;
         } finally {
             scanner.nextLine();
         }
