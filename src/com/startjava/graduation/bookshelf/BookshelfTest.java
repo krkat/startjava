@@ -23,25 +23,28 @@ public class BookshelfTest {
         int answer;
         boolean isRightAnswer = true;
         do {
-            answer = perform(scanner, bookshelf, isRightAnswer);
-            if (answer == 0) {
+            if (isRightAnswer) {
+                print(bookshelf);
+                printMenu();
+                System.out.print("Введите пункт меню: ");
+            } else {
+                System.out.print("Ошибка! Введите корректный пункт из списка: ");
+            }
+            answer = chooseItem(scanner, bookshelf);
+            if (answer == ERROR_ITEM) {
                 isRightAnswer = false;
                 continue;
             }
-            isRightAnswer = true;
+            if (answer != EXIT_ITEM) {
+                isRightAnswer = true;
+                askToContinue(scanner);
+            }
         } while (answer != EXIT_ITEM);
         System.out.println("\nВыход из программы.");
         scanner.close();
     }
 
-    private static int perform(Scanner scanner, Bookshelf bookshelf, boolean isRightAnswer) {
-        if (isRightAnswer) {
-            print(bookshelf);
-            printMenu();
-            System.out.print("Введите пункт меню: ");
-        } else {
-            System.out.print("Ошибка! Введите корректный пункт из списка: ");
-        }
+    private static int chooseItem(Scanner scanner, Bookshelf bookshelf) {
         int item = inputItem(scanner);
         try {
             switch (item) {
@@ -59,7 +62,6 @@ public class BookshelfTest {
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
-        askToContinue(scanner);
         return item;
     }
 
