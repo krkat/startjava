@@ -1,6 +1,7 @@
 package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -119,7 +120,7 @@ public class GuessNumber {
 
     private void printGameWinner() {
         System.out.print("\nПо результатам " + ROUNDS + " раундов ");
-        sortByWins();
+        Arrays.sort(players, Comparator.comparingInt(Player::getWins).reversed());
         if (players[0].getWins() == 0) {
             System.out.println("никто не выиграл.");
             return;
@@ -141,18 +142,6 @@ public class GuessNumber {
                 System.out.print(player.getName() + " ");
             }
             System.out.println();
-        }
-    }
-
-    private void sortByWins() {
-        for (int i = NUMBER_PLAYERS; i > 0; i--) {
-            for (int j = 0; j < i - 1; j++) {
-                if (players[j].getWins() < players[j + 1].getWins()) {
-                    Player swap = players[j];
-                    players[j] = players[j + 1];
-                    players[j + 1] = swap;
-                }
-            }
         }
     }
 }
