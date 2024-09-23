@@ -1,12 +1,12 @@
 package com.startjava.graduation.bookshelf;
 
 public enum Item {
-    ERROR_ITEM("0"),
-    ADD_ITEM("1"),
-    FIND_ITEM("2"),
-    DELETE_ITEM("3"),
-    CLEAR_ITEM("4"),
-    EXIT_ITEM("5");
+    ERROR("0"),
+    ADD("1"),
+    FIND("2"),
+    DELETE("3"),
+    CLEAR("4"),
+    EXIT("5");
 
     private final String item;
 
@@ -14,10 +14,10 @@ public enum Item {
         this.item = item;
     }
 
-    public static Item getInstance(int index) {
+    public static Item getName(int index) {
         if (index >= 0 && index < values().length) {
             return values()[index];
         }
-        return ERROR_ITEM;
+        return ERROR;
     }
 }

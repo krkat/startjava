@@ -69,17 +69,14 @@ public class Bookshelf {
         }
         Arrays.fill(books, 0, countBooks, null);
         countBooks = 0;
-        changeLength();
+        bookshelfLength = 0;
         return true;
     }
 
     private void changeLength() {
         bookshelfLength = 0;
-        for (int i = 0; i < getAllBooks().length; i++) {
-            int bookLength = books[i].toString().length();
-            if (bookshelfLength < bookLength) {
-                bookshelfLength = bookLength;
-            }
+        for (int i = 0; i < countBooks; i++) {
+            bookshelfLength = Math.max(bookshelfLength, books[i].toString().length());
         }
     }
 }
