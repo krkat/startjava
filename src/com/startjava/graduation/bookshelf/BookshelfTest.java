@@ -64,15 +64,15 @@ public class BookshelfTest {
     }
 
     private static Item inputItem(Scanner scanner) {
-        Item item;
+        int item;
         try {
-            item = Item.valueOf(String.valueOf(scanner.nextInt()));
+            item = scanner.nextInt();
         } catch (IllegalArgumentException | InputMismatchException e) {
             return Item.ERROR_ITEM;
         } finally {
             scanner.nextLine();
         }
-        return item;
+        return Item.getInstance(item);
     }
 
     private static void addBook(Scanner scanner, Bookshelf bookshelf) {
